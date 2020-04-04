@@ -1,6 +1,13 @@
 const Product = require('../models/product');
 
-
+exports.getProducts = (req, res) => {
+  Product.find().then(products => {
+    res.status(200).json({
+      message: "Posts fetched successfully!",
+      products: products
+    });
+  })
+}
 exports.postAddProduct = (req, res, next) => {
     console.log(req.body)
     console.log(req.files);
@@ -27,8 +34,15 @@ exports.postAddProduct = (req, res, next) => {
       .save()
       .then(createdProduct => {
         res.status(201).json({
-            ...createdProduct,
+          message:"Product succefully added",
+          product: {
+            title:createdProduct._doc.title,
+            description:createdProduct._doc.description,
+            amount:createdProduct._doc.amount,
+            category:createdProduct._doc.category,
+            imageUrls:createdProduct._doc.imageUrls,
             id:createdProduct._id
+          }
         })
       })
       .catch(err => {
