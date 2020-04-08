@@ -1,5 +1,5 @@
 const Product = require('../models/product');
-
+var ObjectID = require('mongodb').ObjectID;
 exports.getProducts = (req, res) => {
   Product.find().then(products => {
     res.status(200).json({
@@ -49,3 +49,53 @@ exports.postAddProduct = (req, res, next) => {
         console.log(err);
       });
   };
+
+  exports.postDeleteProduct = (req, res) => {
+    const prodId = req.body.id;
+    const body = req.body;
+    console.log(body);
+    Product.findByIdAndDelete(prodId)
+    .then(() => {
+        console.log("Products Removed")
+
+        res.send({"RES": "SHIPREMOVED"})
+        // res.status(201).json({"message": "Product removed succesfully"})
+    })
+    .catch(e => console.log(e));
+  }
+
+  exports.updateProduct = (req, res) => {
+    console.log("req.body",req.body);
+    console.log("req.file",req.files);
+    const url = req.protocol + "://" + req.get("host");
+    const title = req.body.title;
+    const description = req.body.description;
+    const amount = +req.body.amount;
+    const category = req.body.category;
+    const imageUrls = []
+    if(req.body.imageUrls){
+      for(const imageUrl of req.body.imageUrls){
+        imageUrls.push(imageUrl)
+      }     
+    }
+  
+    if(req.files){
+      req.files.map(file => {
+         imageUrls.push(url + '/images/' + file.filename);
+      })
+    }
+    const product = new Product({  
+      _id: req.params.id,    
+      title: title,
+      description: description,
+      amount: amount,
+      category: category,
+      imageUrls: imageUrls,
+      userId: req.user
+    });
+    // console.log(product);
+    
+    Product.updateOne({'_id':ObjectID(req.params.id)} , product).then(product => {
+      res.status(200).json({ message: "Update successful!", product:product });
+    });
+  }

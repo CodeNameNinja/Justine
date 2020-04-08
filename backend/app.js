@@ -9,6 +9,7 @@ const adminRoutes = require('./routes/admin')
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use('/images',express.static(__dirname+'/images'));
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");

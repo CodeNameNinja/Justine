@@ -40,8 +40,8 @@ router.post('/add-product',upload.array("images[]", 12), adminController.postAdd
 
 // router.get('/edit-product/:productId', adminController.getEditProduct);
 
-// router.post('/edit-product', adminController.postEditProduct);
+router.put('/update-product/:id',upload.array("images[]", 12), adminController.updateProduct);
 
-// router.post('/delete-product', adminController.postDeleteProduct);
-
+router.post('/delete-product', adminController.postDeleteProduct);
+// s
 module.exports = router;
