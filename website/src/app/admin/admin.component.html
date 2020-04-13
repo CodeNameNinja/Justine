@@ -1,0 +1,93 @@
+<app-sidenav></app-sidenav>
+<div *ngIf = '!isLoading' class="admin-container">
+  <div class="orders-container">
+    <mat-card class="order-card">
+      <mat-card-header>
+        <mat-card-title
+          ><span class="material-icons"> local_shipping</span
+          >Orders</mat-card-title
+        >
+        <mat-card-subtitle
+          >Here are a list of pending orders.</mat-card-subtitle
+        >
+      </mat-card-header>
+      <mat-card-content>
+        <h3>Order #12312345</h3>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="sales-container">
+    <mat-card class="sale-card">
+      <mat-card-header>
+        <mat-card-title
+          ><span class="material-icons"> local_offer </span>Sales
+        </mat-card-title>
+        <mat-card-subtitle>Current Sales</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <h3>Autumn 20% off!</h3>
+        <hr />
+      </mat-card-content>
+
+      <button
+        type="button"
+        class="btn btn-circle btn-sm"
+        (click)="openDialog()"
+      >
+        <i class="material-icons">add</i>
+      </button>
+    </mat-card>
+  </div>
+  <div class="products-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <span class="material-icons">
+            store
+          </span>
+          Products
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="grid-container">
+        <mat-card *ngFor="let product of products" class="product-item">
+          <mat-card-header>
+            <mat-card-title>{{ product.title }}</mat-card-title>
+            <mat-card-subtitle>R{{ product.amount }}</mat-card-subtitle>
+          </mat-card-header>
+          <div class="product-image">
+            <img
+              mat-card-image
+              [src]="product.imageUrls[0]"
+              [alt]="product.title"
+            />
+          </div>
+          <mat-card-content>
+            <p>
+              {{ product.description }}
+            </p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button color="warn"(click) = 'deleteProductAlert(product.id,product.title)'>Delete</button>
+            <button mat-button color="primary" (click) = "openDialog(product, 'edit')">Edit</button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-card-content>
+      <button *ngIf = "products.length > 0; else NoProducts"
+        class="btn btn-primary btn-sm btn-block w-100 mt-2 mb-1 align-bottom"
+       routerLink = 'all-products'>
+        View More
+      </button>
+      <ng-template #NoProducts>
+        <p>No Products to Display</p>
+      </ng-template>
+    </mat-card>
+  </div>
+</div>
+<mat-spinner *ngIf = 'isLoading' style = "position: absolute; top:50%; left: 50%;"></mat-spinner>
+<button
+  type="button"
+  class="btn btn-primary btn-circle btn-xl bottom"
+  (click)="openDialog()"
+>
+  <i class="material-icons">add</i>
+</button>

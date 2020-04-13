@@ -1,0 +1,35 @@
+/* You can add global styles to this file, and also import other style files */
+:root{
+  --aquamarine: #85ffc7;
+  --periwinkle: #c6d8ff;
+  --aliceblue: #eaf0ff;
+  --myrtlegreen: #297373;
+  --coral: #ff8552;
+  --onyx: #39393a;
+
+  --jet: #333232;
+  --white: #fffbfe;
+  --nickel: #6f7272;
+  --isabelline: #efefef;
+  --columbia-blue: #c4dacf;
+}
+
+@font-face {
+  font-family: ProximaNova;
+  src: url('assets/fonts/proxima_nova_reg.otf');
+
+}
+@font-face {
+  font-family: ProximaNova;
+  src: url('assets/fonts/proxima_nova_bold.otf');
+  font-weight: bold;
+}
+@font-face {
+  font-family: ProximaNova;
+  src: url('assets/fonts/proxima_nova_black.otf');
+  font-weight: 900;
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

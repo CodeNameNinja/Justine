@@ -1,0 +1,79 @@
+
+  <div class="main-header-container">
+    <main class = "main-header__main">
+      <h1>Upcoming Autumn Sale 20% off<span style = "color: var(--coral)">.</span></h1>
+    </main>
+    <div class="main-header_shop_now">
+      <h2>Shop Now <span class="material-icons">
+        play_arrow
+        </span></h2>
+    </div>
+    <div class="main-header_view-deals">
+      <h2>View Deals <span class="material-icons">
+        play_arrow
+        </span></h2>
+    </div>
+    <div class="main-header_hero-image">
+
+    </div>
+  </div>
+  <div class="categories-container">
+    <div class="category-card">
+      <div class="category-card__header">
+        <div class="bottom">
+          <h3>Skirts/Pants</h3>
+          <p>25% off</p>
+          <button class="btn">shop now</button>
+        </div>
+      </div>
+      <div class="category-card__image">
+        <img src="../../assets/home/category-image-skirts-pants.png" alt="skirts and pants">
+      </div>
+    </div>
+    <div class="category-card">
+      <div class="category-card__header">
+        <div class="bottom">
+          <h3>Dresses</h3>
+          <p>25% off</p>
+          <button class="btn">shop now</button>
+        </div>
+      </div>
+      <div class="category-card__image">
+        <img src="../../assets/home/category-dresses-image.png" alt="dresses">
+      </div>
+    </div>
+    <div class="category-card">
+      <div class="category-card__header">
+        <div class="bottom">
+          <h3>Shirts</h3>
+          <p>25% off</p>
+          <button class="btn">shop now</button>
+        </div>
+      </div>
+      <div class="category-card__image">
+        <img src="../../assets/home/category-shirts-image.png" alt="shirts">
+      </div>
+    </div>
+  </div>
+<div class="newly-arrived-container">
+  <h3>Just Arrived</h3>
+  <div *ngIf = "!isLoading" class="newly-arrived-grid-container">
+    <div *ngFor = 'let product of products' class="arrived-card-container">
+      <img class = 'arrived-card-image'[src]="product.imageUrls[0]" [alt]="product.title">
+      <p class = 'arrived-card-title'>{{product.title}}</p>
+      <p class = 'arrived-card-price'>R{{product.amount}}</p>
+      <div class="add-to-cart">
+        <span class="material-icons">
+          shopping_cart
+          </span>
+      </div>
+      <div class="view-item">
+        <span class="material-icons">
+          visibility
+          </span>
+      </div>
+    </div>
+  </div>
+  <mat-spinner *ngIf = 'isLoading' style = "position: absolute; top:50%; left: 50%;"></mat-spinner>
+</div>
+

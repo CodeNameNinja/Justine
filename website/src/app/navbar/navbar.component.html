@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">The Curators</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" [routerLink] = "['home']">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" [routerLink] = "['shop']">Shop</a>
+      <a class="nav-item nav-link" routerLink = 'home'>Media</a>
+      <a class="nav-item nav-link" routerLink = 'home'>Collections</a>
+    </div>
+  </div>
+  <div class="float-right" style = "display:flex">
+    <a class = 'nav-item nav-link' href="#">login</a>
+    <a class = 'nav-item nav-link cart__link' href="#"><span class="material-icons cart" >shopping_cart </span><span class = "cart__total">1</span></a>
+
+  </div>
+</nav>

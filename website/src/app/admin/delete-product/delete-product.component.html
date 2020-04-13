@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Hey Justine</h1>
+<div mat-dialog-content>
+  <p>Are you sure you want to delete {{data.productName}}?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button color = 'warn' mat-button [mat-dialog-close]="data.prodId" cdkFocusInitial>Ok</button>
+</div>
+

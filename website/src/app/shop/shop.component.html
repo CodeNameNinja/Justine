@@ -1,0 +1,28 @@
+<app-filter-bar
+(maxiumPriceEmitter) = 'updatedMaxiumPrice($event)'
+(filteredCategory) = 'updateCategories($event)'
+
+></app-filter-bar>
+<div class="products-container">
+  <h3>Shop</h3>
+  <div *ngIf = "!isLoading" class="products-grid-container">
+    <div *ngFor = 'let product of products' class="card-container">
+      <img class = 'card-image'[src]="product.imageUrls[0]" [alt]="product.title">
+      <div class="card-details">
+        <p class = 'card-title'>{{product.title}}</p>
+        <p class = 'card-amount'>R{{product.amount}}</p>
+      </div>
+      <div class="add-to-cart">
+        <span class="material-icons">
+          shopping_cart
+          </span>
+      </div>
+      <div class="view-item">
+        <span class="material-icons">
+          visibility
+          </span>
+      </div>
+    </div>
+  </div>
+  <mat-spinner *ngIf = 'isLoading' style = "position: absolute; top:50%; left: 50%;"></mat-spinner>
+</div>

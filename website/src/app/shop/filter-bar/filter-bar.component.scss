@@ -1,0 +1,39 @@
+
+.sidenav {
+  height: 100%;
+  min-width: 10%;
+  width:15%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: var(--white);
+  overflow-x: hidden;
+  padding: 1%;
+  padding-top: 20px;
+
+}
+.sidenav .categories{
+  position: relative;
+  top: 15%;
+}
+.sidenav mat-checkbox {
+  padding: 50px 8px 6px 16px;
+
+  text-decoration: none;
+  font-size: 1rem;
+  color: var(--jet);
+    align-items: center;
+}
+
+.sidenav mat-checkbox:hover {
+  color: var(--nickel);
+}
+.sidenav .minmax-price{
+  padding: 50px 8px 6px 16px;
+  position: relative;
+  top: 15%;
+}
+mat-slider {
+  width: 100%;
+}

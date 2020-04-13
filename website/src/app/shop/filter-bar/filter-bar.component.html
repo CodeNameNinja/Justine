@@ -1,0 +1,25 @@
+<mat-card class="sidenav">
+  <div class="categories">
+    <mat-label>
+      Categories
+    </mat-label>
+    <hr>
+    <mat-checkbox *ngFor = 'let category of categories' [(ngModel)] = "category.checked"(change) = updateCategories()>{{category.displayName}}</mat-checkbox>
+  </div>
+
+  <div class="minmax-price">
+    <mat-label>
+      Maxium Price
+    </mat-label>
+    <mat-slider
+    thumbLabel
+    [displayWith]="formatLabel"
+    (change) = "updatePrice($event)"
+    tickInterval="500"
+    min="1"
+    max="2500"
+    value = '2500'></mat-slider>
+  </div>
+
+
+</mat-card>

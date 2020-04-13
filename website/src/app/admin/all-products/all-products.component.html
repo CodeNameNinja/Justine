@@ -1,0 +1,39 @@
+<app-sidenav></app-sidenav>
+<div class="products-container">
+  <h1 style = "margin-bottom: 2%;">All Products</h1>
+  <div class="products-grid">
+    <mat-card *ngFor="let product of products" class="product-item">
+      <mat-card-header>
+        <mat-card-title>{{ product.title }}</mat-card-title>
+        <mat-card-subtitle>R{{ product.amount }}</mat-card-subtitle>
+      </mat-card-header>
+      <div class="product-image">
+        <img
+          mat-card-image
+          [src]="product.imageUrls[0]"
+          [alt]="product.title"
+        />
+      </div>
+      <mat-card-content>
+        <p>
+          {{ product.description }}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="warn" (click) = "deleteProductAlert(product.id,product.title)">Delete</button>
+        <button mat-button color="primary"(click) = "openDialog(product, 'edit')">Edit</button>
+      </mat-card-actions>
+    </mat-card>
+    <button
+    type="button"
+    class="btn btn-primary btn-circle btn-xl bottom"
+    (click)="openDialog()"
+  >
+    <i class="material-icons">add</i>
+  </button>
+  </div>
+
+
+
+</div>
+<mat-spinner *ngIf = 'isLoading' style = "position: absolute; top:50%; left: 50%;"></mat-spinner>

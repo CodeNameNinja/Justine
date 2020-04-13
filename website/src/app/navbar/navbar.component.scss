@@ -1,0 +1,27 @@
+.navbar{
+  z-index: 999;
+}
+.navbar-collapse{
+    justify-content: center;
+}
+.cart{
+  position: relative;
+  color: var(--jet);
+}
+a .cart:hover{
+  transform: scale(1.2);
+}
+.cart__total{
+  position: absolute;
+  display: inline-block;
+  color: var(--white);
+  background-color: red;
+  height: 15px;
+  width: 15px;
+  border: var(--nickel) 1px solid;
+  padding: 3px 3px;
+  border-radius: 35px;
+  font-size: 0.75em;
+  line-height: 0.5;
+}
+
