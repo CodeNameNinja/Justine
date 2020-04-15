@@ -11,7 +11,7 @@
 <h1 mat-dialog-title>Fill out the form.</h1>
 <div mat-dialog-content>
   <!-- //add linear attribut to horizontal-stepper-->
-  <mat-horizontal-stepper #stepper>
+  <mat-horizontal-stepper #stepper linear>
     <mat-step [stepControl]="personalDetailsForm">
       <form [formGroup]="personalDetailsForm" class = 'formContainer'>
         <ng-template matStepLabel>Fill out your name</ng-template>
@@ -68,7 +68,7 @@
       <div class = 'order-actions'>
         <button mat-button matStepperPrevious>Back</button>
         <div class="order-flex">
-          <h4 class="cart-items__total">Total: <span id='amount' >R550</span></h4>
+          <h4 class="cart-items__total">Total: <span id='amount' >R{{orderTotal}}</span></h4>
           <button class="btn order-btn" style = "margin-left:auto">Place Order</button>
         </div>
 
@@ -121,7 +121,7 @@
             <!-- Symbol Column -->
             <ng-container matColumnDef="price">
               <th mat-header-cell *matHeaderCellDef> Price </th>
-              <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+              <td mat-cell *matCellDef="let element"> R{{element.price}} </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -130,9 +130,9 @@
         </div>
       </div>
       <div class="order-total" >
-        <p>Subtotal:R450</p>
+        <p>Subtotal:R{{subTotal}}</p>
         <p>Shipping: R100</p>
-        <p>Order Total: R550</p>
+        <p>Order Total: R{{orderTotal}}</p>
         <button class="btn btn-raised btn-block order-btn" (click)="stepper.reset()">Place Order</button>
         </div>
     </mat-step>

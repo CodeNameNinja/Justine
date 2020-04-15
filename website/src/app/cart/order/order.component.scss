@@ -22,7 +22,7 @@ table {
   margin-top: 5%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 2fr;
+  grid-template-rows: 0.75fr 2fr;
   color: var(--nickel);
 }
 .checkout-grid h3{
@@ -33,10 +33,11 @@ table {
 .personal-details{
   padding-left: 5%;
   line-height: 3.5%;
+  height:auto;
 }
 .shipping-details{
   border-left: 1px solid var(--nickel);
-  height: 50%;
+  height: 100%;
   padding-left: 5%;
   padding-left: 5%;
   line-height: 5%;

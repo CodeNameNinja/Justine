@@ -8,10 +8,18 @@ import { Subject } from 'rxjs';
 })
 export class ShopService {
   hideSideNav: boolean = true;
-  updateCart = new Subject;
+  updateCart = new Subject();
+  getCartLength = new Subject();
+  CartLength;
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+
+    this.getCartLength.subscribe(length => {
+      this.CartLength = length;
+      console.log(length)
+    })
+  }
 
   public toggleSideNav(): void {
     this.hideSideNav = !this.hideSideNav;

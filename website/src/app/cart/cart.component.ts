@@ -23,13 +23,17 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     this.getCart();
-    this.shopService.updateCart.subscribe(() => {
-      this.getCart();
-    });
+    return new Promise((resolve,reject) => {
+      this.shopService.updateCart.subscribe((response) => {
+        console.log(response)
+        resolve(this.getCart());
+      });
+    })
   }
 
  getCart() {
    this.isLoading = true;
+   const itemsQuantity = [];
    this.totalAmount = 0;
    this.cartItems = [];
    const cartTotal = [];
@@ -39,10 +43,16 @@ export class CartComponent implements OnInit {
       this.cartItems.push(item);
       const itemAmount = item.quantity * item.productId.amount;
       cartTotal.push(itemAmount);
+      itemsQuantity.push(item.quantity);
     }
+
      this.totalAmount = cartTotal.reduce((a, b) => {
       return a + b;
     }, 0);
+     const quantity = itemsQuantity.reduce((a, b) => {
+      return a + b;
+    }, 0);
+     this.shopService.getCartLength.next(quantity);
    });
  }
 
@@ -82,15 +92,10 @@ export class CartComponent implements OnInit {
 export class OrderDialog implements OnInit {
   personalDetailsForm: FormGroup;
   ShippingBillingForm: FormGroup;
-
+  subTotal: number;
+  orderTotal: number;
   displayedColumns: string[] = ['position', 'title', 'quantity', 'price'];
-  dataSource: OrderItem[] = [{
-    position: 0,
-    title: '',
-    imageUrl: '',
-    quantity: 0,
-    price: 0
-    }];
+  dataSource: OrderItem[] = [];
   orderDetails: Order = {
     fullName: '',
     phoneNumber: 0,
@@ -137,20 +142,32 @@ export class OrderDialog implements OnInit {
     }
 
     getCart() {
-
+      const items = [];
       this.shopService.getCart().subscribe((cartItems: CartItem[]) => {
-        console.log(cartItems)
+        const cartTotal = [];
         for (let index = 0; index < cartItems.length; index++) {
-          this.dataSource.push({
+          items.push({
             position: index + 1,
             title: cartItems[index].productId.title,
             imageUrl: cartItems[index].productId.imageUrls[0],
             quantity: cartItems[index].quantity,
             price: cartItems[index].productId.amount
           });
+
+
+          const itemAmount = cartItems[index].quantity * cartItems[index].productId.amount;
+          cartTotal.push(itemAmount);
         }
+
+        this.subTotal = cartTotal.reduce((a, b) => {
+          return a + b;
+        }, 0);
+
+        const shippingFee = 100;
+        this.orderTotal = this.subTotal + shippingFee;
+        this.dataSource = items;
       });
-      console.log("this.dataSource",this.dataSource);
+
     }
     setOrderDetails() {
       const fullName = this.personalDetailsForm.value.fullName;
