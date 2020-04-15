@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const User = require('./models/user');
 // ROUTES
 const adminRoutes = require('./routes/admin')
+const shopRoutes = require('./routes/shop')
 
 const app = express();
 
@@ -33,7 +34,8 @@ app.use((req, res, next) => {
       .catch(err => console.log(err));
   });
 
-app.use('/admin',adminRoutes)
+app.use('/admin',adminRoutes);
+app.use('/shop',shopRoutes);
 
 mongoose
   .connect(

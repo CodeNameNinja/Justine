@@ -1,0 +1,143 @@
+<div class="order-container">
+  <button
+    type="button"
+    class="close justify-self-end"
+    aria-label="Close"
+    (click)="onNoClick()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+<h1 mat-dialog-title>Fill out the form.</h1>
+<div mat-dialog-content>
+  <!-- //add linear attribut to horizontal-stepper-->
+  <mat-horizontal-stepper #stepper>
+    <mat-step [stepControl]="personalDetailsForm">
+      <form [formGroup]="personalDetailsForm" class = 'formContainer'>
+        <ng-template matStepLabel>Fill out your name</ng-template>
+
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Full Name" formControlName="fullName" required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="(+27)65 622 5667" formControlName="phoneNumber" required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Email Address</mat-label>
+            <input matInput placeholder="email address" formControlName="emailAddress" required>
+          </mat-form-field>
+
+        <div>
+          <button [disabled] = 'this.personalDetailsForm.invalid' mat-raised-button class ="btn-primary" matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="ShippingBillingForm">
+      <form [formGroup]="ShippingBillingForm">
+        <ng-template matStepLabel>Fill out your address</ng-template>
+        <mat-form-field>
+          <mat-label>Street Address</mat-label>
+          <input matInput formControlName="streetAddress" placeholder="Ex. 4 on Main Hermanus Apt 20"
+                 required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Country</mat-label>
+          <input matInput formControlName="country" placeholder="South Africa"
+                 required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>City</mat-label>
+          <input matInput formControlName="city" placeholder="Hermanus"
+                 required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>ZIP/Postal Code</mat-label>
+          <input matInput formControlName="postalCode" placeholder="7200"
+                 required>
+        </mat-form-field>
+        <div>
+          <button mat-raised-button matStepperPrevious>Back</button>
+          <button mat-raised-button class ="btn-primary" matStepperNext (click) = "setOrderDetails()">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step >
+      <ng-template matStepLabel>Checkout</ng-template>
+      <div class = 'order-actions'>
+        <button mat-button matStepperPrevious>Back</button>
+        <div class="order-flex">
+          <h4 class="cart-items__total">Total: <span id='amount' >R550</span></h4>
+          <button class="btn order-btn" style = "margin-left:auto">Place Order</button>
+        </div>
+
+      </div>
+      <div class="checkout-grid">
+          <div class="personal-details">
+            <h3>Your Information</h3>
+            <hr>
+            <p>{{orderDetails.fullName}}</p>
+            <p>{{orderDetails.phoneNumber}}</p>
+            <p>{{orderDetails.emailAddress}}</p>
+          </div>
+          <div class="shipping-details">
+            <h3>Shipping Details</h3>
+            <hr>
+            <p>{{orderDetails.streetAddress}}</p>
+            <p>{{orderDetails.city}}</p>
+            <p>{{orderDetails.country}}</p>
+            <p>{{orderDetails.zipCode}}</p>
+          </div>
+
+        <div class="cart-items">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="title" class='cart-item-title'>
+              <th mat-header-cell *matHeaderCellDef> Item </th>
+              <td mat-cell *matCellDef="let element">
+                <img [src]="element.imageUrl" [alt]="element.title" class = "cart-item-image">
+                 {{element.title}}
+                </td>
+
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="quantity">
+              <th mat-header-cell *matHeaderCellDef> Quantity </th>
+              <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef> Price </th>
+              <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+      </div>
+      <div class="order-total" >
+        <p>Subtotal:R450</p>
+        <p>Shipping: R100</p>
+        <p>Order Total: R550</p>
+        <button class="btn btn-raised btn-block order-btn" (click)="stepper.reset()">Place Order</button>
+        </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+   </div>
+
+
+</div>

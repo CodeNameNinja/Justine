@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
     )
     .subscribe(transformedProducts => {
       this.products = transformedProducts.splice(0,4);
-      console.log('transform Products', this.products);
+      // console.log('transform Products', this.products);
       this.isLoading = false;
     });
   }

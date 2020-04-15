@@ -3,6 +3,7 @@ import { AdminService } from 'src/app/services/admin.service';
 import { Product } from 'src/app/models/product.model';
 import { AddProductComponent, DeleteProductAlert } from '../admin.component';
 import { MatDialog } from '@angular/material';
+import { map } from 'rxjs/internal/operators/map';
 
 @Component({
   selector: 'app-all-products',
@@ -20,9 +21,23 @@ export class AllProductsComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    this.adminService.getProducts();
-    this.adminService.getProductUpdateListener().subscribe(products => {
-      this.products = products;
+    this.adminService.getProducts()
+    .pipe(
+      map(productData => {
+        return productData.products.map(product => {
+          return {
+            title: product.title,
+            description: product.description,
+            amount: product.amount,
+            category: product.category,
+            id: product._id,
+            imageUrls: product.imageUrls
+          };
+        });
+      })
+    )
+    .subscribe((transformedProducts: Product[]) => {
+      this.products = transformedProducts;
       this.isLoading = false;
     });
 

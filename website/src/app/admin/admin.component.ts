@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { mimeType } from './add-product/mime-type.validator';
 import { AdminService } from '../services/admin.service';
 import { Product } from '../models/product.model';
+import { map } from 'rxjs/internal/operators/map';
 
 export interface AlertData {
   prodId: string;
@@ -28,9 +29,23 @@ export class AdminComponent implements OnInit {
   name: string;
   ngOnInit() {
     this.isLoading = true;
-    this.adminService.getProducts();
-    this.adminService.getProductUpdateListener().subscribe(products => {
-      this.products = products.slice(0, 4);
+    this.adminService.getProducts()
+    .pipe(
+      map(productData => {
+        return productData.products.map(product => {
+          return {
+            title: product.title,
+            description: product.description,
+            amount: product.amount,
+            category: product.category,
+            id: product._id,
+            imageUrls: product.imageUrls
+          };
+        });
+      })
+    )
+    .subscribe((transformedProducts: Product[]) => {
+      this.products = transformedProducts.splice(0,3);
       this.isLoading = false;
     });
   }

@@ -53,7 +53,7 @@ addProduct(productData: FormData) {
         resolve(this.products.push(product));
       }).then(() => {
         this.productsUpdated.next([...this.products]);
-        console.log('this.products', this.products);
+        // console.log('this.products', this.products);
       });
     });
 

@@ -1,0 +1,17 @@
+<div id="sidebar" class="bg-light" [ngClass]="{'hidden': shopService.hideSideNav }">
+  <div *ngIf = '!isLoading'>
+    <ul class="cart-list__items">
+      <li *ngFor = 'let cartItem of cartItems'class="cart-list__item">
+        <h3>{{cartItem.productId.title}}</h3>
+        <p style ="margin-bottom: 5px;">R{{cartItem.productId.amount}}</p>
+        <p style = "color:#797979; font-size: 0.75em;">Qty:{{cartItem.quantity}}</p>
+        <span class="material-icons"(click) = "deleteCartItem(cartItem.productId._id)" style="cursor: pointer; color:red">delete</span>
+        <hr>
+      </li>
+    </ul>
+    <h4 class="cart-items__total">Total: <span id='amount'>R{{totalAmount}}</span></h4>
+    <button class="btn btn-primary btn-block checkout-btn" (click) = 'openOrdeDialog()'>Proceed to checkout.</button>
+  </div>
+
+  <mat-spinner *ngIf = 'isLoading' style = "position: absolute; top:50%; left: 50%;"></mat-spinner>
+</div>
