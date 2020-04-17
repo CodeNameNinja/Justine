@@ -16,11 +16,12 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CartComponent, OrderDialog } from './cart/cart.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AuthInterceptor } from './auth/auth-incerceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +49,7 @@ import { SignupComponent } from './auth/signup/signup.component';
   entryComponents:[OrderDialog],
   providers: [
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
 ],
   bootstrap: [AppComponent]
 })

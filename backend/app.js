@@ -6,7 +6,7 @@ const User = require('./models/user');
 // ROUTES
 const adminRoutes = require('./routes/admin')
 const shopRoutes = require('./routes/shop')
-
+const authRoutes = require('./routes/auth')
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -16,7 +16,7 @@ app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
       "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept"
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
       );
       res.setHeader(
         "Access-Control-Allow-Methods",
@@ -36,7 +36,7 @@ app.use((req, res, next) => {
 
 app.use('/admin',adminRoutes);
 app.use('/shop',shopRoutes);
-
+app.use('/user',authRoutes);
 mongoose
   .connect(
     'mongodb+srv://mitchell:7z7mA8y7OPbg4AUj@cluster0-p0lop.mongodb.net/test?retryWrites=true&w=majority'

@@ -43,5 +43,5 @@ router.post('/add-product',upload.array("images[]", 12), adminController.postAdd
 router.put('/update-product/:id',upload.array("images[]", 12), adminController.updateProduct);
 
 router.post('/delete-product', adminController.postDeleteProduct);
-// s
+
 module.exports = router;
