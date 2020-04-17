@@ -20,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CartComponent, OrderDialog } from './cart/cart.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +28,7 @@ import { LoginComponent } from './auth/login/login.component';
     CartComponent,
     OrderDialog,
     LoginComponent,
+    SignupComponent,
       ],
   imports: [
     BrowserModule,

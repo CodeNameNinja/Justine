@@ -12,6 +12,7 @@
     </div>
   </div>
   <div class="float-right" style = "display:flex">
+    <a class = 'nav-item nav-link' routerLink = 'signup'>Sign Up</a>
     <a class = 'nav-item nav-link' routerLink = 'login'>login</a>
     <a class = 'nav-item nav-link cart__link' (click) ="shopService.toggleSideNav()"><span class="material-icons cart" >shopping_cart </span><span *ngIf = 'shopService.CartLength > 0'class = "cart__total">{{shopService.CartLength}}</span></a>
 

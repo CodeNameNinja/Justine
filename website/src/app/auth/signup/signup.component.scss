@@ -1,0 +1,22 @@
+.signup-container{
+  display:grid;
+  height: 95vh;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+  "image form";
+}
+.displayImage{
+  grid-area: image;
+  background: url('../../../assets/home/alex-header-image.png') no-repeat;
+background-size: cover;
+background-position: 50% 80%;
+}
+.signup-form-container{
+  justify-self: center;
+  align-self: center;
+  grid-area: form;
+  width:50%;
+}
+mat-form-field{
+  display:block
+}
