@@ -1,17 +1,21 @@
 const Product = require('../models/product');
 const Order = require('../models/order');
-
+const User = require('../models/user')
 exports.getCart = (req, res, next) => {
-    req.user
+  console.log(req.userData)
+    User.findOne({email:req.userData.email})
+    .then(user => {
+      user
       .populate('cart.items.productId')
-      .execPopulate()
-      .then(user => {
-        const products = user.cart.items;
-        res.status(201).json([
-          ...products
-        ]);
-      })
-      .catch(err => console.log(err));
+        .execPopulate()
+        .then(user => {
+          const products = user.cart.items;
+          res.status(201).json([
+            ...products
+          ]);
+        })
+        .catch(err => console.log(err));
+    })
   };
   
   exports.postCart = (req, res, next) => {
@@ -19,16 +23,32 @@ exports.getCart = (req, res, next) => {
     console.log(prodId);
     Product.findById(prodId)
       .then(product => {
-        req.user.addToCart(product);
-        res.status(201).json({
-          message:"succesfully added to cart."
+        User.findOne({email:req.userData.email})
+        .then(user => {
+         user.addToCart(product); 
+         user
+         .populate('cart.items.productId')
+         .execPopulate()
+         .then(popUser => {
+          const products = popUser.cart.items;
+            res.status(201).json(
+              [
+                ...products
+              ]
+                      
+          )        
         })
+       
+        })
+        
       })
   };
   
   exports.postCartDeleteProduct = (req, res, next) => {
     const prodId = req.body.id;
-    req.user
+    User.findOne({email:req.userData.email})
+    .then(user => {
+      user
       .removeFromCart(prodId)
       .then(result => {
         res.status(201).json({
@@ -37,5 +57,7 @@ exports.getCart = (req, res, next) => {
         })
       })
       .catch(err => console.log(err));
+    })
+     
   };
   

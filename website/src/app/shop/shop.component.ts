@@ -78,8 +78,8 @@ export class ShopComponent implements OnInit {
   }
 
   addToCart(id){
-    this.shopService.addToCart(id).subscribe(response => {
-      this.shopService.updateCart.next(response);
+    this.shopService.addToCart(id).subscribe((cart) => {
+      this.shopService.updateCart.next(cart);
       // console.log("response", response)
     });
 

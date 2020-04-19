@@ -1,34 +1,48 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { ShopService } from '../services/shop.service';
 import { Product } from '../models/product.model';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss'],
 
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
   cartItems: CartItem[] = [];
   totalAmount: number;
   isLoading = false;
-
+  userIsAuthenticated = false;
+  private authListenerSubs: Subscription;
   animal: string;
   name: string;
   constructor(
     public shopService: ShopService,
+    public authService: AuthService,
     public dialog: MatDialog ) { }
 
   ngOnInit() {
-    this.getCart();
-    return new Promise((resolve,reject) => {
-      this.shopService.updateCart.subscribe((response) => {
-        console.log(response)
-        resolve(this.getCart());
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authListenerSubs = this.authService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+        if (isAuthenticated) {
+          this.getCart();
+        }
       });
-    })
+
+    this.shopService.updateCart.subscribe((cartItems: CartItem[]) => {
+      // console.log(cartItems)
+      this.cartItems = cartItems;
+      // console.log(this.cartItems)
+        });
+
+
   }
 
  getCart() {
@@ -79,7 +93,9 @@ export class CartComponent implements OnInit {
     this.animal = result;
   });
 }
-
+ngOnDestroy() {
+  this.authListenerSubs.unsubscribe();
+}
 }
 @Component({
   selector: 'app-order-component',
