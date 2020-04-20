@@ -23,7 +23,7 @@ exports.postSignUp = (req,res,next) => {
           })
           .catch(err => {
             res.status(500).json({
-              error: err
+              message: "Invalid authentication credentials"
             });
           });
       });
@@ -36,7 +36,7 @@ exports.postLogin = (req,res,next) => {
     .then(user => {
       if (!user) {
         return res.status(401).json({
-          message: "Auth failed"
+          message: "User does not exist."
         });
       }
       
@@ -47,7 +47,7 @@ exports.postLogin = (req,res,next) => {
     .then(result => {
       if (!result) {
         return res.status(401).json({
-          message: "Auth failed"
+          message: "Username Or Password is incorrect."
         });
       }
       const token = jwt.sign(
@@ -63,7 +63,7 @@ exports.postLogin = (req,res,next) => {
     })
     .catch(err => {
       return res.status(401).json({
-        message: "Auth failed"
+        message: "Username Or Password is incorrect."
       });
     });
 }

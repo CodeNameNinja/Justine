@@ -23,6 +23,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-incerceptor';
 import { ErrorInterceptor } from './error-interceptor';
+import { ErrorComponent } from './error/error.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +32,7 @@ import { ErrorInterceptor } from './error-interceptor';
     OrderDialog,
     LoginComponent,
     SignupComponent,
+    ErrorComponent,
       ],
   imports: [
     BrowserModule,
@@ -47,7 +49,7 @@ import { ErrorInterceptor } from './error-interceptor';
     ReactiveFormsModule,
     MatTableModule
   ],
-  entryComponents:[OrderDialog],
+  entryComponents:[OrderDialog,ErrorComponent],
   providers: [
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

@@ -7,6 +7,11 @@ exports.getProducts = (req, res) => {
       products: products
     });
   })
+  .catch(error => {
+    res.status(500).json({
+      message:"Fetching Products Failed."
+    })
+  })
 }
 exports.postAddProduct = (req, res, next) => {
     console.log(req.body)
@@ -45,9 +50,11 @@ exports.postAddProduct = (req, res, next) => {
           }
         })
       })
-      .catch(err => {
-        console.log(err);
-      });
+      .catch(error => {
+        res.status(500).json({
+          message:"Adding Product Failed."
+        })
+      })
   };
 
   exports.postDeleteProduct = (req, res) => {
@@ -58,10 +65,14 @@ exports.postAddProduct = (req, res, next) => {
     .then(() => {
         console.log("Products Removed")
 
-        res.send({"RES": "SHIPREMOVED"})
-        // res.status(201).json({"message": "Product removed succesfully"})
+        res.send({message: "Product removed"})
+       
     })
-    .catch(e => console.log(e));
+    .catch(error => {
+      res.status(500).json({
+        message:"Deleting Product failed."
+      })
+    })
   }
 
   exports.updateProduct = (req, res) => {
@@ -97,5 +108,10 @@ exports.postAddProduct = (req, res, next) => {
     
     Product.updateOne({'_id':ObjectID(req.params.id)} , product).then(product => {
       res.status(200).json({ message: "Update successful!", product:product });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message:"failed to update product."
+      })
     });
   }

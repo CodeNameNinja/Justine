@@ -14,7 +14,11 @@ exports.getCart = (req, res, next) => {
             ...products
           ]);
         })
-        .catch(err => console.log(err));
+        .catch(error => {
+          res.status(500).json({
+            message:"Failed to fetch cart items."
+          })
+        })
     })
   };
   
@@ -39,6 +43,10 @@ exports.getCart = (req, res, next) => {
           )        
         })
        
+        }).catch(error => {
+          res.status(500).json({
+            message:"Adding to cart failed. Check you internet connection."
+          })
         })
         
       })
@@ -56,7 +64,11 @@ exports.getCart = (req, res, next) => {
           result:result
         })
       })
-      .catch(err => console.log(err));
+      .catch(error => {
+        res.status(500).json({
+          message:"Couldn't Delete item from cart."
+        })
+      })
     })
      
   };
