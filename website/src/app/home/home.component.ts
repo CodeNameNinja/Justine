@@ -1,23 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AdminService } from '../services/admin.service';
 import { Product } from '../models/product.model';
 import { map } from 'rxjs/operators';
-import { pipe } from 'rxjs';
+import { pipe, Subscription } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   isLoading = false;
+userIsAuthenticated = false;
+private authListenerSubs: Subscription;
   constructor(
-    private adminService: AdminService
+    private adminService: AdminService,
+    private authService: AuthService
   ) { }
 
-  ngOnInit() {
-    this.getProducts();
+  async ngOnInit() {
+    await this.getProducts();
+    this.userIsAuthenticated = await this.authService.getIsAuth();
+    this.authListenerSubs = await this.authService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+      });
   }
   getProducts() {
     this.isLoading = true;
@@ -37,9 +47,12 @@ export class HomeComponent implements OnInit {
       })
     )
     .subscribe(transformedProducts => {
-      this.products = transformedProducts.splice(0,4);
+    this.products = transformedProducts.splice(0,4);
       // console.log('transform Products', this.products);
       this.isLoading = false;
     });
+  }
+  ngOnDestroy() {
+    this.authListenerSubs.unsubscribe();
   }
 }

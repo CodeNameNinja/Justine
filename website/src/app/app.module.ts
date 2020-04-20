@@ -22,6 +22,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-incerceptor';
+import { ErrorInterceptor } from './error-interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +50,8 @@ import { AuthInterceptor } from './auth/auth-incerceptor';
   entryComponents:[OrderDialog],
   providers: [
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
 ],
   bootstrap: [AppComponent]
 })

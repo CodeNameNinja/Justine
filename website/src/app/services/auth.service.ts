@@ -34,10 +34,12 @@ export class AuthService {
 
   createUser(name: string, email: string, password: string) {
     const authData: AuthData = { name, email, password };
-    this.http
+    return this.http
       .post(`${environment.apiUrl}/user/signup`, authData)
-      .subscribe(response => {
+      .subscribe(() => {
         this.router.navigate(['/login']);
+      }, error => {
+        this.authStatusListener.next(false);
       });
   }
 
@@ -63,6 +65,8 @@ export class AuthService {
           this.saveAuthData(token, expirationDate, this.userId);
           this.router.navigate(['/']);
         }
+      }, error => {
+        this.authStatusListener.next(false);
       });
   }
 
@@ -89,6 +93,7 @@ export class AuthService {
     this.userId = null;
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
+    console.log('logged out')
     this.router.navigate(['/']);
   }
 

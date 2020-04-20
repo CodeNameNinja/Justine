@@ -62,16 +62,19 @@
       <img class = 'arrived-card-image'[src]="product.imageUrls[0]" [alt]="product.title">
       <p class = 'arrived-card-title'>{{product.title}}</p>
       <p class = 'arrived-card-price'>R{{product.amount}}</p>
-      <div class="add-to-cart">
-        <span class="material-icons">
-          shopping_cart
-          </span>
+      <div class="card-actions">
+        <div *ngIf= "userIsAuthenticated" class="add-to-cart" >
+          <span class="material-icons">
+            shopping_cart
+            </span>
+        </div>
+        <div class="view-item">
+          <span class="material-icons">
+            visibility
+            </span>
+        </div>
       </div>
-      <div class="view-item">
-        <span class="material-icons">
-          visibility
-          </span>
-      </div>
+
     </div>
   </div>
   <mat-spinner *ngIf = 'isLoading' style = "position: absolute; top:50%; left: 50%;"></mat-spinner>

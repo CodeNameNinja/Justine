@@ -161,16 +161,21 @@ background-position: 50% 80%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.card-actions{
+  grid-area: 3/1/4/3;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  height:auto;
+  width:auto
+}
 .add-to-cart{
   position: relative;
-  grid-area: 3/1/4/2;
   background-color:var(--columbia-blue);
   color: var(--white);
 }
 .view-item{
   position: relative;
-  grid-area: 3/2/4/3;
-  background-color:var(--white);
+  background-color:var(--periwinkle);
   color: var(--nickel);
 }
 .add-to-cart:hover,.view-item:hover {

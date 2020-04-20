@@ -18,6 +18,7 @@
         <mat-error *ngIf = 'passwordInput.invalid'>Please enter a valid password</mat-error>
       </mat-form-field>
       <button class="btn btn-primary btn-block">Login</button>
+      <mat-spinner *ngIf = 'isLoading' style = "position: absolute; top:50%; left: 50%;"></mat-spinner>
     </form>
   </div>
 </div>

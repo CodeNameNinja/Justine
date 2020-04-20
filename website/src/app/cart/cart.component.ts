@@ -27,6 +27,9 @@ export class CartComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userIsAuthenticated = this.authService.getIsAuth();
+    if (this.userIsAuthenticated) {
+      this.getCart();
+    }
     this.authListenerSubs = this.authService
       .getAuthStatusListener()
       .subscribe(isAuthenticated => {
@@ -37,9 +40,27 @@ export class CartComponent implements OnInit, OnDestroy {
       });
 
     this.shopService.updateCart.subscribe((cartItems: CartItem[]) => {
-      // console.log(cartItems)
+      const itemsQuantity = [];
+      const cartTotal = [];
+
+      for (const item of cartItems) {
+
+      itemsQuantity.push(item.quantity);
+
+      const itemAmount = item.quantity * item.productId.amount;
+
+      cartTotal.push(itemAmount);
+
+      }
       this.cartItems = cartItems;
-      // console.log(this.cartItems)
+
+      const quantity = itemsQuantity.reduce((a, b) => {
+        return a + b;
+      }, 0);
+      this.totalAmount = cartTotal.reduce((a, b) => {
+        return a + b;
+      }, 0);
+      this.shopService.getCartLength.next(quantity);
         });
 
 
