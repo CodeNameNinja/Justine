@@ -129,4 +129,18 @@ export class AuthService {
       userId
     };
   }
+
+
+
+  // Resetting Password;
+
+  postReset(email) {
+    this.http.post(`${environment.apiUrl}/user/reset`, {email:email})
+    .subscribe(response => {
+      this.router.navigate(['/login']);
+      console.log(response);
+    }, err => {
+      console.log(err);
+    });
+  }
 }

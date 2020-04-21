@@ -24,6 +24,8 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth-incerceptor';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
+import { ResetComponent } from './auth/reset/reset.component';
+import { NewPasswordComponent } from './auth/new-password/new-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +35,8 @@ import { ErrorComponent } from './error/error.component';
     LoginComponent,
     SignupComponent,
     ErrorComponent,
+    ResetComponent,
+    NewPasswordComponent,
       ],
   imports: [
     BrowserModule,

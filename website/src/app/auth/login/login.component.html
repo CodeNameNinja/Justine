@@ -2,11 +2,6 @@
   <div class="displayImage"></div>
   <div class="login-form-container">
     <form (submit)="onLogin(loginForm)" #loginForm="ngForm">
-      <!-- <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput type="text" ngModel name = 'username' #usernameInput ="ngModel" />
-        <mat-error>Please enter a valid username</mat-error>
-      </mat-form-field> -->
       <mat-form-field>
         <mat-label>Email</mat-label>
         <input matInput type="email" ngModel name = "email" #emailInput = 'ngModel' required email/>
@@ -18,6 +13,7 @@
         <mat-error *ngIf = 'passwordInput.invalid'>Please enter a valid password</mat-error>
       </mat-form-field>
       <button class="btn btn-primary btn-block">Login</button>
+      <button class = 'btn forgot-btn' type="button" routerLink = '/reset'>Forgot Password?</button>
       <mat-spinner *ngIf = 'isLoading' style = "position: absolute; top:50%; left: 50%;"></mat-spinner>
     </form>
   </div>
