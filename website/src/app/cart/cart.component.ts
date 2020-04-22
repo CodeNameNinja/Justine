@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ShopService } from '../services/shop.service';
 import { Product } from '../models/product.model';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
@@ -6,6 +6,8 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { AuthService } from '../services/auth.service';
+
+declare var paypal
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -127,6 +129,7 @@ ngOnDestroy() {
   }]
 })
 export class OrderDialog implements OnInit {
+  @ViewChild('paypal', { static: true}) paypalElement: ElementRef;
   personalDetailsForm: FormGroup;
   ShippingBillingForm: FormGroup;
   subTotal: number;
@@ -176,6 +179,28 @@ export class OrderDialog implements OnInit {
           validators: [Validators.required]
         })
       });
+      paypal
+        .Buttons({
+          createOrder: (data, actions) => {
+            return actions.order.create({
+              purchase_units: [
+                {
+                  description: "order description",
+                  amount: {
+                    currency_code: 'USD',
+                    value: 25
+                  }
+                }
+              ]
+            });
+          },
+          onApprove: async(data,actions) => {
+            const order = await actions.order.capture();
+            console.log(order)
+          }
+        })
+        .render(this.paypalElement.nativeElement);
+
     }
 
     getCart() {

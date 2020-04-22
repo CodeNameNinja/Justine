@@ -169,16 +169,7 @@ exports.getNewPassword = (req, res, next) => {
   const token = req.params.token;
   User.findOne({ resetToken: token, resetTokenExpiration: { $gt: Date.now() } })
     .then(user => {
-      let message = req.flash('error');
-      if (message.length > 0) {
-        message = message[0];
-      } else {
-        message = null;
-      }
-      res.render('auth/new-password', {
-        path: '/new-password',
-        pageTitle: 'New Password',
-        errorMessage: message,
+      res.status(200).json({
         userId: user._id.toString(),
         passwordToken: token
       });
@@ -210,7 +201,9 @@ exports.postNewPassword = (req, res, next) => {
       return resetUser.save();
     })
     .then(result => {
-      res.redirect('/login');
+      res.status(200).json({
+        message:"Succesfully Changed Password."
+      })
     })
     .catch(err => {
       console.log(err);

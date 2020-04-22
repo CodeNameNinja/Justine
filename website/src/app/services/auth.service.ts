@@ -143,4 +143,16 @@ export class AuthService {
       console.log(err);
     });
   }
+  getNewPassword(token){
+    return this.http.get(`${environment.apiUrl}/user/reset/${token}`);
+  }
+  postNewPassword(userId, passwordToken, password) {
+    this.http.post(`${environment.apiUrl}/user/new-password`, {userId, passwordToken, password})
+    .subscribe(response => {
+      this.router.navigate(['/login']);
+      console.log(response);
+    }, err => {
+      console.log(err);
+    });
+  }
 }
