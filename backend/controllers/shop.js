@@ -73,3 +73,53 @@ exports.getCart = (req, res, next) => {
      
   };
   
+
+  exports.postOrder = (req, res, next) => {
+  let retrievedUser;
+  User.findOne({email:req.userData.email})
+  .then(user => {
+    retrievedUser = user
+    user
+    .populate('cart.items.productId')
+    .execPopulate()
+    .then(user => {
+      const products = user.cart.items.map(i => {
+        return { quantity: i.quantity, product: { ...i.productId._doc } };
+      });
+      const order = new Order({
+        user: {
+          name: req.userData.email,
+          userId: req.userData.userId
+        },
+        orderDetails:{
+          create_time:req.body.orderDetails.create_time,
+          id: req.body.orderDetails.id,
+          payer:req.body.orderDetails.payer,
+          purchase_units: req.body.orderDetails.purchase_units
+        },
+        products: products
+      });
+      return order.save();
+    })
+    .then(result => {
+      return user.clearCart();
+    })
+    .then(() => {
+      res.status(200).json({
+        messsage: "Successfully ordered"
+      })
+    })
+    .catch(err => console.log(err));
+  })
+  
+};
+
+exports.getOrders = (req, res, next) => {
+  Order.find({ 'user.userId': req.userData._id })
+    .then(orders => {
+      res.status(200).json([
+        ...orders
+      ])
+    })
+    .catch(err => console.log(err));
+};

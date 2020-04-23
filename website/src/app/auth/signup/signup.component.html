@@ -2,17 +2,24 @@
   <div class="displayImage"></div>
   <div class="signup-form-container">
     <form (submit)="onSignup(signupForm)" #signupForm="ngForm">
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput type="text" ngModel name = 'username' #usernameInput ="ngModel" required/>
-        <mat-error *ngIf = 'usernameInput.invalid'>Please enter a valid username</mat-error>
-      </mat-form-field>
-      <mat-form-field>
+      <div class="names">
+        <mat-form-field appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input matInput type="text" ngModel name = 'firstName' #usernameInput ="ngModel" required/>
+          <mat-error *ngIf = 'usernameInput.invalid'>Please enter a name</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Last Name</mat-label>
+          <input matInput type="text" ngModel name = 'lastName' #usernameInput ="ngModel" required/>
+          <mat-error *ngIf = 'usernameInput.invalid'>Please enter a surname</mat-error>
+        </mat-form-field>
+      </div>
+      <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input matInput type="email" ngModel name = "email" #emailInput = 'ngModel' required email/>
         <mat-error *ngIf = 'emailInput.invalid'>Please enter a valid email</mat-error>
-      </mat-form-field>
-      <mat-form-field>
+      </mat-form-field >
+      <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
         <input matInput type="password" value="password" ngModel name = "password" #passwordInput = 'ngModel' required/>
         <mat-error *ngIf = 'passwordInput.invalid'>Please enter a valid password</mat-error>

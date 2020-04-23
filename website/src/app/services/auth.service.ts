@@ -9,9 +9,12 @@ import { environment } from 'src/environments/environment';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private isAuthenticated = false;
+  private adminIsAuthenticated = false;
   private token: string;
   private tokenTimer: any;
   private userId: string;
+  public name: string;
+  public email: string;
   private authStatusListener = new Subject<boolean>();
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -23,6 +26,9 @@ export class AuthService {
   getIsAuth() {
     return this.isAuthenticated;
   }
+  getIsAdminAuth(){
+    return this.adminIsAuthenticated
+  }
 
   getUserId() {
     return this.userId;
@@ -32,8 +38,8 @@ export class AuthService {
     return this.authStatusListener.asObservable();
   }
 
-  createUser(name: string, email: string, password: string) {
-    const authData: AuthData = { name, email, password };
+  createUser(firstName: string, lastName: string, email: string, password: string) {
+    const authData: AuthData = { firstName, lastName, email, password };
     return this.http
       .post(`${environment.apiUrl}/user/signup`, authData)
       .subscribe(() => {
@@ -46,11 +52,12 @@ export class AuthService {
   login(email: string, password: string) {
     const authData: AuthData = {email, password };
     this.http
-      .post<{ token: string; expiresIn: number, userId: string }>(
+      .post<{ token: string; expiresIn: number, userId: string,name: string, email: string  }>(
         `${environment.apiUrl}/user/login`,
         authData
       )
       .subscribe(response => {
+        console.log(response)
         const token = response.token;
         this.token = token;
         if (token) {
@@ -58,11 +65,17 @@ export class AuthService {
           this.setAuthTimer(expiresInDuration);
           this.isAuthenticated = true;
           this.userId = response.userId;
+          this.name = response.name;
+          this.email = response.email;
+          if(response.email === "jmallandain@gmail.com"){
+            this.adminIsAuthenticated = true;
+            console.log(this.adminIsAuthenticated)
+          }
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           console.log(expirationDate);
-          this.saveAuthData(token, expirationDate, this.userId);
+          this.saveAuthData(token, expirationDate, this.userId, this.name, this.email);
           this.router.navigate(['/']);
         }
       }, error => {
@@ -81,8 +94,11 @@ export class AuthService {
       this.token = authInformation.token;
       this.isAuthenticated = true;
       this.userId = authInformation.userId;
+      this.name = authInformation.name;
+      this.email = authInformation.email;
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
+
     }
   }
 
@@ -104,29 +120,37 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, userId: string) {
+  private saveAuthData(token: string, expirationDate: Date, userId: string, name: string, email:string) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('userId', userId);
+    localStorage.setItem('name', name);
+    localStorage.setItem('email', email);
   }
 
   private clearAuthData() {
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
     localStorage.removeItem('userId');
+    localStorage.removeItem('name');
+    localStorage.removeItem('email');
   }
 
   private getAuthData() {
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expiration');
     const userId = localStorage.getItem('userId');
+    const name = localStorage.getItem('name');
+    const email = localStorage.getItem('email');
     if (!token || !expirationDate) {
       return;
     }
     return {
       token,
       expirationDate: new Date(expirationDate),
-      userId
+      userId,
+      name,
+      email
     };
   }
 

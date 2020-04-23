@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 })
 export class ShopService {
   hideSideNav: boolean = true;
+  hideSuccessMessage: boolean = true;
   updateCart = new Subject();
   getCartLength = new Subject();
   CartLength;
@@ -17,12 +18,17 @@ export class ShopService {
 
     this.getCartLength.subscribe(length => {
       this.CartLength = length;
-      console.log(length)
+      // console.log(length)
     })
   }
 
   public toggleSideNav(): void {
     this.hideSideNav = !this.hideSideNav;
+  }
+
+  public toggleSuccessMessage(): void {
+    this.hideSuccessMessage = !this.hideSuccessMessage;
+    // console.log(this.hideSuccessMessage)
   }
 
   public getCart(){
@@ -33,5 +39,10 @@ export class ShopService {
   }
   deleteProduct(id){
     return this.http.post(`${environment.apiUrl}/shop/cart-delete-item`, {id});
+  }
+
+  createOrder(orderDetails){
+    return this.http.post(`${environment.apiUrl}/shop/create-order`, {orderDetails});
+
   }
 }

@@ -19,6 +19,12 @@ const orderSchema = new Schema({
       required: true,
       ref: 'User'
     }
+  },
+  orderDetails: {
+    create_time:String,
+    id:String,
+    payer:Object,
+    purchase_units:Array
   }
 });
 

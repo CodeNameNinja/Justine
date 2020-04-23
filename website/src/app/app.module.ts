@@ -7,7 +7,8 @@ import {
   MatButtonModule,
   MatInputModule,
   MatStepperModule,
-  MatTableModule
+  MatTableModule,
+  MatSelectModule
  } from '@angular/material';
 import { NgModule } from '@angular/core';
 
@@ -26,6 +27,7 @@ import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
 import { ResetComponent } from './auth/reset/reset.component';
 import { NewPasswordComponent } from './auth/new-password/new-password.component';
+import { SuccessComponent } from './success/success.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +39,7 @@ import { NewPasswordComponent } from './auth/new-password/new-password.component
     ErrorComponent,
     ResetComponent,
     NewPasswordComponent,
+    SuccessComponent,
       ],
   imports: [
     BrowserModule,
@@ -51,7 +54,8 @@ import { NewPasswordComponent } from './auth/new-password/new-password.component
     MatInputModule,
     MatStepperModule,
     ReactiveFormsModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule
   ],
   entryComponents:[OrderDialog,ErrorComponent],
   providers: [

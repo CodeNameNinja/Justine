@@ -4,6 +4,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { ResetComponent } from './auth/reset/reset.component';
 import { NewPasswordComponent } from './auth/new-password/new-password.component';
+import { AuthGuard } from './auth/auth.guard';
 const routes: Routes = [
   {
     path: '',
@@ -20,6 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'admin',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminPageModule)
   },
   { path: 'login', component: LoginComponent },

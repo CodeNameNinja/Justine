@@ -11,7 +11,7 @@ export class AppComponent {
 
   constructor(
     private authService: AuthService,
-
+    public shopService: ShopService
   ){
     this.authService.autoAuthUser();
   }

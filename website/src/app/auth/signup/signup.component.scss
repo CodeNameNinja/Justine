@@ -17,6 +17,13 @@ background-position: 50% 80%;
   grid-area: form;
   width:50%;
 }
+.names{
+  display:flex
+}
+.names mat-form-field{
+  padding-right: 5px;
+  width:50%
+}
 mat-form-field{
   display:block
 }

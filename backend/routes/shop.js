@@ -18,8 +18,8 @@ router.post('/cart',checkAuth, shopController.postCart);
 
 router.post('/cart-delete-item',checkAuth, shopController.postCartDeleteProduct);
 
-// router.post('/create-order', shopController.postOrder);
+router.post('/create-order',checkAuth, shopController.postOrder);
 
-// router.get('/orders', shopController.getOrders);
+router.get('/orders',checkAuth, shopController.getOrders);
 
 module.exports = router;

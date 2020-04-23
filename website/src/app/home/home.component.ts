@@ -4,6 +4,7 @@ import { Product } from '../models/product.model';
 import { map } from 'rxjs/operators';
 import { pipe, Subscription } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { ShopService } from '../services/shop.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,8 @@ userIsAuthenticated = false;
 private authListenerSubs: Subscription;
   constructor(
     private adminService: AdminService,
-    private authService: AuthService
+    private authService: AuthService,
+    public shopService: ShopService
   ) { }
 
   async ngOnInit() {

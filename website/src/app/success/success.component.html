@@ -1,0 +1,9 @@
+<div class="slider alert alert-success" role="alert"  [ngClass]="{'closed': shopService.hideSuccessMessage }">
+
+  <button type="button" class="close" (click) = 'shopService.toggleSuccessMessage()' aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h3>Success!</h3>
+  <p>You have succesfully made a purchase.</p>
+
+</div>

@@ -14,9 +14,11 @@ let transporter = nodemailer.createTransport(
   })
 );
 exports.postSignUp = (req,res,next) => {
+  console.log(req.body)
     bcrypt.hash(req.body.password, 10).then(hash => {
         const user = new User({
-          name:req.body.name,
+          firstName:req.body.firstName,
+          lastName:req.body.lastName,
           email: req.body.email,
           password: hash,
           cart:{
@@ -67,8 +69,7 @@ exports.postLogin = (req,res,next) => {
         return res.status(401).json({
           message: "User does not exist."
         });
-      }
-      
+      }      
       fetchedUser = user;
       req.user = user;
       return bcrypt.compare(req.body.password, user.password);
@@ -87,12 +88,14 @@ exports.postLogin = (req,res,next) => {
       res.status(200).json({
         token: token,
         expiresIn: 3600,
-        userId: fetchedUser._id
+        userId: fetchedUser._id,
+        name: fetchedUser.firstName + " " + fetchedUser.lastName,
+        email:fetchedUser.email
       });
     })
     .catch(err => {
       return res.status(401).json({
-        message: "Username Or Password is incorrect."
+        message: "Unknown Error Occured."
       });
     });
 }

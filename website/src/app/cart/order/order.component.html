@@ -39,8 +39,21 @@
         <ng-template matStepLabel>Fill out your address</ng-template>
         <mat-form-field>
           <mat-label>Street Address</mat-label>
-          <input matInput formControlName="streetAddress" placeholder="Ex. 4 on Main Hermanus Apt 20"
+          <input matInput formControlName="streetAddressLineOne" placeholder="Ex. 123 Abc Street"
                  required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Address Line 2</mat-label>
+          <input matInput formControlName="streetAddressLineTwo" placeholder="Ex.Apt 20"
+                 required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Province</mat-label>
+          <mat-select formControlName = "province">
+            <mat-option *ngFor="let province of provinces" [value]="province.value">
+              {{province.name}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Country</mat-label>
@@ -69,7 +82,7 @@
         <button mat-button matStepperPrevious>Back</button>
         <div class="order-flex">
           <h4 class="cart-items__total">Total: <span id='amount' >R{{orderTotal}}</span></h4>
-          <button class="btn order-btn" style = "margin-left:auto">Place Order</button>
+          <!-- <button class="btn order-btn" style = "margin-left:auto">Place Order</button> -->
         </div>
 
       </div>
@@ -84,7 +97,8 @@
           <div class="shipping-details">
             <h3>Shipping Details</h3>
             <hr>
-            <p>{{orderDetails.streetAddress}}</p>
+            <p>{{orderDetails.streetAddressLineOne}}</p>
+            <p>{{orderDetails.streetAddressLineTwo}}</p>
             <p>{{orderDetails.city}}</p>
             <p>{{orderDetails.country}}</p>
             <p>{{orderDetails.zipCode}}</p>
@@ -134,7 +148,7 @@
         <p>Shipping: R100</p>
         <p>Order Total: R{{orderTotal}}</p>
         <div #paypal></div>
-        <button class="btn btn-raised btn-block order-btn" (click)="stepper.reset()">Place Order</button>
+        <!-- <div #paypal class="btn btn-raised btn-block order-btn" (click)="stepper.reset()">Place Order</div> -->
         </div>
     </mat-step>
   </mat-horizontal-stepper>
