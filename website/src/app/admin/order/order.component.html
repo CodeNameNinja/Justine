@@ -1,0 +1,64 @@
+<app-sidenav></app-sidenav>
+<div class="order-container">
+  <mat-card *ngIf = '!isLoading' class = "order-items">
+    <mat-card-header>
+      <mat-card-title>
+        {{order.orderDetails.payer.name.given_name}} {{order.orderDetails.payer.name.surname}}
+      </mat-card-title>
+      <mat-card-subtitle>Ordered</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-card *ngFor = "let product of order.products" class = "order-card-container">
+        <mat-card-content>
+          <mat-card-title>{{product.product.title}}  </mat-card-title>
+          <mat-card-subtitle>Quantity: {{product.quantity}}</mat-card-subtitle>
+             <p>Reference Id: {{product.product._id}}</p>
+        </mat-card-content>
+        <img mat-card-image [src]= 'product.product.imageUrls[0]'[alt]='product.product.title'>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
+  <div *ngIf = '!isLoading' class="details">
+    <mat-card class = "order-items">
+      <mat-card-header>
+        <mat-card-title>
+          Shipping Details
+        </mat-card-title>
+        <mat-card-subtitle>Deliver the items to this address.</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{order.orderDetails.purchase_units[0].shipping.address.address_line_1}}</mat-card-title>
+            <mat-card-subtitle>{{order.orderDetails.purchase_units[0].shipping.address.address_line_2}}</mat-card-subtitle>
+            <mat-card-subtitle>{{order.orderDetails.purchase_units[0].shipping.address.admin_area_2}}</mat-card-subtitle>
+            <mat-card-subtitle>{{order.orderDetails.purchase_units[0].shipping.address.admin_area_1}}</mat-card-subtitle>
+            <mat-card-subtitle>{{order.orderDetails.purchase_units[0].shipping.address.postal_code}}</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div *ngIf = '!isLoading' class="other">
+    <mat-card class = "order-items">
+      <mat-card-header>
+        <mat-card-title>
+          More Information
+        </mat-card-title>
+        <mat-card-subtitle>Order Ref: {{order.orderDetails.id}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>This order was created at: {{order.orderDetails.create_time}}</p>
+        <p>Ordered with email address of: {{order.orderDetails.payer.email_address}}</p>
+        <p>Contact Email Address: {{order.user.name}}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div *ngIf = '!isLoading' class="amount">
+    <mat-card style = "display: flex">
+    <h3>{{order.orderDetails.payer.name.given_name}} Paid</h3>
+    <h2>${{order.orderDetails.purchase_units[0].amount.value}} {{order.orderDetails.purchase_units[0].amount.currency_code}}</h2>
+    </mat-card>
+  </div>
+  <mat-spinner *ngIf = 'isLoading' style = "position: absolute; top:50%; left: 50%;"></mat-spinner>
+</div>

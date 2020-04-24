@@ -334,6 +334,9 @@ export class OrderDialog implements OnInit {
           this.router.navigate(['/home']);
 
         },
+        onError:((err) => {
+          console.log(err)
+        })
       })
       .render(this.paypalElement.nativeElement);
   }

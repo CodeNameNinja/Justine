@@ -20,7 +20,7 @@ const routes: Routes = [
     loadChildren: () => import('./shop/shop.module').then(m => m.ShopPageModule)
   },
   {
-    path: 'admin',
+    path: 'admin/dashboard',
     canActivate: [AuthGuard],
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminPageModule)
   },

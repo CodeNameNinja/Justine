@@ -26,8 +26,8 @@ export class AuthService {
   getIsAuth() {
     return this.isAuthenticated;
   }
-  getIsAdminAuth(){
-    return this.adminIsAuthenticated
+  getIsAdminAuth() {
+    return this.adminIsAuthenticated;
   }
 
   getUserId() {
@@ -52,12 +52,12 @@ export class AuthService {
   login(email: string, password: string) {
     const authData: AuthData = {email, password };
     this.http
-      .post<{ token: string; expiresIn: number, userId: string,name: string, email: string  }>(
+      .post<{ token: string; expiresIn: number, userId: string, name: string, email: string  }>(
         `${environment.apiUrl}/user/login`,
         authData
       )
       .subscribe(response => {
-        console.log(response)
+        console.log(response);
         const token = response.token;
         this.token = token;
         if (token) {
@@ -67,9 +67,8 @@ export class AuthService {
           this.userId = response.userId;
           this.name = response.name;
           this.email = response.email;
-          if(response.email === "jmallandain@gmail.com"){
+          if (response.email === 'jmallandain@gmail.com') {
             this.adminIsAuthenticated = true;
-            console.log(this.adminIsAuthenticated)
           }
           this.authStatusListener.next(true);
           const now = new Date();
@@ -93,9 +92,13 @@ export class AuthService {
     if (expiresIn > 0) {
       this.token = authInformation.token;
       this.isAuthenticated = true;
+
       this.userId = authInformation.userId;
       this.name = authInformation.name;
       this.email = authInformation.email;
+      if (authInformation.email === 'jmallandain@gmail.com') {
+        this.adminIsAuthenticated = true;
+      }
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
 
@@ -105,11 +108,12 @@ export class AuthService {
   logout() {
     this.token = null;
     this.isAuthenticated = false;
+    this.adminIsAuthenticated = true;
     this.authStatusListener.next(false);
     this.userId = null;
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
-    console.log('logged out')
+    console.log('logged out');
     this.router.navigate(['/']);
   }
 
@@ -120,7 +124,7 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, userId: string, name: string, email:string) {
+  private saveAuthData(token: string, expirationDate: Date, userId: string, name: string, email: string) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('userId', userId);
@@ -159,7 +163,7 @@ export class AuthService {
   // Resetting Password;
 
   postReset(email) {
-    this.http.post(`${environment.apiUrl}/user/reset`, {email:email})
+    this.http.post(`${environment.apiUrl}/user/reset`, {email})
     .subscribe(response => {
       this.router.navigate(['/login']);
       console.log(response);
@@ -167,7 +171,7 @@ export class AuthService {
       console.log(err);
     });
   }
-  getNewPassword(token){
+  getNewPassword(token) {
     return this.http.get(`${environment.apiUrl}/user/reset/${token}`);
   }
   postNewPassword(userId, passwordToken, password) {

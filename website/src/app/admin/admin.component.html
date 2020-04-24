@@ -4,16 +4,37 @@
     <mat-card class="order-card">
       <mat-card-header>
         <mat-card-title
-          ><span class="material-icons"> local_shipping</span
-          >Orders</mat-card-title
+          ><span class="material-icons"> local_shipping</span>
+          Orders</mat-card-title
         >
         <mat-card-subtitle
           >Here are a list of pending orders.</mat-card-subtitle
         >
       </mat-card-header>
       <mat-card-content>
-        <h3>Order #12312345</h3>
+        <div  *ngFor = 'let order of orders' style = "margin: 2%">
+          <div class = "order-item-container">
+            <div class="order-item-details">
+              <h5>#{{order.orderDetails.id}}</h5>
+              <p>{{order.orderDetails.payer.name.given_name}} {{order.orderDetails.payer.name.surname}}</p>
+
+            </div>
+            <div class = "order-actions">
+              <button class = "order-actions-view-btn" mat-button color="primary"[routerLink] = order._id>View</button>
+            </div>
+          </div>
+          <hr>
+        </div>
+
       </mat-card-content>
+      <button *ngIf = "orders.length > 0; else NoOrders"
+        class="btn btn-sm btn-block w-100 mt-2 mb-1 align-bottom"
+       routerLink = 'orders'>
+        View More
+      </button>
+      <ng-template #NoOrders>
+        <p>No Orders</p>
+      </ng-template>
     </mat-card>
   </div>
   <div class="sales-container">
@@ -73,7 +94,7 @@
         </mat-card>
       </mat-card-content>
       <button *ngIf = "products.length > 0; else NoProducts"
-        class="btn btn-primary btn-sm btn-block w-100 mt-2 mb-1 align-bottom"
+        class="btn btn-sm btn-block w-100 mt-2 mb-1 align-bottom"
        routerLink = 'all-products'>
         View More
       </button>

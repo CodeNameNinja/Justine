@@ -20,6 +20,13 @@ export class AllProductsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getProducts()
+    this.adminService.getProductUpdateListener().subscribe(products => {
+      this.getProducts();
+    })
+
+  }
+  getProducts(){
     this.isLoading = true;
     this.adminService.getProducts()
     .pipe(
@@ -40,7 +47,6 @@ export class AllProductsComponent implements OnInit {
       this.products = transformedProducts;
       this.isLoading = false;
     });
-
   }
 
   openDialog(product = null, mode = 'create') {
@@ -87,8 +93,8 @@ export class AllProductsComponent implements OnInit {
     // console.log(id);
     this.adminService.postDeleteProduct(id)
     .subscribe(res => {
-      console.log(res);
-      this.adminService.getProducts();
+      // console.log(res);
+      this.getProducts();
       this.isLoading = false;
     });
   }

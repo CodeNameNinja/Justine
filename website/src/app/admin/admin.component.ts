@@ -6,6 +6,7 @@ import { mimeType } from './add-product/mime-type.validator';
 import { AdminService } from '../services/admin.service';
 import { Product } from '../models/product.model';
 import { map } from 'rxjs/internal/operators/map';
+import { Order } from '../models/order.model';
 
 export interface AlertData {
   prodId: string;
@@ -20,14 +21,15 @@ export interface AlertData {
 })
 export class AdminComponent implements OnInit {
   products: Product[] = [];
+  orders: Order[] = [];
   isLoading = false;
   constructor(
     public dialog: MatDialog,
     private adminService: AdminService
     ) {}
-  animal: string;
-  name: string;
+
   ngOnInit() {
+    this.getAllOrders();
     this.isLoading = true;
     this.adminService.getProducts()
     .pipe(
@@ -45,7 +47,7 @@ export class AdminComponent implements OnInit {
       })
     )
     .subscribe((transformedProducts: Product[]) => {
-      this.products = transformedProducts.splice(0,3);
+      this.products = transformedProducts.splice(0, 3);
       this.isLoading = false;
     });
   }
@@ -78,26 +80,88 @@ export class AdminComponent implements OnInit {
     const deleteProduct = (id: any) => {
       if (id !== undefined) {
         this.deleteProduct(id);
-        // this.openSnackbar('ship Removed');
       }
-
     };
 
     dialogRef.afterClosed().subscribe(id => {
-        // console.dir(id);
+
         deleteProduct(id);
     });
   }
 
   deleteProduct(id: string) {
     this.isLoading = true;
-    // console.log(id);
+
     this.adminService.postDeleteProduct(id)
     .subscribe(res => {
-      console.log(res);
+
       this.adminService.getProducts();
       this.isLoading = false;
     });
+  }
+
+  getAllOrders() {
+    this.isLoading = true;
+    this.adminService.getAllOrders().
+    pipe(
+      map(orderData => {
+        // console.log(orderData)
+        return orderData.orders.map((order: Order) => {
+          return {
+            _id: order._id,
+            orderDetails: {
+              create_time: order.orderDetails.create_time,
+              id: order.orderDetails.id,
+              payer: {
+                address: {
+                  country_code: order.orderDetails.payer.address.country_code,
+                },
+                email_address: order.orderDetails.payer.email_address,
+                name: {
+                  given_name: order.orderDetails.payer.name.given_name,
+                  surname: order.orderDetails.payer.name.surname
+                },
+                payer_id: order.orderDetails.payer.payer_id
+              },
+              purchase_units: [
+                {
+                  amount: {
+                    value: order.orderDetails.purchase_units[0].amount.value,
+                    currency_code: order.orderDetails.purchase_units[0].amount.currency_code,
+                  },
+                  payee: {
+                    email_address: order.orderDetails.purchase_units[0].payee.email_address,
+                    merchant_id: order.orderDetails.purchase_units[0].payee.merchant_id,
+                  },
+                  shipping: {
+                    address: {
+                      address_line_1: order.orderDetails.purchase_units[0].shipping.address.address_line_1,
+                      aaddress_line_2: order.orderDetails.purchase_units[0].shipping.address.address_line_2,
+                      admin_area_1: order.orderDetails.purchase_units[0].shipping.address.admin_area_1,
+                      admin_area_2: order.orderDetails.purchase_units[0].shipping.address.admin_area_2,
+                      country_code: order.orderDetails.purchase_units[0].shipping.address.country_code,
+                      postal_code: order.orderDetails.purchase_units[0].shipping.address.postal_code                    },
+                    name: {
+                      full_name: order.orderDetails.purchase_units[0].shipping.name.full_name
+                    }
+                  }
+                }
+              ]
+            },
+            products: order.products,
+            user: {
+              name: order.user.name,
+              userId: order.user.userId
+            }
+          }
+        });
+      })
+    )
+    .subscribe((transformedOrders: Order[]) => {
+      this.orders = transformedOrders.splice(0, 3);
+      this.isLoading = false;
+    },err => console.log(err));
+
   }
 
 }
@@ -200,15 +264,15 @@ export class AddProductComponent implements OnInit {
             };
             reader.readAsDataURL(file);
           }
-    console.log('this.myImages', this.myImages);
-    console.log('this.imagePreview', this.imagePreview);
-    console.log(this.imagePreview.length);
+    // console.log('this.myImages', this.myImages);
+    // console.log('this.imagePreview', this.imagePreview);
+    // console.log(this.imagePreview.length);
 
   }
 
 
   onSubmit() {
-    console.log(this.addProductForm.value);
+    // console.log(this.addProductForm.value);
     const productData = new FormData();
     const title = this.addProductForm.value.title;
     const description = this.addProductForm.value.description;
@@ -221,7 +285,7 @@ export class AddProductComponent implements OnInit {
 
 
     for (const image of this.myImages) {
-      console.log('image', image);
+      // console.log('image', image);
       if (typeof image === 'object') {
         productData.append('images[]', image, title);
         // console.log("image",image)
@@ -240,19 +304,18 @@ export class AddProductComponent implements OnInit {
     }
     if (this.mode === 'edit') {
       this.isLoading = true;
-      console.log('edit', productData.get('imageUrls'));
+      // console.log('edit', productData.get('imageUrls'));
       this.adminService.updateProduct(
         this.data.product.id,
         productData
       ).subscribe(responseData => {
-        console.log(responseData);
+        // console.log(responseData);
         this.adminService.getProducts();
         this.isLoading = false;
-      }); ;
+      });
     }
     this.addProductForm.reset();
   }
-
 
 
   }

@@ -14,7 +14,14 @@
   <div class="float-right" style = "display:flex">
     <a *ngIf="!userIsAuthenticated" class = 'nav-item nav-link' routerLink = 'signup'>Sign Up</a>
     <a *ngIf="!userIsAuthenticated" class = 'nav-item nav-link' routerLink = 'login'>login</a>
-    <button *ngIf="userIsAuthenticated" class = ' btn' (click) = onLogout()>logout</button>
-    <a *ngIf="userIsAuthenticated"class = 'nav-item nav-link cart__link' (click) ="shopService.toggleSideNav()"><span class="material-icons cart" >shopping_cart </span><span *ngIf = 'shopService.CartLength > 0'class = "cart__total">{{shopService.CartLength}}</span></a>
+    <button *ngIf="userIsAuthenticated" mat-button [matMenuTriggerFor]="menu"><span class="material-icons">
+      person
+      </span></button>
+    <mat-menu  #menu="matMenu">
+    <button mat-menu-item>My Orders</button>
+    <button *ngIf="authService.getIsAdminAuth()" mat-menu-item class = ' btn' [routerLink] = "['/admin/dashboard']">Admin</button>
+    <button   mat-menu-item class = ' btn' (click) = onLogout()>logout</button>
+   </mat-menu>
+    <button mat-button *ngIf="userIsAuthenticated"class = 'nav-item nav-link cart__link' (click) ="shopService.toggleSideNav()"><span class="material-icons cart" >shopping_cart </span><span *ngIf = 'shopService.CartLength > 0'class = "cart__total">{{shopService.CartLength}}</span></button>
   </div>
 </nav>

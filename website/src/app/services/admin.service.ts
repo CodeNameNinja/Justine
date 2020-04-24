@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Order } from '../models/order.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -68,4 +69,11 @@ updateProduct(id, productData: FormData) {
 
 }
 
+getAllOrders(){
+  return this.http.get<{message:string, orders:any}>(`${environment.apiUrl}/admin/orders`);
+}
+
+getOrder(id:string){
+  return this.http.get<{message:string, order:any}>(`${environment.apiUrl}/admin/order/${id}`);
+}
 }

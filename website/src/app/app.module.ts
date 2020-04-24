@@ -8,7 +8,8 @@ import {
   MatInputModule,
   MatStepperModule,
   MatTableModule,
-  MatSelectModule
+  MatSelectModule,
+  MatMenuModule
  } from '@angular/material';
 import { NgModule } from '@angular/core';
 
@@ -28,6 +29,7 @@ import { ErrorComponent } from './error/error.component';
 import { ResetComponent } from './auth/reset/reset.component';
 import { NewPasswordComponent } from './auth/new-password/new-password.component';
 import { SuccessComponent } from './success/success.component';
+import { FooterComponent } from './footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +42,7 @@ import { SuccessComponent } from './success/success.component';
     ResetComponent,
     NewPasswordComponent,
     SuccessComponent,
+    FooterComponent
       ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { SuccessComponent } from './success/success.component';
     MatStepperModule,
     ReactiveFormsModule,
     MatTableModule,
-    MatSelectModule
+    MatSelectModule,
+    MatMenuModule
   ],
   entryComponents:[OrderDialog,ErrorComponent],
   providers: [

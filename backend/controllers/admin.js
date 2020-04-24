@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const Order = require('../models/order');
 var ObjectID = require('mongodb').ObjectID;
 exports.getProducts = (req, res) => {
   Product.find().then(products => {
@@ -14,10 +15,6 @@ exports.getProducts = (req, res) => {
   })
 }
 exports.postAddProduct = (req, res, next) => {
-    console.log(req.body)
-    console.log(req.files);
-    
-   
     const url = req.protocol + '://' + req.get('host');
     const title = req.body.title;
     const description = req.body.description;
@@ -33,7 +30,7 @@ exports.postAddProduct = (req, res, next) => {
       amount: amount,
       category: category,
       imageUrls: imageUrls,
-      userId: req.user
+      userId: req.userData.userId
     });
     product
       .save()
@@ -102,7 +99,7 @@ exports.postAddProduct = (req, res, next) => {
       amount: amount,
       category: category,
       imageUrls: imageUrls,
-      userId: req.user
+      userId: req.userData.userId
     });
     // console.log(product);
     
@@ -114,4 +111,26 @@ exports.postAddProduct = (req, res, next) => {
         message:"failed to update product."
       })
     });
+  }
+
+  exports.getAllOrders = (req, res) => {
+    Order.find()
+    .then(orders => {
+      res.status(200).json({
+        message: "Orders fetched successfully!",
+        orders: orders
+      })
+    })
+    .catch( err => json.status(500).json({message:'failed to get orders'}))
+  }
+
+  exports.getOrder = (req,res) => {    
+    Order.findById(req.params.id)
+    .then(order => {
+      res.status(200).json({
+        message: "Order fetched successfully!",
+        order:order
+      })
+    })
+   
   }
