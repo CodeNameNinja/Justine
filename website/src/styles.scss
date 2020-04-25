@@ -35,7 +35,29 @@
   src: url('assets/fonts/proxima_nova_black.otf');
   font-weight: 900;
 }
+@font-face {
+  font-family: Montserrat;
+  src: url('assets/fonts/Montserrat-Light.ttf');
+  font-weight: 200;
+}
+@font-face {
+  font-family: Montserrat;
+  src: url('assets/fonts/Montserrat-Regular.ttf');
+  font-weight: 400;
+}
+@font-face {
+  font-family: Montserrat;
+  src: url('assets/fonts/Montserrat-SemiBold.ttf');
+  font-weight: 600;
+}
+@font-face {
+  font-family: Montserrat;
+  src: url('assets/fonts/Montserrat-Medium.ttf');
+  font-weight: 700;
+}
 
-
+*{
+  font-family: 'Montserrat';
+}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

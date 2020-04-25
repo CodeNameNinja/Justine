@@ -16,6 +16,7 @@ import {
 
 } from '@angular/material';
 import { FilterBarComponent } from './filter-bar/filter-bar.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -32,7 +33,7 @@ import { FilterBarComponent } from './filter-bar/filter-bar.component';
     MatCheckboxModule,
 
    ],
-  declarations: [ShopComponent, FilterBarComponent],
+  declarations: [ShopComponent, FilterBarComponent, ProductDetailsComponent],
   providers: [],
 })
 export class ShopPageModule {}

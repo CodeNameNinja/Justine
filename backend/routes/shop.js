@@ -10,7 +10,7 @@ const checkAuth = require("../middleware/check-auth");
 
 // router.get('/products', shopController.getProducts);
 
-// router.get('/products/:productId', shopController.getProduct);
+router.get('/product/:productId', shopController.getProduct);
 
 router.get('/cart',checkAuth, shopController.getCart);
 

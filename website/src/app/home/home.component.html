@@ -63,12 +63,12 @@
       <p class = 'arrived-card-title'>{{product.title}}</p>
       <p class = 'arrived-card-price'>R{{product.amount}}</p>
       <div class="card-actions">
-        <div *ngIf= "userIsAuthenticated" class="add-to-cart" >
+        <div *ngIf= "userIsAuthenticated" class="add-to-cart" (click) = 'addToCart(product.id)'>
           <span class="material-icons">
             shopping_cart
             </span>
         </div>
-        <div class="view-item" >
+        <div class="view-item" [routerLink] = "['/shop/',product.id]">
           <span class="material-icons">
             visibility
             </span>

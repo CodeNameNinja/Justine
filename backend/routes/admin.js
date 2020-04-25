@@ -35,7 +35,7 @@ let upload = multer({storage});
 // router.get('/products', adminController.getProducts);
 
 // /admin/add-product => POST
-router.get('/add-product',checkAuth, adminController.getProducts);
+router.get('/add-product', adminController.getProducts);
 router.post('/add-product',checkAuth,upload.array("images[]", 12), adminController.postAddProduct);
 
 // router.get('/edit-product/:productId', adminController.getEditProduct);

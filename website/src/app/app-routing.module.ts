@@ -28,6 +28,9 @@ const routes: Routes = [
   { path: 'reset', component: ResetComponent },
   { path: 'reset/:token', component: NewPasswordComponent },
   { path: 'signup', component: SignupComponent },
+
+  {path: 'my-account/:userId', loadChildren: () => import('./my-account/my-account.module').then(m => m.MyAccountModule)},
+  { path: '**', redirectTo: '/home' }
 ];
 
 @NgModule({

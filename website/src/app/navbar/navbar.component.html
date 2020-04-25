@@ -18,7 +18,7 @@
       person
       </span></button>
     <mat-menu  #menu="matMenu">
-    <button mat-menu-item>My Orders</button>
+    <button mat-menu-item [routerLink] = "['/my-account/', authService.getUserId()]">My Account</button>
     <button *ngIf="authService.getIsAdminAuth()" mat-menu-item class = ' btn' [routerLink] = "['/admin/dashboard']">Admin</button>
     <button   mat-menu-item class = ' btn' (click) = onLogout()>logout</button>
    </mat-menu>

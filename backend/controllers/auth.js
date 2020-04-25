@@ -211,4 +211,15 @@ exports.postNewPassword = (req, res, next) => {
     .catch(err => {
       console.log(err);
     });
+
 };
+
+exports.getUser = (req,res) => {
+  User.findById(req.params.userId)
+  .then(user => {
+    res.status(200).json({
+      message: "succesfully retrieved a user",
+      user: user
+    })
+  })
+}

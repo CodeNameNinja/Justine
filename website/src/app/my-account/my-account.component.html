@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="header">
+    <h1>My Account</h1>
+  </div>
+  <div class="account-grid">
+    <div class="sidenavbar">
+      <mat-list role="list">
+        <mat-list-item role="listitem" routerLink="my-details" routerLinkActive="active-link" matRipple [matRippleColor]="'#f1f1f1'">
+          <mat-icon matListIcon>account_circle</mat-icon>
+          <h3 matLine>My details</h3>
+        </mat-list-item>
+        <mat-list-item role="listitem" routerLink="my-address" routerLinkActive="active-link" matRipple [matRippleColor]="'#f1f1f1'">
+          <mat-icon matListIcon>person_pin_circle</mat-icon>
+          My address book
+        </mat-list-item>
+        <mat-list-item role="listitem" routerLink="my-orders" routerLinkActive="active-link" matRipple [matRippleColor]="'#f1f1f1'">
+          <mat-icon matListIcon>local_shipping</mat-icon>
+          My orders
+        </mat-list-item>
+      </mat-list>
+
+    </div>
+    <div class="container">
+      <mat-card>
+        <router-outlet></router-outlet>
+      </mat-card>
+
+    </div>
+  </div>
+  </div>
+

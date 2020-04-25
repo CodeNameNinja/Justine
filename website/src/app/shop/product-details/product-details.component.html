@@ -1,0 +1,33 @@
+<div *ngIf = "product" class="container-fluid product-grid">
+ <div class="display-image">
+  <section>
+    <div class="container">
+        <div class="carousel">
+            <input *ngFor = "let image of product.imageUrls"type="radio" name="slides" checked="checked" [id]="image">
+            <ul class="carousel__slides">
+                <li *ngFor = "let image of product.imageUrls" class="carousel__slide">
+                    <figure>
+                        <div>
+                            <img [src]="image" [alt]='product.title' style ="height: auto; width: auto">
+                        </div>
+                    </figure>
+                </li>
+            </ul>
+            <ul class="carousel__thumbnails">
+                <li *ngFor = "let image of product.imageUrls">
+                    <label [for]="image"><img [src]="image" [alt]="product.title"></label>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+ </div>
+ <div class="product-details">
+  <div class = "flat-box catagory"><p>{{product.category | uppercase}}</p></div>
+  <h1>{{product.title}}.</h1>
+  <h3>R{{product.amount}}</h3>
+  <p>{{product.description}}</p>
+  <div class="flat-box addtocart" (click) = 'addToCart(product.id)'><h4>Add to Cart</h4></div>
+ </div>
+</div>
+

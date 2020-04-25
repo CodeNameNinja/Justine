@@ -25,6 +25,9 @@ export class ShopService {
   public toggleSideNav(): void {
     this.hideSideNav = !this.hideSideNav;
   }
+  public closeSideNav(): void {
+    this.hideSideNav = true;
+  }
 
   public toggleSuccessMessage(): void {
     this.hideSuccessMessage = !this.hideSuccessMessage;
@@ -44,6 +47,10 @@ export class ShopService {
   createOrder(orderDetails){
     return this.http.post(`${environment.apiUrl}/shop/create-order`, {orderDetails});
 
+  }
+
+  getProduct(id){
+    return this.http.get<{message:string, product:any}>(`${environment.apiUrl}/shop/product/${id}`);
   }
 
 }

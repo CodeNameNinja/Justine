@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 
 import { AuthData } from '../models/auth-data.model';
 import { environment } from 'src/environments/environment';
+import { ShopService } from './shop.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -17,7 +18,8 @@ export class AuthService {
   public email: string;
   private authStatusListener = new Subject<boolean>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router,
+    private shopService: ShopService) {}
 
   getToken() {
     return this.token;
@@ -27,6 +29,7 @@ export class AuthService {
     return this.isAuthenticated;
   }
   getIsAdminAuth() {
+    // console.log(this.adminIsAuthenticated)
     return this.adminIsAuthenticated;
   }
 
@@ -57,7 +60,7 @@ export class AuthService {
         authData
       )
       .subscribe(response => {
-        console.log(response);
+        // console.log(response);
         const token = response.token;
         this.token = token;
         if (token) {
@@ -73,7 +76,7 @@ export class AuthService {
           this.authStatusListener.next(true);
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          console.log(expirationDate);
+          // console.log(expirationDate);
           this.saveAuthData(token, expirationDate, this.userId, this.name, this.email);
           this.router.navigate(['/']);
         }
@@ -108,9 +111,10 @@ export class AuthService {
   logout() {
     this.token = null;
     this.isAuthenticated = false;
-    this.adminIsAuthenticated = true;
+    this.adminIsAuthenticated = false;
     this.authStatusListener.next(false);
     this.userId = null;
+    this.shopService.closeSideNav();
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
     console.log('logged out');
@@ -118,7 +122,7 @@ export class AuthService {
   }
 
   private setAuthTimer(duration: number) {
-    console.log('Setting timer: ' + duration);
+    // console.log('Setting timer: ' + duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);
@@ -166,7 +170,7 @@ export class AuthService {
     this.http.post(`${environment.apiUrl}/user/reset`, {email})
     .subscribe(response => {
       this.router.navigate(['/login']);
-      console.log(response);
+      // console.log(response);
     }, err => {
       console.log(err);
     });
@@ -178,9 +182,13 @@ export class AuthService {
     this.http.post(`${environment.apiUrl}/user/new-password`, {userId, passwordToken, password})
     .subscribe(response => {
       this.router.navigate(['/login']);
-      console.log(response);
+      // console.log(response);
     }, err => {
       console.log(err);
     });
+  }
+
+  getUser(userId) {
+    return this.http.get<{message:string, user: any}>(`${environment.apiUrl}/user/${userId}`);
   }
 }

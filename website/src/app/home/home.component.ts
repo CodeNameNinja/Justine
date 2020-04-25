@@ -54,6 +54,13 @@ private authListenerSubs: Subscription;
       this.isLoading = false;
     });
   }
+  addToCart(id){
+    this.shopService.addToCart(id).subscribe((cart) => {
+      this.shopService.updateCart.next(cart);
+      // console.log("response", response)
+    });
+
+  }
   ngOnDestroy() {
     this.authListenerSubs.unsubscribe();
   }

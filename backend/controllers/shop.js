@@ -123,3 +123,13 @@ exports.getOrders = (req, res, next) => {
     })
     .catch(err => console.log(err));
 };
+
+exports.getProduct = (req, res) => {
+  Product.findById(req.params.productId)
+  .then(product => {
+    res.status(200).json({
+      message: "succesfully retrieved product",
+      product: product
+    })
+  })
+}
