@@ -1,5 +1,47 @@
 <div class="container">
   <mat-card-title>My Address</mat-card-title>
   <mat-card-subtitle>Shipping Address</mat-card-subtitle>
-  <hr>
+  <hr />
+  <div class="container" style = 'margin-bottom:3%'>
+    <form [formGroup]="ShippingBillingForm">
+    <!-- <form> -->
+      <ng-template matStepLabel>Fill out your address</ng-template>
+      <mat-form-field>
+        <mat-label>Street Address</mat-label>
+        <input matInput formControlName="streetAddressLineOne" placeholder="Ex. 123 Abc Street"
+               required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Address Line 2</mat-label>
+        <input matInput formControlName="streetAddressLineTwo" placeholder="Ex.Apt 20"
+               required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Province</mat-label>
+        <mat-select formControlName = "province">
+          <mat-option *ngFor="let province of provinces" [value]="province.value">
+            {{province.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Country</mat-label>
+        <input matInput formControlName="country" placeholder="South Africa"
+               required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>City</mat-label>
+        <input matInput formControlName="city" placeholder="Hermanus"
+               required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>ZIP/Postal Code</mat-label>
+        <input matInput formControlName="postalCode" placeholder="7200"
+               required>
+      </mat-form-field>
+      <div>
+        <button mat-raised-button class ="btn-primary" (click) = "onSaveShippingDetails()">Save</button>
+      </div>
+    </form>
+  </div>
 </div>

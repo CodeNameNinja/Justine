@@ -4,20 +4,36 @@
   <mat-card-subtitle>Personal Information</mat-card-subtitle>
   <hr />
   <div class="container" style = 'margin-bottom:3%'>
-    <form>
+    <form (submit) = onSaveDetails() #f = ngForm>
       <div class = 'names'>
         <mat-form-field appearance="outline">
           <mat-label>First Name</mat-label>
-          <input matInput type="text">
+          <input
+          matInput
+          ngModel
+          type="text"
+          name = 'firstName'
+          id = "firstName"
+          >
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Last Name</mat-label>
-          <input matInput type="text">
+          <input
+          matInput
+          type="text"
+          name = 'lastName'
+          id = "lastName"
+          ngModel>
         </mat-form-field>
       </div>
       <mat-form-field appearance="outline">
         <mat-label>Phone Number</mat-label>
-        <input matInput type="text">
+        <input
+        matInput
+        type="text"
+        name = 'phoneNumber'
+        id = "phoneNumber"
+        ngModel>
       </mat-form-field>
       <p>keep 9-digit format with no spaces and dashes</p>
       <button mat-raised-button color="primary">Save</button>
@@ -28,10 +44,16 @@
 <mat-card-subtitle>Contact Email Address</mat-card-subtitle>
 <hr>
 <div class="container">
-  <form>
+  <form (submit) = onSaveEmail(emailForm) #emailForm = "ngForm">
   <mat-form-field appearance="outline">
         <mat-label>Email Address</mat-label>
-        <input matInput type="emal">
+        <input
+        matInput
+        ngModel
+        type="emal"
+        id = "email"
+        name = "email">
+
   </mat-form-field>
       <button mat-raised-button color="primary">Save</button>
     </form>

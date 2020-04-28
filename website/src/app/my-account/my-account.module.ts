@@ -9,13 +9,14 @@ import {
   MatCardModule,
   MatInputModule,
   MatFormFieldModule,
-  MatButtonModule
+  MatButtonModule,
+  MatSelectModule
 } from '@angular/material'
 import { MyAccountComponent } from './my-account.component';
 import { AddressComponent } from './address/address.component';
 import { DetailsComponent } from './details/details.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,
@@ -28,7 +29,9 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     MatFormFieldModule,
     FormsModule,
-    MatButtonModule
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatSelectModule
   ],
   declarations: [MyAccountComponent, AddressComponent, DetailsComponent, MyOrdersComponent],
   providers:[]

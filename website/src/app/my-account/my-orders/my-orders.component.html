@@ -1,1 +1,10 @@
-<p>my-orders works!</p>
+<div class="container">
+  <mat-card-title>My Orders</mat-card-title>
+  <hr />
+  <div class="container">
+    <mat-card *ngFor = "let order of orders" style = "margin: 5px 0px">
+      <mat-card-title>#{{order.orderDetails.id}}</mat-card-title>
+      <mat-card-subtitle>pending</mat-card-subtitle>
+    </mat-card>
+  </div>
+  </div>

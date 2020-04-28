@@ -7,8 +7,8 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class ShopService {
-  hideSideNav: boolean = true;
-  hideSuccessMessage: boolean = true;
+  hideSideNav = true;
+  hideSuccessMessage = true;
   updateCart = new Subject();
   getCartLength = new Subject();
   CartLength;
@@ -19,7 +19,7 @@ export class ShopService {
     this.getCartLength.subscribe(length => {
       this.CartLength = length;
       // console.log(length)
-    })
+    });
   }
 
   public toggleSideNav(): void {
@@ -34,23 +34,27 @@ export class ShopService {
     // console.log(this.hideSuccessMessage)
   }
 
-  public getCart(){
+  public getCart() {
     return this.http.get(`${environment.apiUrl}/shop/cart`);
   }
   addToCart(id) {
    return this.http.post(`${environment.apiUrl}/shop/cart`, {id});
   }
-  deleteProduct(id){
+  deleteProduct(id) {
     return this.http.post(`${environment.apiUrl}/shop/cart-delete-item`, {id});
   }
 
-  createOrder(orderDetails){
+  createOrder(orderDetails) {
     return this.http.post(`${environment.apiUrl}/shop/create-order`, {orderDetails});
 
   }
 
-  getProduct(id){
-    return this.http.get<{message:string, product:any}>(`${environment.apiUrl}/shop/product/${id}`);
+  getProduct(id) {
+    return this.http.get<{message: string, product: any}>(`${environment.apiUrl}/shop/product/${id}`);
+  }
+
+  getOrder() {
+    return this.http.get<{message: string, orders: any}>(`${environment.apiUrl}/shop/orders`);
   }
 
 }

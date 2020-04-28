@@ -90,7 +90,8 @@ exports.postLogin = (req,res,next) => {
         expiresIn: 3600,
         userId: fetchedUser._id,
         name: fetchedUser.firstName + " " + fetchedUser.lastName,
-        email:fetchedUser.email
+        email:fetchedUser.email,
+        phoneNumber: fetchedUser.phoneNumber
       });
     })
     .catch(err => {
@@ -222,4 +223,56 @@ exports.getUser = (req,res) => {
       user: user
     })
   })
+}
+
+exports.updateUser = (req,res) => {
+// console.log(req.body);
+  User.findById(req.userData.userId)
+  .then(user => {
+    user.firstName = req.body.firstName;
+    user.lastName = req.body.lastName;
+    user.phoneNumber = req.body.phoneNumber;
+    return user.save();
+  })
+  .then(() => {
+    res.status(200).json({
+      message: "Succesfully Updated User."
+    })
+  })
+  .catch(err => console.log(err))
+}
+exports.updateEmail= (req,res) => {
+// console.log(req.body);
+  User.findById(req.userData.userId)
+  .then(user => {
+    user.email = req.body.email;
+    return user.save();
+  })
+  .then(() => {
+    res.status(200).json({
+      message: "Succesfully Updated User."
+    })
+  })
+  .catch(err => res.status(500).json({
+    message: "That Email Address Already Exists."
+  }))
+}
+
+
+exports.updateShipping = (req,res) => {
+  User.findById(req.userData.userId)
+  .then(user => {
+    user.shippingDetails.streetAddressLineOne =  req.body.streetAddressLineOne,
+    user.shippingDetails.streetAddressLineTwo = req.body.streetAddressLineTwo,
+    user.shippingDetails.province = req.body.province,
+    user.shippingDetails.country = req.body.country,
+    user.shippingDetails.city = req.body.city,
+    user.shippingDetails.zipCode = req.body.postalCode;
+    return user.save();
+  }).then(() => {
+    res.status(200).json({
+      message: "Succesfully Updated User."
+    })
+  })
+  .catch(err => console.log(err))
 }

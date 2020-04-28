@@ -1,43 +1,54 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   firstName: {
     type: String,
-    required: true
+    required: true,
   },
   lastName: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true 
+    unique: true,
+  },
+  phoneNumber: {
+    type: String,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
-  resetToken:String,
-  resetTokenExpiration:Date,
+  resetToken: String,
+  resetTokenExpiration: Date,
   cart: {
     items: [
       {
         productId: {
           type: Schema.Types.ObjectId,
-          ref: 'Product',
-          required: true
+          ref: "Product",
+          required: true,
         },
-        quantity: { type: Number, required: true }
-      }
-    ]
-  }
+        quantity: { type: Number, required: true },
+      },
+    ],
+  },
+  shippingDetails: {
+    streetAddressLineOne: String,
+    streetAddressLineTwo: String,
+    province: String,
+    country: String,
+    city: String,
+    zipCode: Number,
+  },
 });
 
-userSchema.methods.addToCart = function(product) {
-  const cartProductIndex = this.cart.items.findIndex(cp => {
+userSchema.methods.addToCart = function (product) {
+  const cartProductIndex = this.cart.items.findIndex((cp) => {
     return cp.productId.toString() === product._id.toString();
   });
   let newQuantity = 1;
@@ -49,27 +60,27 @@ userSchema.methods.addToCart = function(product) {
   } else {
     updatedCartItems.push({
       productId: product._id,
-      quantity: newQuantity
+      quantity: newQuantity,
     });
   }
   const updatedCart = {
-    items: updatedCartItems
+    items: updatedCartItems,
   };
   this.cart = updatedCart;
   return this.save();
 };
 
-userSchema.methods.removeFromCart = function(productId) {
-  const updatedCartItems = this.cart.items.filter(item => {
+userSchema.methods.removeFromCart = function (productId) {
+  const updatedCartItems = this.cart.items.filter((item) => {
     return item.productId.toString() !== productId.toString();
   });
   this.cart.items = updatedCartItems;
   return this.save();
 };
 
-userSchema.methods.clearCart = function() {
+userSchema.methods.clearCart = function () {
   this.cart = { items: [] };
   return this.save();
 };
 userSchema.plugin(uniqueValidator);
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);

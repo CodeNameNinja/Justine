@@ -115,11 +115,12 @@ exports.getCart = (req, res, next) => {
 };
 
 exports.getOrders = (req, res, next) => {
-  Order.find({ 'user.userId': req.userData._id })
+  Order.find({ 'user.userId': req.userData.userId })
     .then(orders => {
-      res.status(200).json([
-        ...orders
-      ])
+      res.status(200).json({
+        message: "Succesfully retrieved orders",
+        orders: orders
+      })
     })
     .catch(err => console.log(err));
 };

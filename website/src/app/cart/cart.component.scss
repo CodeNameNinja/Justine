@@ -3,7 +3,7 @@
  /* The side navigation menu */
  #sidebar {
   height: 100%; /* 100% Full-height */
-  width: 20%; /* 0 width - change this with JavaScript */
+  min-width: 350px; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
@@ -55,11 +55,11 @@
     margin-right: -20%;
   }
   @media (max-width: 575px) {
-    #sidebar {
-        margin-right: -200px;
-    }
+    // #sidebar {
+    //     margin-right: -100%;
+    // }
     #sidebar.hidden {
-        margin-right: 0;
+        margin-right: -100%;
     }
   }
 

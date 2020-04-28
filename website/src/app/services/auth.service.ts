@@ -16,8 +16,9 @@ export class AuthService {
   private userId: string;
   public name: string;
   public email: string;
+  public phoneNumber: string;
   private authStatusListener = new Subject<boolean>();
-
+  private shippinggDetails;
   constructor(private http: HttpClient, private router: Router,
     private shopService: ShopService) {}
 
@@ -41,6 +42,7 @@ export class AuthService {
     return this.authStatusListener.asObservable();
   }
 
+
   createUser(firstName: string, lastName: string, email: string, password: string) {
     const authData: AuthData = { firstName, lastName, email, password };
     return this.http
@@ -55,7 +57,7 @@ export class AuthService {
   login(email: string, password: string) {
     const authData: AuthData = {email, password };
     this.http
-      .post<{ token: string; expiresIn: number, userId: string, name: string, email: string  }>(
+      .post<{ token: string; expiresIn: number, userId: string, name: string, email: string, phoneNumber: string  }>(
         `${environment.apiUrl}/user/login`,
         authData
       )
@@ -70,6 +72,7 @@ export class AuthService {
           this.userId = response.userId;
           this.name = response.name;
           this.email = response.email;
+          this.phoneNumber = response.phoneNumber;
           if (response.email === 'jmallandain@gmail.com') {
             this.adminIsAuthenticated = true;
           }
@@ -77,7 +80,7 @@ export class AuthService {
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           // console.log(expirationDate);
-          this.saveAuthData(token, expirationDate, this.userId, this.name, this.email);
+          this.saveAuthData(token, expirationDate, this.userId, this.name, this.email, this.phoneNumber);
           this.router.navigate(['/']);
         }
       }, error => {
@@ -99,6 +102,7 @@ export class AuthService {
       this.userId = authInformation.userId;
       this.name = authInformation.name;
       this.email = authInformation.email;
+      this.phoneNumber = authInformation.phoneNumber;
       if (authInformation.email === 'jmallandain@gmail.com') {
         this.adminIsAuthenticated = true;
       }
@@ -128,12 +132,13 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, userId: string, name: string, email: string) {
+  private saveAuthData(token: string, expirationDate: Date, userId: string, name: string, email: string, phoneNumber: string) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('userId', userId);
     localStorage.setItem('name', name);
     localStorage.setItem('email', email);
+    localStorage.setItem('phoneNumber', phoneNumber);
   }
 
   private clearAuthData() {
@@ -142,6 +147,7 @@ export class AuthService {
     localStorage.removeItem('userId');
     localStorage.removeItem('name');
     localStorage.removeItem('email');
+    localStorage.removeItem('phoneNumber');
   }
 
   private getAuthData() {
@@ -150,6 +156,7 @@ export class AuthService {
     const userId = localStorage.getItem('userId');
     const name = localStorage.getItem('name');
     const email = localStorage.getItem('email');
+    const phoneNumber = localStorage.getItem('phoneNumber');
     if (!token || !expirationDate) {
       return;
     }
@@ -158,7 +165,8 @@ export class AuthService {
       expirationDate: new Date(expirationDate),
       userId,
       name,
-      email
+      email,
+      phoneNumber
     };
   }
 
@@ -190,5 +198,15 @@ export class AuthService {
 
   getUser(userId) {
     return this.http.get<{message:string, user: any}>(`${environment.apiUrl}/user/${userId}`);
+  }
+
+  updateUser(userData){
+    return this.http.post(`${environment.apiUrl}/user/update`, userData);
+  }
+  updateEmail(emailData){
+    return this.http.post(`${environment.apiUrl}/user/update/email`, emailData);
+  }
+  updateShippingDetails(shippingDetails){
+    return this.http.post(`${environment.apiUrl}/user/update/shipping-details`, shippingDetails);
   }
 }
