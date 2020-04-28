@@ -1,95 +1,174 @@
+
 .main-header-container{
+  position: relative;
   display: grid;
   height: 95vh;
-  grid-template-columns: 1fr 1fr 2fr;
-  grid-template-rows: 4fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 3fr 1fr;
   grid-template-areas:
-    "main     main       main-hero"
-    "shop-now view-deals main-hero"
-}
-.main-header__main{
-  grid-area: main;
-  background-color: var(--jet);
-  height: 100%;
-  width: 100%;
-}
-.main-header__main h1{
-  font-family: 'ProximaNova';
-  font-weight: bold;
-  color:var(--white);
-  width: 75%;
-  height: 100%;
-  font-size: 5vw;
-  margin: 2rem;
-  position: relative;
-  top: 15%;
-}
-.main-header_shop_now{
-  grid-area: shop-now;
-  background-color: var(--isabelline);
-  color: var(--nickel)
-}
-.main-header_shop_now:hover{
-  background-color: var(--jet);
-  color: var(--white);
-  cursor: pointer;
+    "main  main-hero"
+    "main  main-hero";
+    text-transform: uppercase;
 }
 
-.main-header-container h2{
-  font-family: 'ProximaNova';
-  font-weight: bold;
-  width: 75%;
-  font-size: 2vw;
-  margin: 2rem;
+.main-header__main{
+  grid-area: main;
+  background-color: var(--Primary);
+  height: 100%;
+  width: 100%;
+  display:grid;
+  grid-template-rows: 2fr 1fr;
+  grid-template-areas:
+  "title"
+  "actions";
+}
+
+.main-header__title {
+  grid-area: title;
+  h1{
+    font-weight: bold;
+    color:var(--white);
+    width: 75%;
+    height: 100%;
+    font-size: calc(25px + (60 - 14) * ((100vw - 300px) / (1600 - 300)));
+    margin: 2rem;
+    position: relative;
+    top: 15%;
+    letter-spacing: 2px;
+  }
+}
+.main-header__actions{
+  grid-area: actions;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  height:100%;
+  justify-items:start;
   position: relative;
-  top: 15%;
+  bottom: 5vh;
+  text-align:center
 }
-.main-header_view-deals{
-  grid-area:view-deals;
-  background-color: var(--columbia-blue);
-  color: var(--white)
+.main-header_shop_now{
+  position: relative;
+  background-color: var(--isabelline);
+  color: var(--nickel);
+  left: 15%;
 }
-.main-header_view-deals:hover{
+
+.hover-color:hover{
   background-color: var(--jet);
   color: var(--white);
   cursor: pointer;
+
+}
+.hover-color{
+  transition: background-color 0.5s, color 0.5s;
+}
+.main-header-container h2{
+  position: relative;
+width: 100%;
+font-size: 1.5vw;
+display: flex;
+left: 50%;
+transform: translate(-50%, -50%);
+justify-content: center;
+align-items: center;
+}
+.main-header-container span{
+margin-left: 3%;
+font-size:100%;
+}
+.main-header_view-deals{
+  background-color: var(--Secondary);
+  color: var(--white);
+  right: 15%;
 }
 .main-header_hero-image{
 grid-area: main-hero;
-background: url('../../assets/home/alex-header-image.png') no-repeat;
-background-size: cover;
-background-position: 50% 80%;
+background: #CBCAD1 no-repeat;
+img{
+  border: 2px solid var(--Primary);
+  width: auto;
+  height: 100%;
+  margin: 0 auto;
+  display: inherit;
+}
+}
+
+
+.circle{
+  position: relative;
+  display: inline-block;
+  width: 50%;
+  height: 0;
+  padding: 25% 0;
+  border-radius: 50%;
+}
+.circle-sm{
+  border-radius: 50%;
+  height: 50px;
+  width:   50px;
+  position: absolute;
+  left:10%;
+  bottom: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 // Categories section
+.btn-circle.btn-sm {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 0;
+  padding: 50% 0;
+  border-radius: 50%;
+  line-height: 0;
+  min-width:75px;
+  p{
+    position: relative;
+    width: 100%;
+    font-size: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+}
+
 .categories-container{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   height: auto;
   margin: 2em;
   gap:1em;
+  font-family: 'PTSans';
+  text-transform: uppercase;
 }
 .category-card{
   height:auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  color:white;
 }
 .category-card__header{
   grid-column: 1/2;
-  background-color: var(--columbia-blue);
+  background-color: var(--Primary);
   position:relative;
 }
+
+
 .category-card__header h3{
-  font-family: 'ProximaNova';
   width: 75%;
-  font-size: 1.5vw;
+  font-size: calc(25px + (35 - 25) * ((100vw - 300px) / (1600 - 300)));
 }
 .category-card__image{
+
   grid-column: 2/3;
   width: 100%;
   height: 100%;
 }
 .category-card__image img{
+  object-fit: cover;
   width: 100%;
+  height:100%;
 }
 .bottom{
   position: absolute;
@@ -97,11 +176,12 @@ background-position: 50% 80%;
   padding: 5%
 }
 .btn{
-  color:var(--white);
-  background-color:var(--jet);
-  border-radius: 0px;
+  color:var(--onyx);
+  background-color:var(--isabelline);
+  font-size: 1em;
+  text-transform: uppercase;
 }
-// Newly Arrived
+// Newly Arriveds
 .newly-arrived-container{
   display:grid;
   height:75%;
@@ -134,15 +214,20 @@ background-position: 50% 80%;
   grid-template-rows: 2fr 0.2fr 0.2fr;
   width: 100%;
   height:100%;
+  min-height: 60vh;
   padding:5%;
 }
 .arrived-card-image{
   grid-area: 1/1/2/3;
   width: 100%;
-  height: auto;
+  height: 100%;
   position: absolute;
   bottom: 0;
-
+img{
+  object-fit:cover;
+  width:100%;
+  height:100%;
+}
 }
 .arrived-card-title{
   grid-area: 2/1/3/2;
@@ -170,16 +255,44 @@ background-position: 50% 80%;
 }
 .add-to-cart{
   position: relative;
-  background-color:var(--columbia-blue);
+  background-color:var(--Primary);
   color: var(--white);
 }
 .view-item{
   position: relative;
-  background-color:var(--periwinkle);
+  background-color:var(--isabelline);
   color: var(--nickel);
 }
 .add-to-cart:hover,.view-item:hover {
   background-color: var(--jet);
   color:var(--white) !important;
   cursor: pointer;
+}
+@media only screen and (max-width: 600px) {
+
+.main-header-container{
+grid-template-columns: 1fr;
+grid-template-rows: 2fr 1fr;
+height:auto;
+grid-template-areas:
+"main-hero"
+"main";
+ img{
+   height: 100%;
+   width: 100%;
+ }
+.main-header__actions h2{
+  font-size: 2.5vw;
+}
+}
+.categories-container{
+  grid-template-columns: 1fr;
+}
+.newly-arrived-grid-container{
+  grid-template-columns: 1fr;
+}
+
+.arrived-card-container{
+  min-height:500px;
+}
 }

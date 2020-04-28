@@ -13,27 +13,16 @@
   --isabelline: #efefef;
   --columbia-blue: #c4dacf;
 
-  --Primary: #71f79f ;
-  --Primary-light: #92febd ;
-  --Secondary: #cc998d ;
-  --Tertiary: #16f4d0 ;
-  --Tertiary-Shade: #15b097;
+  --Primary: #29524A ;
+  --Secondary: #C4D6B0 ;
+  --Tertiary: #709775 ;
+  --Grey: #C4DACF;
 }
 
 @font-face {
   font-family: ProximaNova;
   src: url('assets/fonts/proxima_nova_reg.otf');
 
-}
-@font-face {
-  font-family: ProximaNova;
-  src: url('assets/fonts/proxima_nova_bold.otf');
-  font-weight: bold;
-}
-@font-face {
-  font-family: ProximaNova;
-  src: url('assets/fonts/proxima_nova_black.otf');
-  font-weight: 900;
 }
 @font-face {
   font-family: Montserrat;
@@ -55,9 +44,29 @@
   src: url('assets/fonts/Montserrat-Medium.ttf');
   font-weight: 700;
 }
+@font-face {
+  font-family: PTSans;
+  src: url('assets/fonts/PTSans-Regular.ttf');
+  font-weight: 400;
+}
+@font-face {
+  font-family: PTSans;
+  src: url('assets/fonts/PTSans-Bold.ttf');
+  font-weight: 600;
+}
 
 *{
-  font-family: 'Montserrat';
+  font-family: 'PTSans';
+  // overflow: hidden;
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.bgPrimary{
+  background-color: var(--Primary);
+}
+.Primary{
+  color:var(--Primary) !important
+}
+.uppercase{
+  text-transform: uppercase;
+}

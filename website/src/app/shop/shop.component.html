@@ -5,6 +5,7 @@
 ></app-filter-bar>
 <div class="products-container">
   <h3>Shop</h3>
+  <hr>
   <div *ngIf = "!isLoading" class="products-grid-container">
     <div *ngFor = 'let product of products' class="card-container">
       <img class = 'card-image'[src]="product.imageUrls[0]" [alt]="product.title">

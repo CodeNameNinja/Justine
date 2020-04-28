@@ -1,82 +1,114 @@
-
-  <div class="main-header-container">
-    <main class = "main-header__main">
-      <h1>Upcoming Autumn Sale 20% off<span style = "color: var(--coral)">.</span></h1>
-    </main>
-    <div class="main-header_shop_now">
-      <h2>Shop Now <span class="material-icons">
-        play_arrow
-        </span></h2>
+<div class="main-header-container">
+  <div class="main-header__main">
+    <div class="main-header__title">
+      <h1>Autumn Collection 2020</h1>
     </div>
-    <div class="main-header_view-deals" (click) = 'shopService.toggleSuccessMessage()' >
-      <h2>View Deals <span class="material-icons">
-        play_arrow
-        </span></h2>
-    </div>
-    <div class="main-header_hero-image">
-
-    </div>
-  </div>
-  <div class="categories-container">
-    <div class="category-card">
-      <div class="category-card__header">
-        <div class="bottom">
-          <h3>Skirts/Pants</h3>
-          <p>25% off</p>
-          <button class="btn">shop now</button>
-        </div>
+    <div class="main-header__actions">
+      <div class="main-header_shop_now circle hover-color">
+        <h2>
+          Shop Now
+          <span class="material-icons">
+            play_circle_outline
+          </span>
+        </h2>
       </div>
-      <div class="category-card__image">
-        <img src="../../assets/home/category-image-skirts-pants.png" alt="skirts and pants">
-      </div>
-    </div>
-    <div class="category-card">
-      <div class="category-card__header">
-        <div class="bottom">
-          <h3>Dresses</h3>
-          <p>25% off</p>
-          <button class="btn">shop now</button>
-        </div>
-      </div>
-      <div class="category-card__image">
-        <img src="../../assets/home/category-dresses-image.png" alt="dresses">
-      </div>
-    </div>
-    <div class="category-card">
-      <div class="category-card__header">
-        <div class="bottom">
-          <h3>Shirts</h3>
-          <p>25% off</p>
-          <button class="btn">shop now</button>
-        </div>
-      </div>
-      <div class="category-card__image">
-        <img src="../../assets/home/category-shirts-image.png" alt="shirts">
+      <div
+        class="main-header_view-deals circle hover-color"
+        (click)="shopService.toggleSuccessMessage()"
+      >
+        <h2>
+          View Deals
+          <span class="material-icons">
+            play_circle_outline
+          </span>
+        </h2>
       </div>
     </div>
   </div>
+  <div class="main-header_hero-image">
+    <img src="../../assets/home/home-hero-image.png" alt="main image">
+  </div>
+</div>
+<div class="categories-container">
+  <div class="category-card">
+    <div class="category-card__header">
+      <div class="p-2">
+        <h3>Skirts/Pants</h3>
+        <p>25% off</p>
+      </div>
+      <div class="bottom">
+        <button class="btn btn-circle btn-sm hover-color"><p>shop now</p></button>
+      </div>
+    </div>
+    <div class="category-card__image">
+      <img
+        src="../../assets/home/category-image-skirts-pants.png"
+        alt="skirts and pants"
+      />
+    </div>
+  </div>
+  <div class="category-card">
+    <div class="category-card__header">
+      <div class="p-2">
+        <h3>Dresses</h3>
+        <p>25% off</p>
+      </div>
+      <div class="bottom">
+        <button class="btn btn-circle btn-sm hover-color"><p>shop now</p></button>
+      </div>
+    </div>
+    <div class="category-card__image">
+      <img src="../../assets/home/category-dresses-image.png" alt="dresses" />
+    </div>
+  </div>
+  <div class="category-card">
+    <div class="category-card__header">
+      <div class="p-2">
+        <h3>Shirts</h3>
+        <p>25% off</p>
+        <div class="bottom">
+          <button class="btn btn-circle btn-sm hover-color"><p>shop now</p></button>
+        </div>
+      </div>
+    </div>
+    <div class="category-card__image">
+      <img src="../../assets/home/category-shirts-image.png" alt="shirts" />
+    </div>
+  </div>
+</div>
 <div class="newly-arrived-container">
   <h3>Just Arrived</h3>
-  <div *ngIf = "!isLoading" class="newly-arrived-grid-container">
-    <div *ngFor = 'let product of products' class="arrived-card-container">
-      <img class = 'arrived-card-image'[src]="product.imageUrls[0]" [alt]="product.title">
-      <p class = 'arrived-card-title'>{{product.title}}</p>
-      <p class = 'arrived-card-price'>R{{product.amount}}</p>
+  <div *ngIf="!isLoading" class="newly-arrived-grid-container">
+    <div *ngFor="let product of products" class="arrived-card-container">
+      <div class="card__image arrived-card-image">
+        <img
+          class="arrived-card-image"
+          [src]="product.imageUrls[0]"
+          [alt]="product.title"
+        />
+      </div>
+      <p class="arrived-card-title">{{ product.title }}</p>
+      <p class="arrived-card-price">R{{ product.amount }}</p>
       <div class="card-actions">
-        <div *ngIf= "userIsAuthenticated" class="add-to-cart" (click) = 'addToCart(product.id)'>
+        <div
+          *ngIf="userIsAuthenticated"
+          class="add-to-cart"
+          (click)="addToCart(product.id)"
+        >
           <span class="material-icons">
             shopping_cart
-            </span>
+          </span>
         </div>
-        <div class="view-item" [routerLink] = "['/shop/',product.id]">
+        <div class="view-item" [routerLink]="['/shop/', product.id]">
           <span class="material-icons">
             visibility
-            </span>
+          </span>
         </div>
       </div>
-
     </div>
   </div>
-  <mat-spinner *ngIf = 'isLoading' style = "position: absolute; top:50%; left: 50%;"></mat-spinner>
+  <mat-spinner
+    *ngIf="isLoading"
+    style="position: absolute; top: 50%; left: 50%;"
+  ></mat-spinner>
 </div>
-
