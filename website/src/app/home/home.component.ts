@@ -2,8 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AdminService } from '../services/admin.service';
 import { Product } from '../models/product.model';
 import { map } from 'rxjs/operators';
-import { pipe, Subscription } from 'rxjs';
-import { AuthService } from '../services/auth.service';
 import { ShopService } from '../services/shop.service';
 
 @Component({
@@ -11,37 +9,39 @@ import { ShopService } from '../services/shop.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   products: Product[] = [];
   isLoading = false;
-userIsAuthenticated = false;
-private authListenerSubs: Subscription;
   constructor(
     private adminService: AdminService,
-    private authService: AuthService,
     public shopService: ShopService
   ) { }
 
   async ngOnInit() {
     await this.getProducts();
-    this.userIsAuthenticated = await this.authService.getIsAuth();
-    this.authListenerSubs = await this.authService
-      .getAuthStatusListener()
-      .subscribe(isAuthenticated => {
-        this.userIsAuthenticated = isAuthenticated;
-      });
   }
+
   getProducts() {
+    const last = function last(array, n) {
+      if (array == null) { return void 0; }
+      if (n == null) { return array[array.length - 1]; }
+      return array.slice(Math.max(array.length - n, 0));
+    };
     this.isLoading = true;
     this.adminService.getProducts()
     .pipe(
       map(productData => {
         return productData.products.map(product => {
+          const convertedSizes = [];
+          Object.entries(product.sizes).forEach(([key, value]) => {
+            convertedSizes.push({size:key, quantity:value});
+          });
           return {
             title: product.title,
             description: product.description,
             amount: product.amount,
             category: product.category,
+            sizes: convertedSizes,
             id: product._id,
             imageUrls: product.imageUrls
           };
@@ -49,19 +49,12 @@ private authListenerSubs: Subscription;
       })
     )
     .subscribe(transformedProducts => {
-    this.products = transformedProducts.splice(0,4);
-      // console.log('transform Products', this.products);
-      this.isLoading = false;
+    this.products = last(transformedProducts, 4);
+    this.isLoading = false;
     });
   }
-  addToCart(id){
-    this.shopService.addToCart(id).subscribe((cart) => {
-      this.shopService.updateCart.next(cart);
-      // console.log("response", response)
-    });
 
-  }
-  ngOnDestroy() {
-    this.authListenerSubs.unsubscribe();
-  }
+
+
+
 }

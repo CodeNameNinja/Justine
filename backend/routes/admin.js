@@ -1,38 +1,57 @@
 const path = require('path');
-
+var aws = require('aws-sdk')
 const express = require('express');
 
 const adminController = require('../controllers/admin');
 const checkAuth = require("../middleware/check-auth");
 const router = express.Router();
 const multer = require('multer')
+var multerS3 = require('multer-s3')
+
+var s3 = new aws.S3({ 
+    accessKeyId: 'AKIAW5ZQRSMK3MTQMJED',
+    secretAccessKey: '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'
+ })
+
 const MIME_TYPE_MAP = {
     'image/png': 'png',
     'image/jpg': 'jpg',
     'image/jpeg' : 'jpg'
 };
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        const isValid = MIME_TYPE_MAP[file.mimetype];
-        let error = new Error('Invalid mime type');
-        if(isValid){
-            error = null
-        }
-        cb(error, "./images")
-    },
-    filename: (req, file, cb) => {
-        const name = file.originalname.toLowerCase().split(' ').join('-');
-        const ext = MIME_TYPE_MAP[file.mimetype];
-        cb(null, name + '-' + Date.now()+ '.' + ext);
-    }
-});
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         const isValid = MIME_TYPE_MAP[file.mimetype];
+//         let error = new Error('Invalid mime type');
+//         if(isValid){
+//             error = null
+//         }
+//         cb(error, "./images")
+//     },
+//     filename: (req, file, cb) => {
+//         const name = file.originalname.toLowerCase().split(' ').join('-');
+//         const ext = MIME_TYPE_MAP[file.mimetype];
+//         cb(null, name + '-' + Date.now()+ '.' + ext);
+//     }
+// });
 
-let upload = multer({storage});
-// /admin/add-product => GET
-// router.get('/add-product', adminController.getAddProduct);
+var upload = multer({
+    storage: multerS3({
+      s3: s3,
+      bucket: 'thecuratorsbucket',
+      metadata: function (req, file, cb) {
+        cb(null, {fieldName: file.fieldname});
+      },
+      key: function (req, file, cb) {
+        const name ="images/" + file.originalname.toLowerCase().split(' ').join('-');
+                const ext = MIME_TYPE_MAP[file.mimetype];
+                cb(null, name + '-' + Date.now()+ '.' + ext);
+        // cb(null, Date.now().toString())
+      }
+    })
+  })
+   
 
-// /admin/products => GET
-// router.get('/products', adminController.getProducts);
+// let upload = multer({storage});
 
 // /admin/add-product => POST
 router.get('/add-product', adminController.getProducts);

@@ -356,6 +356,7 @@ interface CartItem {
     title: string;
     userId: string;
   };
+  size: string;
   quantity: number;
 }
 interface Order {

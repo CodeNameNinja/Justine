@@ -19,6 +19,9 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
+  sizes: {
+    type: Object
+  },
   imageUrls: [
     {
       type: String,

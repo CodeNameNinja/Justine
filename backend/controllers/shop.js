@@ -24,12 +24,13 @@ exports.getCart = (req, res, next) => {
   
   exports.postCart = (req, res, next) => {
     const prodId = req.body.id;
+    const size = req.body.size;
     console.log(prodId);
     Product.findById(prodId)
       .then(product => {
         User.findOne({email:req.userData.email})
         .then(user => {
-         user.addToCart(product); 
+         user.addToCart(product, size); 
          user
          .populate('cart.items.productId')
          .execPopulate()

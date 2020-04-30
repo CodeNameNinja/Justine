@@ -15,26 +15,32 @@ exports.getProducts = (req, res) => {
   })
 }
 exports.postAddProduct = (req, res, next) => {
-    const url = req.protocol + '://' + req.get('host');
+  // console.log(req.body.sizes)
+    // const url = req.protocol + '://' + req.get('host');
+    const url = 'https://thecuratorsbucket.s3.amazonaws.com/';
+    // console.log("req.files", req.files);
     const title = req.body.title;
     const description = req.body.description;
     const amount = +req.body.amount;
     const category = req.body.category;
+    const sizes = JSON.parse(req.body.sizes);
     const imageUrls = [];
     req.files.map(file => {
-       imageUrls.push(url + '/images/' + file.filename);
+       imageUrls.push(url + file.key);
     })
     const product = new Product({
       title: title,
       description: description,
       amount: amount,
       category: category,
+      sizes: sizes,
       imageUrls: imageUrls,
       userId: req.userData.userId
     });
     product
       .save()
       .then(createdProduct => {
+        console.log(createdProduct);
         res.status(201).json({
           message:"Product succefully added",
           product: {
@@ -42,12 +48,14 @@ exports.postAddProduct = (req, res, next) => {
             description:createdProduct._doc.description,
             amount:createdProduct._doc.amount,
             category:createdProduct._doc.category,
+            sizes: createdProduct._doc.sizes,
             imageUrls:createdProduct._doc.imageUrls,
             id:createdProduct._id
           }
         })
       })
       .catch(error => {
+        console.log(error)
         res.status(500).json({
           message:"Adding Product Failed."
         })
@@ -73,13 +81,14 @@ exports.postAddProduct = (req, res, next) => {
   }
 
   exports.updateProduct = (req, res) => {
-    console.log("req.body",req.body);
-    console.log("req.file",req.files);
-    const url = req.protocol + "://" + req.get("host");
+    // console.log("req.body",req.body);
+    // console.log("req.file",req.files);
+    const url = 'https://thecuratorsbucket.s3.amazonaws.com/';
     const title = req.body.title;
     const description = req.body.description;
     const amount = +req.body.amount;
     const category = req.body.category;
+    const sizes = req.body.sizes;
     const imageUrls = []
     if(req.body.imageUrls){
       for(const imageUrl of req.body.imageUrls){
@@ -89,7 +98,7 @@ exports.postAddProduct = (req, res, next) => {
   
     if(req.files){
       req.files.map(file => {
-         imageUrls.push(url + '/images/' + file.filename);
+         imageUrls.push(url + file.key);
       })
     }
     const product = new Product({  
@@ -98,6 +107,7 @@ exports.postAddProduct = (req, res, next) => {
       description: description,
       amount: amount,
       category: category,
+      sizes: sizes,
       imageUrls: imageUrls,
       userId: req.userData.userId
     });

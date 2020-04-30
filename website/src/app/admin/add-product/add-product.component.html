@@ -132,7 +132,43 @@
               <mat-option value="pants">pants</mat-option>
             </mat-select>
           </mat-form-field>
+          <div class="sizes-container" formGroupName = "sizes">
+            <mat-form-field appearance="outline">
+              <mat-label>Small</mat-label>
+              <input
+              matInput
+              type="number"
+              id= 'small'
+              formControlName="small">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Medium</mat-label>
+              <input
+              matInput
+              type="number"
+              id = "medium"
+              formControlName = "medium">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Large</mat-label>
+              <input
+              matInput
+              type="number"
+              id = "large"
+              formControlName = "large">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>X-Large</mat-label>
+              <input
+              matInput
+              type="number"
+              id="xLarge"
+              formControlName = "xLarge">
+            </mat-form-field>
+          </div>
         </div>
+
+
       </div>
 
       <button

@@ -93,3 +93,10 @@
 #amount{
   color:#4ce94c
 }
+
+h3{
+  font-size: calc(25px + (35 - 25) * ((100vw - 300px) / (1600 - 300)));;
+}
+.cart-list__items{
+  margin-top: 5%;
+}

@@ -4,6 +4,7 @@
       <li *ngFor = 'let cartItem of cartItems'class="cart-list__item">
         <h3>{{cartItem.productId.title}}</h3>
         <p style ="margin-bottom: 5px;">R{{cartItem.productId.amount}}</p>
+        <p style ="margin-bottom: 5px;">{{cartItem.size}}</p>
         <p style = "color:#797979; font-size: 0.75em;">Qty:{{cartItem.quantity}}</p>
         <span class="material-icons"(click) = "deleteCartItem(cartItem.productId._id)" style="cursor: pointer; color:red">delete</span>
         <hr>

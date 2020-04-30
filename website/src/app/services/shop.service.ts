@@ -37,8 +37,8 @@ export class ShopService {
   public getCart() {
     return this.http.get(`${environment.apiUrl}/shop/cart`);
   }
-  addToCart(id) {
-   return this.http.post(`${environment.apiUrl}/shop/cart`, {id});
+  addToCart(id,size) {
+   return this.http.post(`${environment.apiUrl}/shop/cart`, {id, size});
   }
   deleteProduct(id) {
     return this.http.post(`${environment.apiUrl}/shop/cart-delete-item`, {id});

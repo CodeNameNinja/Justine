@@ -37,6 +37,7 @@ export class AllProductsComponent implements OnInit {
             description: product.description,
             amount: product.amount,
             category: product.category,
+            sizes: product.sizes,
             id: product._id,
             imageUrls: product.imageUrls
           };
@@ -99,4 +100,3 @@ export class AllProductsComponent implements OnInit {
     });
   }
 }
-

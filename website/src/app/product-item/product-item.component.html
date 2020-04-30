@@ -1,0 +1,40 @@
+<div class="product-container">
+    <img
+      class="product-image"
+      [src]="product.imageUrls[0]"
+      [alt]="product.title"
+    />
+  <div class="product-details">
+    <div class="details">
+      <p class="product-title">{{ product.title }}</p>
+      <p class="product-price">R{{ product.amount }}</p>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Select Size</mat-label>
+      <mat-select [(ngModel)]="selectedSize">
+        <div *ngFor="let size of product.sizes">
+          <mat-option *ngIf = "size.quantity > 0" [value] = size.size>
+            {{size.size}}
+          </mat-option>
+        </div>
+
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="product-actions">
+    <div
+      *ngIf="userIsAuthenticated"
+      class="add-to-cart"
+      (click)="addToCart(product.id)"
+    >
+      <span class="material-icons">
+        shopping_cart
+      </span>
+    </div>
+    <div class="view-item" [routerLink]="['/shop/', product.id]">
+      <span class="material-icons">
+        visibility
+      </span>
+    </div>
+  </div>
+</div>

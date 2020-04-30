@@ -4,13 +4,18 @@ import { HomeComponent } from './home.component';
 import { HomePageRoutingModule } from './home.routing.module';
 import {
   MatProgressSpinnerModule,
+  MatSelectModule
 } from '@angular/material'
+import { ProductPageModule } from '../product-item/product-item.module';
+
 
 @NgModule({
   imports: [
     CommonModule,
     HomePageRoutingModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    ProductPageModule
   ],
   declarations: [HomeComponent],
   providers:[]

@@ -4,7 +4,7 @@
       <h1>Autumn Collection 2020</h1>
     </div>
     <div class="main-header__actions">
-      <div class="main-header_shop_now circle hover-color">
+      <div class="main-header_shop_now circle hover-color" [routerLink] ="['/shop']">
         <h2>
           Shop Now
           <span class="material-icons">
@@ -14,7 +14,7 @@
       </div>
       <div
         class="main-header_view-deals circle hover-color"
-        (click)="shopService.toggleSuccessMessage()"
+        [routerLink] ="['/shop']"
       >
         <h2>
           View Deals
@@ -78,34 +78,9 @@
 </div>
 <div class="newly-arrived-container">
   <h3>Just Arrived</h3>
+  <hr />
   <div *ngIf="!isLoading" class="newly-arrived-grid-container">
-    <div *ngFor="let product of products" class="arrived-card-container">
-      <div class="card__image arrived-card-image">
-        <img
-          class="arrived-card-image"
-          [src]="product.imageUrls[0]"
-          [alt]="product.title"
-        />
-      </div>
-      <p class="arrived-card-title">{{ product.title }}</p>
-      <p class="arrived-card-price">R{{ product.amount }}</p>
-      <div class="card-actions">
-        <div
-          *ngIf="userIsAuthenticated"
-          class="add-to-cart"
-          (click)="addToCart(product.id)"
-        >
-          <span class="material-icons">
-            shopping_cart
-          </span>
-        </div>
-        <div class="view-item" [routerLink]="['/shop/', product.id]">
-          <span class="material-icons">
-            visibility
-          </span>
-        </div>
-      </div>
-    </div>
+    <app-product-item *ngFor = "let productDetails of products" [product] = "productDetails"></app-product-item>
   </div>
   <mat-spinner
     *ngIf="isLoading"

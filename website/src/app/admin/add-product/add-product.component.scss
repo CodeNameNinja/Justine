@@ -3,7 +3,9 @@
   grid-template-columns: 1fr 1fr;
   gap: 5%;
 }
-
+.grid-item{
+  max-width: 500px;
+}
 mat-form-field,
 textarea {
   width: 100%;
@@ -66,4 +68,11 @@ input[type="file"] {
   content: '<';
   font-size: 55px;
   color: black;
+}
+.sizes-container{
+  display: flex;
+  max-width: 250px;
+  mat-form-field{
+    max-width: 125px;
+  }
 }

@@ -34,6 +34,9 @@ addProduct(productData: FormData) {
   const description = productData.get('description').toString();
   const amount = productData.get('amount').toString();
   const category = productData.get('category').toString();
+  const sizes = productData.get('sizes');
+  console.log(productData.get('sizes'))
+  console.log(productData.get('sizes.small'))
   this.http
     .post<{message: string, product: Product}>(
       'http://localhost:3000/admin/add-product',
@@ -41,12 +44,13 @@ addProduct(productData: FormData) {
     )
     .subscribe(responseData => {
       // console.log(responseData);
-      const product: Product = {
+      const product: any = {
         id: responseData.product.id,
         title,
         description,
         amount: +amount,
         category,
+        // sizes: JSON.parse(sizes.toString()),
         imageUrls:responseData.product.imageUrls
       };
 

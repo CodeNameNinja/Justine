@@ -17,6 +17,7 @@ import {
 } from '@angular/material';
 import { FilterBarComponent } from './filter-bar/filter-bar.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProductPageModule } from '../product-item/product-item.module';
 @NgModule({
   imports: [
     FormsModule,
@@ -31,7 +32,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     MatSliderModule,
     MatSelectModule,
     MatCheckboxModule,
-
+    ProductPageModule
    ],
   declarations: [ShopComponent, FilterBarComponent, ProductDetailsComponent],
   providers: [],

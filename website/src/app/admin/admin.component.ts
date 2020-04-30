@@ -40,6 +40,7 @@ export class AdminComponent implements OnInit {
             description: product.description,
             amount: product.amount,
             category: product.category,
+            sizes: product.sizes,
             id: product._id,
             imageUrls: product.imageUrls
           };
@@ -182,7 +183,7 @@ export class AddProductComponent implements OnInit {
   private mode = 'create';
   private productId: string;
   addProductForm: FormGroup;
-  product: { title: any; description: any; amount: any; category: any; imageUrls: any; id?: string; };
+  product: Product;
 
   constructor(
     public dialogRef: MatDialogRef<AddProductComponent>,
@@ -207,6 +208,20 @@ export class AddProductComponent implements OnInit {
       category: new FormControl(null, {
         validators: [Validators.required]
       }),
+      sizes: new FormGroup({
+        small: new FormControl(null, {
+          validators: [Validators.required]
+        }),
+        medium: new FormControl(null, {
+          validators: [Validators.required]
+        }),
+        large: new FormControl(null, {
+          validators: [Validators.required]
+        }),
+        xLarge: new FormControl(null, {
+          validators: [Validators.required]
+        }),
+      }),
       image: new FormControl('', {
         validators: [Validators.required],
         // asyncValidators: [mimeType]
@@ -217,12 +232,14 @@ export class AddProductComponent implements OnInit {
     if (this.data.mode === 'edit') {
       this.mode = 'edit';
       // this.imagePreview = this.data.product.imageUrls;
+      console.log(this.data.product)
       this.product = {
         id: this.data.product.id,
         title:  this.data.product.title,
         description:  this.data.product.description,
         amount:  this.data.product.amount,
         category:  this.data.product.category,
+        sizes:  this.data.product.sizes,
         imageUrls:  this.data.product.imageUrls
       };
       this.addProductForm.setValue({
@@ -230,6 +247,12 @@ export class AddProductComponent implements OnInit {
         description:  this.product.description,
         amount:  this.product.amount,
         category:  this.product.category,
+        sizes:  {
+          small: this.product.sizes.small,
+          medium: this.product.sizes.medium,
+          large: this.product.sizes.large,
+          xLarge: this.product.sizes.xLarge,
+        },
         image:  this.product.imageUrls
       });
       // console.log("urls",this.data.product.imageUrls)
@@ -278,10 +301,12 @@ export class AddProductComponent implements OnInit {
     const description = this.addProductForm.value.description;
     const amount = this.addProductForm.value.amount;
     const category = this.addProductForm.value.category;
+    const sizes = this.addProductForm.value.sizes;
     productData.append('title', title);
     productData.append('description', description);
     productData.append('amount', amount);
     productData.append('category', category);
+    productData.append('sizes', JSON.stringify(sizes));
 
 
     for (const image of this.myImages) {

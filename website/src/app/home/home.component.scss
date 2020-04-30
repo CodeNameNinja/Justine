@@ -123,7 +123,6 @@ img{
   padding: 50% 0;
   border-radius: 50%;
   line-height: 0;
-  min-width:75px;
   p{
     position: relative;
     width: 100%;
@@ -183,20 +182,18 @@ img{
 }
 // Newly Arriveds
 .newly-arrived-container{
-  display:grid;
+  // display:grid;
   height:75%;
   margin: 2em;
-  grid-template-rows: 10% 90%;
+  // grid-template-rows: 5% 90%;
   position: relative;
 }
     .newly-arrived-container h3{
       width: 100%;
       text-align: center;
-      font-family: 'ProximaNova';
-      font-weight: bold;
-      width: 100%;
-      font-size: 2vw;
+      font-size: calc(25px + (35 - 25) * ((100vw - 300px) / (1600 - 300)));
       grid-row: 1/2;
+      text-transform: uppercase;
     }
 .newly-arrived-grid-container{
   display: grid;
@@ -207,68 +204,7 @@ img{
   grid-row: 2/3;
   margin:0 5%;
 }
-.arrived-card-container{
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 2fr 0.2fr 0.2fr;
-  width: 100%;
-  height:100%;
-  min-height: 60vh;
-  padding:5%;
-}
-.arrived-card-image{
-  grid-area: 1/1/2/3;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  bottom: 0;
-img{
-  object-fit:cover;
-  width:100%;
-  height:100%;
-}
-}
-.arrived-card-title{
-  grid-area: 2/1/3/2;
-  font-family: 'ProximaNova';
-
-}
-.arrived-card-price{
-  grid-area: 2/2/3/3;
-  text-align: end;
-  color:#686868;
-}
-.arrived-card-container span{
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.card-actions{
-  grid-area: 3/1/4/3;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  height:auto;
-  width:auto
-}
-.add-to-cart{
-  position: relative;
-  background-color:var(--Primary);
-  color: var(--white);
-}
-.view-item{
-  position: relative;
-  background-color:var(--isabelline);
-  color: var(--nickel);
-}
-.add-to-cart:hover,.view-item:hover {
-  background-color: var(--jet);
-  color:var(--white) !important;
-  cursor: pointer;
-}
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
 
 .main-header-container{
 grid-template-columns: 1fr;
