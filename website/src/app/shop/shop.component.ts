@@ -34,11 +34,16 @@ export class ShopComponent implements OnInit {
       .pipe(
         map(productData => {
           return productData.products.map(product => {
+            const convertedSizes = [];
+            Object.entries(product.sizes).forEach(([key, value]) => {
+              convertedSizes.push({size:key, quantity:value});
+            });
             return {
               title: product.title,
               description: product.description,
               amount: product.amount,
               category: product.category,
+              sizes: convertedSizes,
               id: product._id,
               imageUrls: product.imageUrls
             };
@@ -77,11 +82,11 @@ export class ShopComponent implements OnInit {
           });
   }
 
-  addToCart(id){
-    this.shopService.addToCart(id).subscribe((cart) => {
-      this.shopService.updateCart.next(cart);
-      // console.log("response", response)
-    });
+  // addToCart(id){
+  //   this.shopService.addToCart(id).subscribe((cart) => {
+  //     this.shopService.updateCart.next(cart);
+  //     // console.log("response", response)
+  //   });
 
-  }
+  // }
 }

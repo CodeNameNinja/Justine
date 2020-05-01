@@ -7,17 +7,25 @@
   position: relative;
   overflow: hidden;
 
-}
-.products-grid-container{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-  padding: 5%;
-}
-    .products-container h3{
-      width: 100%;
-      text-align: center;
-      text-transform: uppercase;
-      width: 100%;
-      font-size: calc(25px + (35 - 25) * ((100vw - 300px) / (1600 - 300)));
-      grid-row: 1/2;
+  h3{
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+    font-size: calc(25px + (35 - 25) * ((100vw - 300px) / (1600 - 300)));
+    grid-row: 1/2;
+  }
+  .products-grid-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 500px));
+    padding: 5%;
+
+
+    .card-container{
+      margin: 5% 0;
     }
+  }
+
+
+
+}

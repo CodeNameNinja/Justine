@@ -120,7 +120,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   openOrdeDialog(): void {
     const dialogRef = this.dialog.open(OrderDialog, {
-      width: 'auto',
+      width: 'calc(85vw + (95 - 85) * ((100vw - 300px) / (1600 - 300)))',
       height: 'auto',
       data: { name: this.name, animal: this.animal },
     });
@@ -231,6 +231,7 @@ export class OrderDialog implements OnInit {
           title: cartItems[index].productId.title,
           imageUrl: cartItems[index].productId.imageUrls[0],
           quantity: cartItems[index].quantity,
+          size: cartItems[index].size,
           price: cartItems[index].productId.amount,
         });
 

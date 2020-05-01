@@ -27,6 +27,16 @@
   <h1>{{product.title}}.</h1>
   <h3>R{{product.amount}}</h3>
   <p>{{product.description}}</p>
+  <mat-form-field appearance="outline">
+    <mat-label>Select Size</mat-label>
+    <mat-select [(ngModel)]="selectedSize">
+      <div *ngFor="let size of product.sizes">
+        <mat-option *ngIf = "size.quantity > 0" [value] = size.size>
+          {{size.size}}
+        </mat-option>
+      </div>
+    </mat-select>
+  </mat-form-field>
   <div class="flat-box addtocart" (click) = 'addToCart()'><h4>Add to Cart</h4></div>
  </div>
 </div>
