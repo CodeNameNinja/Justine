@@ -1,0 +1,31 @@
+<div class="wrap">
+	<div #carousel>
+		<div [style.width]="3*slides.length*slideWidth+'px'">
+			<div class="carousel-model">
+				<ng-container [ngTemplateOutlet]="slides && slides.first?slides.first.templateRef:null">
+				</ng-container>
+			</div>
+			<ng-content></ng-content>
+		</div>
+	</div>
+	<ng-content *ngIf="!noCarousel" select=".prev-button"></ng-content>
+	<ng-content *ngIf="!noCarousel" select=".next-button"></ng-content>
+	<ng-container *ngIf="showControls && !noCarousel">
+		<div class="carousel_prev-button" >
+			<span class="carousel-control-prev-icon"  aria-hidden="true" (click)="prev()"></span>
+		</div>
+		<div class="carousel_next-button" >
+			<span class="carousel-control-next-icon"  aria-hidden="true" (click)="next()"></span>
+		</div>
+	</ng-container>
+</div>
+<ng-container *ngIf="showSelectors && !noCarousel">
+	<div class="selectors">
+    <ng-container *ngFor="let t of thumbails;let i=index">
+		<div class="selector" (click)="setSlide(i*increment)" [style.background-color]="(currentSlide>=t && currentSlide<t+increment)?'black':'transparent'">
+		</div>
+    </ng-container>
+	</div>
+</ng-container>
+<div style="width:72000px;overflow-x:hidden;">
+</div>

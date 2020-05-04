@@ -5,6 +5,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { ResetComponent } from './auth/reset/reset.component';
 import { NewPasswordComponent } from './auth/new-password/new-password.component';
 import { AuthGuard } from './auth/auth.guard';
+import { ContactComponent } from './contact/contact.component';
 const routes: Routes = [
   {
     path: '',
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'shop',
     loadChildren: () => import('./shop/shop.module').then(m => m.ShopPageModule)
+  },
+  {
+    path: 'contact',
+    component: ContactComponent
   },
   {
     path: 'admin/dashboard',

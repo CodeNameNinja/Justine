@@ -31,6 +31,7 @@ import { NewPasswordComponent } from './auth/new-password/new-password.component
 import { SuccessComponent } from './success/success.component';
 import { FooterComponent } from './footer/footer.component';
 import { MyAccountComponent } from './my-account/my-account.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { MyAccountComponent } from './my-account/my-account.component';
     NewPasswordComponent,
     SuccessComponent,
     FooterComponent,
+    ContactComponent,
 
 
       ],

@@ -1,0 +1,45 @@
+<!-- <div class="carousel-container"> -->
+
+  <app-carousel  #carousel
+  [showControls]="false">
+<ng-container *ngFor=" let item of items">
+
+  <div *carouselSlide class="card">
+    <div class="card-content">
+      <div class="card__header">
+        <div class="p-2">
+          <h3>{{item.title}}</h3>
+          <p>25% off</p>
+        </div>
+        <div class="bottom">
+          <button class="btn btn-circle btn-sm hover-color"><p>shop now</p></button>
+        </div>
+      </div>
+      <div class="card__image">
+        <img
+          [src]="item.img"
+          alt="skirts and pants"
+        />
+      </div>
+    </div>
+
+  </div>
+
+  </ng-container>
+  <!-- I create a custom buttons. We can not create the two divs "prev-button" and "next-button", removing [showControls]="false"
+  Our carousel show the buttons by defect in middle of the carousel
+  -->
+<div class="prev-button" (click)="carousel.prev()">
+    <a class="carousel-control-prev-icon"></a>
+</div>
+<div class="next-button" (click)="carousel.next()">
+    <a class="carousel-control-next-icon"></a>
+</div>
+</app-carousel>
+<!-- <div style="text-align:center">
+<img *ngFor=" let item of items;let i=index" width="40px" style="margin:.25rem" (click)="carousel.setSlide(i)" [src]="item.img">
+</div> -->
+<hr>
+
+
+<!-- </div> -->
