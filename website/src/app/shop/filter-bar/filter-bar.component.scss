@@ -1,5 +1,32 @@
 
- .sidenav mat-card {
+// .sidenav {
+//   height: 100%;
+//   width: 160px;
+//   position: fixed;
+//   z-index: 1;
+//   top: 0;
+//   left: 0;
+//   background-color: rgb(255, 255, 255);
+//   overflow-x: hidden;
+//   padding-top: 20px;
+// }
+
+// .sidenav a {
+//   padding: 50px 8px 6px 16px;
+//   position: relative;
+//   top: 5%;
+//   text-decoration: none;
+//   font-size: 1rem;
+//   color: #5e5e5e;
+//   display: flex;
+//     align-items: center;
+// }
+
+// .sidenav a:hover {
+//   color: #f1f1f1;
+// }
+
+.sidenav mat-card {
   height: 100%;
   width:100%;
   background-color: var(--white);
@@ -33,10 +60,11 @@ ul {
   padding: 0;
   list-style-type: none;
 }
+
 #menuToggle {
   display: flex;
   flex-direction: column;
-  position: relative;
+  position: fixed;
   top: 25px;
   left: 25px;
   z-index: 499;
@@ -53,6 +81,7 @@ ul {
   cursor: pointer;
   opacity: 0;
   z-index: 500;
+  top:50px;
 }
 
 #menuToggle span
@@ -69,6 +98,7 @@ ul {
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
               background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
               opacity 0.55s ease;
+  top:50px;
 }
 
 #menuToggle span:first-child

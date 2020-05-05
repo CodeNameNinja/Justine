@@ -8,8 +8,6 @@
 }
 
 .admin-container{
-  margin-left: 160px;
-  // width: 100%;
   height:100%;
   display:grid;
   background-color: rgb(243, 243, 243);
@@ -21,7 +19,7 @@
   "products products sales";
   row-gap: 2em;
   column-gap: 2rem;
-  padding: 2% 5%;
+  padding: 2% 5% 5% 160px;
 }
 .orders-container{
   grid-area: orders;
@@ -50,7 +48,7 @@
 .grid-container{
   justify-content: center;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(0vw, 15vw));
+  grid-template-columns: repeat(auto-fill, minmax(250px,300px));
   gap: 1rem 3rem;
 }
 .product-item{
@@ -62,24 +60,19 @@
   max-width: 100%;
 }
 .product-image img{
-  // max-height: 100%;
-  // max-width: 100%;
-  // display: block;
-  // margin-left: auto;
-  // margin-right: auto;
   max-width: 100%; /* or any custom size */
   max-height: 15vh;
   object-fit: contain;
 }
 
-.btn-circle.btn-xl {
-  width: 70px;
-  height: 70px;
-  padding: 10px 16px;
-  border-radius: 35px;
-  font-size: 24px;
-  line-height: 1.33;
-}
+// .btn-circle.btn-xl {
+//   width: 70px;
+//   height: 70px;
+//   padding: 10px 16px;
+//   border-radius: 35px;
+//   font-size: 24px;
+//   line-height: 1.33;
+// }
 .btn-circle.btn-sm {
   width: 50px;
   height: 50px;
@@ -91,7 +84,7 @@
 }
 
 .bottom{
-  position: fixed;
+  position: relative;
   bottom: 15px;
   left:15px;
   z-index: 999;
@@ -111,3 +104,20 @@ mat-card-title{
   margin-left: auto;
 }
 
+@media only screen and (max-width: 500px){
+  .admin-container{
+    height: 100%;
+    display: grid;
+    background-color: #f3f3f3;
+    grid-template-rows: 1fr 2fr;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "orders"
+        "products"
+        "sales";
+    row-gap: 2em;
+    -moz-column-gap: 2rem;
+    column-gap: 2rem;
+    padding: 5%;
+  }
+}

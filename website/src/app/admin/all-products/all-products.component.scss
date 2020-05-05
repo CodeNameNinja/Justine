@@ -4,17 +4,21 @@
 }
 
 .products-container{
-  margin-left:160px;
   padding:2% 5%;
   background-color: var(--aliceblue);
   min-height:100vh;
   display: block;
 overflow: auto;
+h1{
+  font-size: calc(25px + (35 - 25) * ((100vw - 300px) / (1600 - 300)));
+  text-align: center;
+}
 }
 .products-grid{
   display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(0vw, 15vw));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
   gap: 2em 3em;
+  justify-content: center;
 }
 
 .product-item{

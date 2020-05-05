@@ -1,4 +1,4 @@
-<div class="sidenav">
+<!-- <div class="sidenav">
   <a [routerLink]="['/admin/dashboard']"
     ><span class="material-icons"> dashboard </span>Dashboard</a
   >
@@ -11,8 +11,41 @@
     </span>
     Sales
   </a>
-  <a routerLink="all-products"><span class="material-icons"> store </span>Products</a>
+  <a routerLink="all-products"
+    ><span class="material-icons"> store </span>Products</a
+  >
   <a href="#contact"
     ><span class="material-icons"> local_post_office </span>Email Marketing</a
   >
+</div> -->
+<div class="content">
+  <nav role="navigation">
+    <div id="menuToggle">
+      <input type="checkbox" />
+      <span></span>
+      <span></span>
+      <span></span>
+      <ul id="menu">
+        <li><a [routerLink]="['/admin/dashboard']"
+          ><p class="material-icons"> dashboard </p>Dashboard</a
+        ></li>
+        <li><a [routerLink]="['/admin/dashboard/orders']"
+          ><p class="material-icons"> local_shipping </p>Orders</a
+        ></li>
+       <li><a href="#services">
+        <p class="material-icons">
+          local_offer
+        </p>
+        Sales
+      </a></li>
+        <li><a routerLink="all-products"
+          ><p class="material-icons"> store </p>Products</a
+        ></li>
+        <!-- <li><a href="#contact"
+          ><span class="material-icons"> local_post_office </span>Email
+          Marketing</a
+        ></li> -->
+      </ul>
+    </div>
+  </nav>
 </div>

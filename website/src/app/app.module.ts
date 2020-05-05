@@ -9,7 +9,8 @@ import {
   MatStepperModule,
   MatTableModule,
   MatSelectModule,
-  MatMenuModule
+  MatMenuModule,
+  MatCardModule
  } from '@angular/material';
 import { NgModule } from '@angular/core';
 
@@ -32,6 +33,7 @@ import { SuccessComponent } from './success/success.component';
 import { FooterComponent } from './footer/footer.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { ContactComponent } from './contact/contact.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { ContactComponent } from './contact/contact.component';
     SuccessComponent,
     FooterComponent,
     ContactComponent,
+    AboutComponent,
 
 
       ],
@@ -65,7 +68,8 @@ import { ContactComponent } from './contact/contact.component';
     ReactiveFormsModule,
     MatTableModule,
     MatSelectModule,
-    MatMenuModule
+    MatMenuModule,
+    MatCardModule
   ],
   entryComponents:[OrderDialog,ErrorComponent],
   providers: [

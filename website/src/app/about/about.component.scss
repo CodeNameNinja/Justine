@@ -1,0 +1,15 @@
+.container-fluid{
+  background: url('../../assets/home/home-main-header-background-image.png') no-repeat;
+background-size: cover;
+background-position: 50% 80%;
+min-height: 100%;
+padding:5%;
+}
+mat-card-header{
+  justify-content: center;
+}
+mat-card-title{
+  font-family: "PTSans";
+  text-transform: uppercase;
+
+}

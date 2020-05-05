@@ -44,6 +44,7 @@
                   </div>
                 </div>
                 <a
+                *ngIf="imagePreview.length > 1"
                   class="carousel-control-prev"
                   href="#carousel-container"
                   role="button"
@@ -56,6 +57,7 @@
                   <span class="sr-only">Previous</span>
                 </a>
                 <a
+                *ngIf="imagePreview.length > 1"
                   class="carousel-control-next"
                   href="#carousel-container"
                   role="button"
@@ -167,18 +169,18 @@
             </mat-form-field>
           </div>
         </div>
-
-
-      </div>
-
-      <button
+        <button
         type="submit"
-        class="btn btn-primary btn-sm btn-block w-100 mt-2 mb-1"
+        class="btn btn-primary btn-sm btn-block w-100 mb-1"
         [mat-dialog-close]="true"
         cdkFocusInitial
       >
         Save
       </button>
+
+      </div>
+
+
     </form>
   </div>
 </div>

@@ -52,7 +52,8 @@ export class AllProductsComponent implements OnInit {
 
   openDialog(product = null, mode = 'create') {
     const dialogRef = this.dialog.open(AddProductComponent, {
-      width: '50vw',
+      width: 'calc(500px + (750 - 500) * ((100vw - 300px) / (1600 - 300)))',
+      maxWidth: '100vw !important',
       data: {
         product
         , mode

@@ -6,6 +6,7 @@ import { ResetComponent } from './auth/reset/reset.component';
 import { NewPasswordComponent } from './auth/new-password/new-password.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ContactComponent } from './contact/contact.component';
+import { AboutComponent } from './about/about.component';
 const routes: Routes = [
   {
     path: '',
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'contact',
     component: ContactComponent
+  },
+  {
+    path: 'about',
+    component: AboutComponent
   },
   {
     path: 'admin/dashboard',
