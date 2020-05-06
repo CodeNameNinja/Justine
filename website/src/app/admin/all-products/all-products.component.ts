@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
 import { Product } from 'src/app/models/product.model';
-import { AddProductComponent, DeleteProductAlert } from '../admin.component';
 import { MatDialog } from '@angular/material';
 import { map } from 'rxjs/internal/operators/map';
+import { AddProductComponent, DeleteProductAlert } from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-all-products',

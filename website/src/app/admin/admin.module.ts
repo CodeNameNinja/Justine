@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { AdminPageRoutingModule } from './admin-routing.module';
-import { AdminComponent, AddProductComponent, DeleteProductAlert } from './admin.component';
+import { AdminComponent  } from './admin.component';
+
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
@@ -13,12 +14,14 @@ import {
   MatButtonModule,
   MatSelectModule,
   MatCardModule,
-  MatSidenavModule
+  MatSidenavModule,
+  MatTabsModule
 } from '@angular/material';
 import { AllProductsComponent } from './all-products/all-products.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { AdminOrderComponent } from './order/order.component';
-import { AllOrdersComponent } from './all-orders/all-orders.component'
+import { AllOrdersComponent } from './all-orders/all-orders.component';
+import { DashboardComponent, AddProductComponent, DeleteProductAlert } from './dashboard/dashboard.component';
 
 @NgModule({
   imports: [
@@ -35,9 +38,18 @@ import { AllOrdersComponent } from './all-orders/all-orders.component'
     MatButtonModule,
     MatSelectModule,
     MatCardModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatTabsModule
   ],
-  declarations: [AdminComponent, AddProductComponent, AllProductsComponent, SidenavComponent,DeleteProductAlert, AdminOrderComponent, AllOrdersComponent],
-  entryComponents:[AddProductComponent, DeleteProductAlert]
+  declarations: [
+    AdminComponent,
+    AddProductComponent,
+    AllProductsComponent,
+    SidenavComponent,
+    DeleteProductAlert,
+    AdminOrderComponent,
+    AllOrdersComponent,
+    DashboardComponent],
+  entryComponents: [AddProductComponent, DeleteProductAlert]
 })
 export class AdminPageModule {}

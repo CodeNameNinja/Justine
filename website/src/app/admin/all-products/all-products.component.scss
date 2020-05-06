@@ -9,6 +9,7 @@
   min-height:100vh;
   display: block;
 overflow: auto;
+position: relative;
 h1{
   font-size: calc(25px + (35 - 25) * ((100vw - 300px) / (1600 - 300)));
   text-align: center;
@@ -44,8 +45,12 @@ h1{
   line-height: 1.33;
 }
 .bottom{
-  position: fixed;
-  bottom: 15px;
-  left:170px;
+  position: absolute;
+  bottom: 5%;
   z-index: 999;
+}
+@media only screen and (max-width: 500px){
+  .bottom{
+    position: fixed;
+  }
 }

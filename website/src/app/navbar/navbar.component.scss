@@ -1,8 +1,13 @@
 .navbar{
   z-index: 999;
+  position: relative;
+  width: 100%;
 }
 .navbar-collapse{
     justify-content: center;
+}
+.navbar-brand{
+  font-size: calc(15px + (25 - 15) * ((100vw - 300px) / (1600 - 300)));
 }
 .cart{
   position: relative;
@@ -26,4 +31,9 @@ a .cart:hover{
 }
 .cart__link{
   cursor: pointer;
+}
+@media only screen and (max-width: 500px){
+  .navbar{
+    position: fixed;
+  }
 }
