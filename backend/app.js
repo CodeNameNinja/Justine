@@ -7,6 +7,7 @@ const User = require('./models/user');
 const adminRoutes = require('./routes/admin')
 const shopRoutes = require('./routes/shop')
 const authRoutes = require('./routes/auth')
+const contactRoute = require('./routes/contact')
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -25,35 +26,16 @@ app.use((req, res, next) => {
         next();
       });   
 
-// app.use((req, res, next) => {
-//     User.findById('5e8840937826942ebcf9f47f')
-//       .then(user => {
-//         req.user = user;
-//         next();
-//       })
-//       .catch(err => console.log(err));
-//   });
 
 app.use('/admin',adminRoutes);
 app.use('/shop',shopRoutes);
 app.use('/user',authRoutes);
+app.use(contactRoute);
 mongoose
   .connect(
     'mongodb+srv://mitchell:7z7mA8y7OPbg4AUj@cluster0-p0lop.mongodb.net/test?retryWrites=true&w=majority'
   )
   .then(result => {
-    // User.findOne().then(user => {
-    //   if (!user) {
-    //     const user = new User({
-    //       name: 'Justine',
-    //       email: 'jmallandain@gmail.com',
-    //       cart: {
-    //         items: []
-    //       }
-    //     });
-    //     user.save();
-    //   }
-    // });
     const PORT = process.env.PORT || 3000
     return app.listen(PORT);    
   })

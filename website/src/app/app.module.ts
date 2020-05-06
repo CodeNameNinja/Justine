@@ -34,6 +34,8 @@ import { FooterComponent } from './footer/footer.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import { AboutComponent } from './about/about.component';
     MatTableModule,
     MatSelectModule,
     MatMenuModule,
-    MatCardModule
+    MatCardModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   entryComponents:[OrderDialog,ErrorComponent],
   providers: [

@@ -39,7 +39,7 @@ addProduct(productData: FormData) {
   console.log(productData.get('sizes.small'))
   this.http
     .post<{message: string, product: Product}>(
-      'http://localhost:3000/admin/add-product',
+      `${environment.apiUrl}/admin/add-product`,
       productData
     )
     .subscribe(responseData => {

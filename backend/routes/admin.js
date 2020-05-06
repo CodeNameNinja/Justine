@@ -16,7 +16,7 @@ var s3 = new aws.S3({
 const MIME_TYPE_MAP = {
     'image/png': 'png',
     'image/jpg': 'jpg',
-    'image/jpeg' : 'jpg'
+    'image/jpeg' : 'jpeg'
 };
 // const storage = multer.diskStorage({
 //     destination: (req, file, cb) => {
