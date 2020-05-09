@@ -1,16 +1,16 @@
-import { Component, OnInit, Inject } from "@angular/core";
-import { Product } from "src/app/models/product.model";
-import { Order } from "src/app/models/order.model";
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { AdminService } from "src/app/services/admin.service";
-import { map } from "rxjs/operators";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { AlertData } from "../admin.component";
+import { Component, OnInit, Inject } from '@angular/core';
+import { Product } from 'src/app/models/product.model';
+import { Order } from 'src/app/models/order.model';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AdminService } from 'src/app/services/admin.service';
+import { map } from 'rxjs/operators';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AlertData } from '../admin.component';
 
 @Component({
-  selector: "app-dashboard",
-  templateUrl: "./dashboard.component.html",
-  styleUrls: ["./dashboard.component.scss"],
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
   products: Product[] = [];
@@ -21,70 +21,49 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.getAllOrders();
     this.isLoading = true;
-    this.adminService
-      .getProducts()
-      .pipe(
-        map((productData) => {
-          return productData.products.map((product) => {
-            return {
-              title: product.title,
-              description: product.description,
-              amount: product.amount,
-              category: product.category,
-              sizes: product.sizes,
-              id: product._id,
-              imageUrls: product.imageUrls,
-            };
-          });
-        })
-      )
-      .subscribe((transformedProducts: Product[]) => {
-        this.products = transformedProducts.splice(0, 3);
+    this.getProducts();
+  }
+  async getProducts() {
+    await this.adminService.getProducts();
+    await this.adminService
+      .getProductUpdateListener()
+      .subscribe((productData: {products: Product[]}) => {
+        const productArray = productData.products.slice();
+        this.products = productArray.splice(0, 3);
         this.isLoading = false;
       });
   }
-
-  openDialog(product = null, mode = "create") {
+  openProductDialog(product = null, mode = 'create') {
     const dialogRef = this.dialog.open(AddProductComponent, {
-      width: "calc(500px + (750 - 500) * ((100vw - 300px) / (1600 - 300)))",
-      maxWidth: "100vw !important",
+      width: 'calc(500px + (750 - 500) * ((100vw - 300px) / (1600 - 300)))',
+      maxWidth: '100vw !important',
       data: {
         product,
         mode,
       },
     });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log("The dialog was closed");
-    });
   }
 
   deleteProductAlert(id: any, product: any) {
-    // console.log(id, ship);
     const prodId = id;
     const productName = product;
     const dialogRef = this.dialog.open(DeleteProductAlert, {
-      width: "250px",
+      width: '250px',
       data: { prodId, productName },
     });
 
     const deleteProduct = (id: any) => {
       if (id !== undefined) {
-        this.deleteProduct(id);
+        this.isLoading = true;
+        this.adminService.postDeleteProduct(id).subscribe((res) => {
+      this.adminService.getProducts();
+      this.isLoading = false;
+    });
       }
     };
 
-    dialogRef.afterClosed().subscribe((id) => {
+    dialogRef.afterClosed().subscribe((id: any) => {
       deleteProduct(id);
-    });
-  }
-
-  deleteProduct(id: string) {
-    this.isLoading = true;
-
-    this.adminService.postDeleteProduct(id).subscribe((res) => {
-      this.adminService.getProducts();
-      this.isLoading = false;
     });
   }
 
@@ -92,82 +71,9 @@ export class DashboardComponent implements OnInit {
     this.isLoading = true;
     this.adminService
       .getAllOrders()
-      .pipe(
-        map((orderData) => {
-          return orderData.orders.map((order: Order) => {
-            return {
-              _id: order._id,
-              orderDetails: {
-                create_time: order.orderDetails.create_time,
-                id: order.orderDetails.id,
-                payer: {
-                  address: {
-                    country_code: order.orderDetails.payer.address.country_code,
-                  },
-                  email_address: order.orderDetails.payer.email_address,
-                  name: {
-                    given_name: order.orderDetails.payer.name.given_name,
-                    surname: order.orderDetails.payer.name.surname,
-                  },
-                  payer_id: order.orderDetails.payer.payer_id,
-                },
-                purchase_units: [
-                  {
-                    amount: {
-                      value: order.orderDetails.purchase_units[0].amount.value,
-                      currency_code:
-                        order.orderDetails.purchase_units[0].amount
-                          .currency_code,
-                    },
-                    payee: {
-                      email_address:
-                        order.orderDetails.purchase_units[0].payee
-                          .email_address,
-                      merchant_id:
-                        order.orderDetails.purchase_units[0].payee.merchant_id,
-                    },
-                    shipping: {
-                      address: {
-                        address_line_1:
-                          order.orderDetails.purchase_units[0].shipping.address
-                            .address_line_1,
-                        aaddress_line_2:
-                          order.orderDetails.purchase_units[0].shipping.address
-                            .address_line_2,
-                        admin_area_1:
-                          order.orderDetails.purchase_units[0].shipping.address
-                            .admin_area_1,
-                        admin_area_2:
-                          order.orderDetails.purchase_units[0].shipping.address
-                            .admin_area_2,
-                        country_code:
-                          order.orderDetails.purchase_units[0].shipping.address
-                            .country_code,
-                        postal_code:
-                          order.orderDetails.purchase_units[0].shipping.address
-                            .postal_code,
-                      },
-                      name: {
-                        full_name:
-                          order.orderDetails.purchase_units[0].shipping.name
-                            .full_name,
-                      },
-                    },
-                  },
-                ],
-              },
-              products: order.products,
-              user: {
-                name: order.user.name,
-                userId: order.user.userId,
-              },
-            };
-          });
-        })
-      )
       .subscribe(
-        (transformedOrders: Order[]) => {
-          this.orders = transformedOrders.splice(0, 3);
+        (transformedOrders) => {
+          this.orders = transformedOrders.orders.splice(0, 3);
           this.isLoading = false;
         },
         (err) => console.log(err)
@@ -180,16 +86,15 @@ export interface DialogData {
   mode: string;
 }
 @Component({
-  selector: "app-add-product",
-  templateUrl: "../add-product/add-product.component.html",
-  styleUrls: ["../add-product/add-product.component.scss"],
+  selector: 'app-add-product',
+  templateUrl: '../add-product/add-product.component.html',
+  styleUrls: ['../add-product/add-product.component.scss'],
 })
 export class AddProductComponent implements OnInit {
   myImages = [];
   isLoading = false;
   imagePreview = [];
-  private mode = "create";
-  private productId: string;
+  private mode = 'create';
   addProductForm: FormGroup;
   product: Product;
 
@@ -228,23 +133,27 @@ export class AddProductComponent implements OnInit {
           validators: [Validators.required],
         }),
       }),
-      image: new FormControl("", {
+      image: new FormControl('', {
         validators: [Validators.required],
         // asyncValidators: [mimeType]
       }),
     });
 
-    if (this.data.mode === "edit") {
-      this.mode = "edit";
-      // this.imagePreview = this.data.product.imageUrls;
-      console.log(this.data.product);
+    if (this.data.mode === 'edit') {
+      this.mode = 'edit';
+
+      let sizes = this.data.product.sizes;
+      if(Array.isArray(sizes)){
+        sizes = sizes.reduce((obj, item) => (obj[item.size] = item.quantity, obj) , {});
+      }
+
       this.product = {
         id: this.data.product.id,
         title: this.data.product.title,
         description: this.data.product.description,
         amount: this.data.product.amount,
         category: this.data.product.category,
-        sizes: this.data.product.sizes,
+        sizes,
         imageUrls: this.data.product.imageUrls,
       };
       this.addProductForm.setValue({
@@ -260,7 +169,6 @@ export class AddProductComponent implements OnInit {
         },
         image: this.product.imageUrls,
       });
-      // console.log("urls",this.data.product.imageUrls)
       for (const imageUrl of this.data.product.imageUrls) {
         this.myImages.push(imageUrl);
       }
@@ -282,13 +190,13 @@ export class AddProductComponent implements OnInit {
       this.addProductForm.patchValue({
         image: this.myImages,
       });
-      // this.addProductForm.get('image').updateValueAndValidity();
       reader.onload = () => {
-        this.imagePreview.push(reader.result as String);
+        this.imagePreview.push(reader.result as string);
       };
       reader.readAsDataURL(file);
     }
   }
+
 
   onSubmit() {
     const productData = new FormData();
@@ -297,17 +205,18 @@ export class AddProductComponent implements OnInit {
     const amount = this.addProductForm.value.amount;
     const category = this.addProductForm.value.category;
     const sizes = this.addProductForm.value.sizes;
-    productData.append("title", title);
-    productData.append("description", description);
-    productData.append("amount", amount);
-    productData.append("category", category);
-    productData.append("sizes", JSON.stringify(sizes));
+
+    productData.append('title', title);
+    productData.append('description', description);
+    productData.append('amount', amount);
+    productData.append('category', category);
+    productData.append('sizes', JSON.stringify(sizes));
 
     for (const image of this.myImages) {
-      if (typeof image === "object") {
-        productData.append("images[]", image, title);
+      if (typeof image === 'object') {
+        productData.append('images[]', image, title);
       } else {
-        productData.append("imageUrls[]", image);
+        productData.append('imageUrls[]', image);
       }
     }
 
@@ -315,10 +224,10 @@ export class AddProductComponent implements OnInit {
       return;
     }
     this.isLoading = true;
-    if (this.mode === "create") {
+    if (this.mode === 'create') {
       this.adminService.addProduct(productData);
     }
-    if (this.mode === "edit") {
+    if (this.mode === 'edit') {
       this.isLoading = true;
 
       this.adminService
@@ -333,8 +242,8 @@ export class AddProductComponent implements OnInit {
 }
 
 @Component({
-  selector: "app-delete-product",
-  templateUrl: "../delete-product/delete-product.component.html",
+  selector: 'app-delete-product',
+  templateUrl: '../delete-product/delete-product.component.html',
 })
 export class DeleteProductAlert {
   constructor(
@@ -345,7 +254,4 @@ export class DeleteProductAlert {
   onNoClick(): void {
     this.dialogRef.close();
   }
-}
-interface Image {
-  image: string;
 }

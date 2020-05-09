@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ShopService } from '../services/shop.service';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-success',
@@ -9,13 +10,12 @@ import { ShopService } from '../services/shop.service';
 export class SuccessComponent implements OnInit {
 
   constructor(
-    public shopService: ShopService
+    @Inject(MAT_DIALOG_DATA) public data: {message:string}
   ) { }
 
-  ngOnInit() {
-    // setTimeout(()=> {
-    //   this.shopService.toggleSuccessMessage();
-    // },5000);
+
+  ngOnInit(){
+
   }
 
 }

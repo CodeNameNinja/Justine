@@ -89,7 +89,7 @@ exports.updateProduct = (req, res) => {
   const description = req.body.description;
   const amount = +req.body.amount;
   const category = req.body.category;
-  const sizes = req.body.sizes;
+  const sizes = JSON.parse(req.body.sizes);
   const imageUrls = [];
   if (req.body.imageUrls) {
     for (const imageUrl of req.body.imageUrls) {

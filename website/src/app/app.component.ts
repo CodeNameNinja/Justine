@@ -16,6 +16,6 @@ export class AppComponent {
     this.authService.autoAuthUser();
   }
 
-  title = 'website';
+  title = 'The Curators';
 
 }

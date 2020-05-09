@@ -120,8 +120,8 @@ export class CartComponent implements OnInit, OnDestroy {
 
   openOrdeDialog(): void {
     const dialogRef = this.dialog.open(OrderDialog, {
-      width: 'calc(85vw + (95 - 85) * ((100vw - 300px) / (1600 - 300)))',
-      height: 'auto',
+      width: 'calc(500px + (750 - 500) * ((100vw - 300px) / (1600 - 300)))',
+      maxWidth: '100vw !important',
       data: { name: this.name, animal: this.animal },
     });
 
@@ -328,7 +328,6 @@ export class OrderDialog implements OnInit {
           .subscribe(response => {
           console.log(response);
         }, err => console.log(err));
-          this.shopService.toggleSuccessMessage();
           this.shopService.toggleSideNav();
           this.shopService.updateCart.next();
           this.dialogRef.close();

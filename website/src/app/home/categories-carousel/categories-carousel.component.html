@@ -12,7 +12,9 @@
           <p>25% off</p>
         </div>
         <div class="bottom">
-          <button class="btn btn-circle btn-sm hover-color"><p>shop now</p></button>
+          <button
+          class="btn btn-circle btn-sm hover-color"
+          [routerLink] = "['/shop']" (click) = "filter(item.category)"><p>shop now</p></button>
         </div>
       </div>
       <div class="card__image">

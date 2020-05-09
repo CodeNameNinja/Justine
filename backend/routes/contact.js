@@ -40,7 +40,9 @@ let transporter = nodemailer.createTransport(
         })
         .then(() => {
             res.status(200).json({
+              success:{
                 message: "Email Has Been Sent Succesfully."
+              }
             })
         })
         .catch(console.error);

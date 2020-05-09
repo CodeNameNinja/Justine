@@ -28,28 +28,10 @@ export class HomeComponent implements OnInit {
       return array.slice(Math.max(array.length - n, 0));
     };
     this.isLoading = true;
-    this.adminService.getProducts()
-    .pipe(
-      map(productData => {
-        return productData.products.map(product => {
-          const convertedSizes = [];
-          Object.entries(product.sizes).forEach(([key, value]) => {
-            convertedSizes.push({size:key, quantity:value});
-          });
-          return {
-            title: product.title,
-            description: product.description,
-            amount: product.amount,
-            category: product.category,
-            sizes: convertedSizes,
-            id: product._id,
-            imageUrls: product.imageUrls
-          };
-        });
-      })
-    )
-    .subscribe(transformedProducts => {
-    this.products = last(transformedProducts, 4);
+    this.adminService.getProducts();
+    this.adminService.getProductUpdateListener()
+    .subscribe((productData: {products: Product[]}) => {
+    this.products = last(productData.products, 4);
     this.isLoading = false;
     });
   }

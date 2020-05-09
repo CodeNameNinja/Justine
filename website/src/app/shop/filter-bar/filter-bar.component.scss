@@ -1,31 +1,4 @@
 
-// .sidenav {
-//   height: 100%;
-//   width: 160px;
-//   position: fixed;
-//   z-index: 1;
-//   top: 0;
-//   left: 0;
-//   background-color: rgb(255, 255, 255);
-//   overflow-x: hidden;
-//   padding-top: 20px;
-// }
-
-// .sidenav a {
-//   padding: 50px 8px 6px 16px;
-//   position: relative;
-//   top: 5%;
-//   text-decoration: none;
-//   font-size: 1rem;
-//   color: #5e5e5e;
-//   display: flex;
-//     align-items: center;
-// }
-
-// .sidenav a:hover {
-//   color: #f1f1f1;
-// }
-
 .sidenav mat-card {
   height: 100%;
   width:100%;
@@ -51,6 +24,9 @@
   padding: 50px 8px 6px 16px;
   position: relative;
   top: 15%;
+}
+mat-checkbox{
+  display: block;
 }
 mat-slider {
   width: 100%;

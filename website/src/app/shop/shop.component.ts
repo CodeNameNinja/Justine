@@ -23,55 +23,38 @@ export class ShopComponent implements OnInit {
    ) {}
 
   ngOnInit() {
-    this.getProducts();
+    // this.getProducts();
   }
 
 
   getProducts() {
     this.isLoading = true;
     return new Promise((resolve, reject) => {
-      this.adminService.getProducts()
-      .pipe(
-        map(productData => {
-          return productData.products.map(product => {
-            const convertedSizes = [];
-            Object.entries(product.sizes).forEach(([key, value]) => {
-              convertedSizes.push({size:key, quantity:value});
-            });
-            return {
-              title: product.title,
-              description: product.description,
-              amount: product.amount,
-              category: product.category,
-              sizes: convertedSizes,
-              id: product._id,
-              imageUrls: product.imageUrls
-            };
-          });
-        })
-      )
-      .subscribe(transformedProducts => {
-        this.products = transformedProducts;
+      this.adminService.getProducts();
+      this.adminService.getProductUpdateListener()
+      .subscribe((productData: {products: Product[]}) => {
+        this.products = productData.products;
         resolve(this.products);
         this.isLoading = false;
       });
     });
   }
-   updateCategories(event: any[]) {
-     return new Promise((resolve, reject) => {
-      const categories = [];
-      this.filteredCategories = event;
-      for (const filteredCategories of event) {
-       categories.push(filteredCategories.name);
-       this.getProducts().then((httpProducts: Product[]) => {
-        this.filteredProducts = httpProducts.filter(products => {
-          return categories.includes(products.category);
-         });
-       }).then(() => {
-        resolve(this.products = this.filteredProducts);
-       });
-     }
-     });
+
+   updateCategories(event) {
+     this.getProducts().then((products: Product[]) => {
+       const categories = [];
+       for (const filteredCategories of event) {
+         categories.push(filteredCategories.name);
+        }
+       this.filteredProducts = products.filter(fProducts => {
+         return categories.includes(fProducts.category);
+        });
+
+       this.products = this.filteredProducts;
+      //  console.log("Shop Component:", this.products)
+    });
+
+
   }
 
   updatedMaxiumPrice(maxiumPrice) {
@@ -82,11 +65,4 @@ export class ShopComponent implements OnInit {
           });
   }
 
-  // addToCart(id){
-  //   this.shopService.addToCart(id).subscribe((cart) => {
-  //     this.shopService.updateCart.next(cart);
-  //     // console.log("response", response)
-  //   });
-
-  // }
 }

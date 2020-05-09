@@ -36,6 +36,7 @@ import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { SuccessInterceptor } from './success-interceptor';
 
 @NgModule({
   declarations: [
@@ -74,11 +75,12 @@ import { environment } from '../environments/environment';
     MatCardModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  entryComponents:[OrderDialog,ErrorComponent],
+  entryComponents:[OrderDialog,ErrorComponent,SuccessComponent],
   providers: [
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: SuccessInterceptor, multi: true },
 ],
   bootstrap: [AppComponent]
 })

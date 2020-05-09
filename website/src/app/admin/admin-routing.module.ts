@@ -28,7 +28,7 @@ const routes: Routes = [
      component: AllOrdersComponent
     },
     {
-      path:':id',
+      path:'orders/:id',
       component: AdminOrderComponent
     }
   ]

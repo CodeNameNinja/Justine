@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
+import { Order } from '../models/order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,12 @@ export class ShopService {
   updateCart = new Subject();
   getCartLength = new Subject();
   CartLength;
+  filterCategories = new BehaviorSubject("all");
   constructor(
     private http: HttpClient
   ) {
-
     this.getCartLength.subscribe(length => {
       this.CartLength = length;
-      // console.log(length)
     });
   }
 
@@ -27,11 +27,6 @@ export class ShopService {
   }
   public closeSideNav(): void {
     this.hideSideNav = true;
-  }
-
-  public toggleSuccessMessage(): void {
-    this.hideSuccessMessage = !this.hideSuccessMessage;
-    // console.log(this.hideSuccessMessage)
   }
 
   public getCart() {
@@ -54,7 +49,8 @@ export class ShopService {
   }
 
   getOrder() {
-    return this.http.get<{message: string, orders: any}>(`${environment.apiUrl}/shop/orders`);
+    return this.http.get<{message: string, orders: any}>(`${environment.apiUrl}/shop/orders`)
   }
+
 
 }

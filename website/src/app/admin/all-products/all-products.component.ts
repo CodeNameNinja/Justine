@@ -20,32 +20,15 @@ export class AllProductsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getProducts()
-    this.adminService.getProductUpdateListener().subscribe(products => {
-      this.getProducts();
-    })
+    this.getProducts();
 
   }
-  getProducts(){
+  async getProducts(){
     this.isLoading = true;
-    this.adminService.getProducts()
-    .pipe(
-      map(productData => {
-        return productData.products.map(product => {
-          return {
-            title: product.title,
-            description: product.description,
-            amount: product.amount,
-            category: product.category,
-            sizes: product.sizes,
-            id: product._id,
-            imageUrls: product.imageUrls
-          };
-        });
-      })
-    )
-    .subscribe((transformedProducts: Product[]) => {
-      this.products = transformedProducts;
+    await this.adminService.getProducts();
+    await this.adminService.getProductUpdateListener()
+    .subscribe((productData: {products: Product[]}) => {
+      this.products = productData.products;
       this.isLoading = false;
     });
   }
