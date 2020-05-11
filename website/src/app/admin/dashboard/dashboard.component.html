@@ -82,7 +82,10 @@
         <mat-card *ngFor="let product of products" class="product-item">
           <mat-card-header>
             <mat-card-title>{{ product.title }}</mat-card-title>
-            <mat-card-subtitle>R{{ product.amount }}</mat-card-subtitle>
+            <mat-card-subtitle *ngIf = "!product.discount; else discount">R{{ product.amount }}</mat-card-subtitle>
+            <ng-template #discount>
+              <mat-card-subtitle>R <del>{{product.amount}} </del>{{ product.amount - (product.amount * (product.discount/ 100)) }}</mat-card-subtitle>
+            </ng-template>
           </mat-card-header>
           <div class="product-image">
             <img

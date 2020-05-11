@@ -1,43 +1,45 @@
 <div class="content">
-  <nav role="navigation" style = 'width: 95%'>
+  <nav role="navigation" style="width: 95%;">
     <div id="menuToggle">
       <input type="checkbox" />
-      <!-- <span class="material-icons">
-        filter_list
-        </span> -->
-      <span style = "width: 29px"></span>
-      <span style = "width: 25px"></span>
+      <span style="width: 29px;"></span>
+      <span style="width: 25px;"></span>
       <span></span>
       <ul id="menu">
-
-          <div class="categories">
-            <mat-label>
-              Categories
-            </mat-label>
-            <hr />
-            <mat-checkbox
-              *ngFor="let category of categories"
-              [(ngModel)]="category.checked"
-              (change)="updateCategories()"
-              >{{ category.displayName }}</mat-checkbox
-            >
-          </div>
-
-          <div class="minmax-price">
-            <mat-label>
-              Maxium Price
-            </mat-label>
-            <mat-slider
-              thumbLabel
-              [displayWith]="formatLabel"
-              (change)="updatePrice($event)"
-              tickInterval="500"
-              min="1"
-              max="2500"
-              value="2500"
-            ></mat-slider>
-          </div>
-
+        <div>
+          <mat-label>Show Only</mat-label>
+          <mat-checkbox
+          [(ngModel)] = "saleChecked"
+          (change)= "onSale()">On Sale</mat-checkbox>
+        </div>
+         <hr>
+        <div class="categories">
+          <mat-label>
+            Categories
+          </mat-label>
+          <hr />
+          <mat-checkbox
+            *ngFor="let category of categories"
+            [(ngModel)]="category.checked"
+            (change)="updateCategories()"
+            >{{ category.displayName }}</mat-checkbox
+          >
+        </div>
+        <hr />
+        <div class="minmax-price">
+          <mat-label>
+            Maxium Price
+          </mat-label>
+          <mat-slider
+            thumbLabel
+            [displayWith]="formatLabel"
+            (change)="updatePrice($event)"
+            tickInterval="500"
+            min="1"
+            max="2500"
+            value="2500"
+          ></mat-slider>
+        </div>
       </ul>
     </div>
   </nav>

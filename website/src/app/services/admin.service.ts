@@ -43,6 +43,7 @@ export class AdminService {
                   title: product.title,
                   description: product.description,
                   amount: product.amount,
+                  discount: product.discount,
                   category: product.category,
                   sizes: convertedSizes,
                   id: product._id,
@@ -66,6 +67,7 @@ export class AdminService {
     const title = productData.get('title').toString();
     const description = productData.get('description').toString();
     const amount = productData.get('amount').toString();
+    const discount = productData.get('discount').toString();
     const category = productData.get('category').toString();
     const sizes = productData.get('sizes');
     // console.log("sizes",sizes.toString());
@@ -82,6 +84,7 @@ export class AdminService {
           title,
           description,
           amount: +amount,
+          discount: +discount,
           category,
           sizes: JSON.parse(sizes.toString()),
           imageUrls: responseData.product.imageUrls,

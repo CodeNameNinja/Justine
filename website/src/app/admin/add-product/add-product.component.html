@@ -121,6 +121,17 @@
             />
             <span matPrefix>R&nbsp;</span>
           </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>discount</mat-label>
+            <span matPrefix>%&nbsp;</span>
+            <input
+              matInput
+              type="number"
+              id="discount"
+              class="example-right-align"
+              formControlName="discount"
+            />
+          </mat-form-field>
 
           <mat-form-field appearance="outline" >
             <mat-label>Category</mat-label>
@@ -132,6 +143,7 @@
               <mat-option value="purse">Purse</mat-option>
               <mat-option value="skirt">skirt</mat-option>
               <mat-option value="pants">pants</mat-option>
+              <mat-option value="jersey">jersey</mat-option>
             </mat-select>
           </mat-form-field>
           <div class="sizes-container" formGroupName = "sizes">

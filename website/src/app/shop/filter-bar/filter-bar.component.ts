@@ -15,10 +15,12 @@ import { ShopService } from 'src/app/services/shop.service';
 })
 export class FilterBarComponent implements OnInit, OnDestroy {
   categories = [];
-
+  saleChecked = false;
+  @Output() showOnlyOnSale = new EventEmitter<any>();
   @Output() filteredCategory = new EventEmitter<any>();
   @Output() maxiumPriceEmitter = new EventEmitter<any>();
   categorySub: Subscription;
+  onSaleSub: Subscription;
   formatLabel(value: number) {
     return 'R' + value;
   }
@@ -28,10 +30,22 @@ export class FilterBarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.initCategories();
     this.filterCategories();
+    console.log(this.shopService.onSaleChecked);
+    if (this.shopService.onSaleChecked) {
+      this.saleChecked = true;
+      this.onSale();
+    } else {
+      this.onSale();
+    }
+  }
+
+  onSale() {
+    this.showOnlyOnSale.emit(this.saleChecked);
+    this.shopService.onSaleChecked = this.saleChecked;
   }
 
   filterCategories() {
-    this.categorySub=this.shopService.filterCategories.subscribe((fCategory: string) => {
+    this.categorySub = this.shopService.filterCategories.subscribe((fCategory: string) => {
       if (fCategory === 'all') {
         this.updateCategories();
       } else {
@@ -49,6 +63,7 @@ export class FilterBarComponent implements OnInit, OnDestroy {
       { name: 'skirt', checked: true, displayName: 'Skirts/Pants' },
       { name: 'purse', checked: true, displayName: 'Purse' },
       { name: 'bag', checked: true, displayName: 'Bags' },
+      { name: 'jersey', checked: true, displayName: 'Jerseys' },
     ];
   }
 
@@ -65,5 +80,6 @@ export class FilterBarComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.categorySub.unsubscribe();
+    // this.onSaleSub.unsubscribe();
   }
 }

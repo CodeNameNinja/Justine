@@ -23,6 +23,7 @@ exports.postAddProduct = (req, res, next) => {
   const title = req.body.title;
   const description = req.body.description;
   const amount = +req.body.amount;
+  const discount = +req.body.discount;
   const category = req.body.category;
   const sizes = JSON.parse(req.body.sizes);
   const imageUrls = [];
@@ -34,6 +35,7 @@ exports.postAddProduct = (req, res, next) => {
     title: title,
     description: description,
     amount: amount,
+    discount: discount,
     category: category,
     sizes: sizes,
     imageUrls: imageUrls,
@@ -49,6 +51,7 @@ exports.postAddProduct = (req, res, next) => {
           title: createdProduct._doc.title,
           description: createdProduct._doc.description,
           amount: createdProduct._doc.amount,
+          discount: createdProduct._doc.discount,
           category: createdProduct._doc.category,
           sizes: createdProduct._doc.sizes,
           imageUrls: createdProduct._doc.imageUrls,
@@ -88,6 +91,7 @@ exports.updateProduct = (req, res) => {
   const title = req.body.title;
   const description = req.body.description;
   const amount = +req.body.amount;
+  const discount = +req.body.discount;
   const category = req.body.category;
   const sizes = JSON.parse(req.body.sizes);
   const imageUrls = [];
@@ -107,6 +111,7 @@ exports.updateProduct = (req, res) => {
     title: title,
     description: description,
     amount: amount,
+    discount: discount,
     category: category,
     sizes: sizes,
     imageUrls: imageUrls,

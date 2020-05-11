@@ -14,6 +14,7 @@ export class ShopService {
   getCartLength = new Subject();
   CartLength;
   filterCategories = new BehaviorSubject("all");
+  onSaleChecked = false
   constructor(
     private http: HttpClient
   ) {

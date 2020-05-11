@@ -23,7 +23,7 @@ export class ShopComponent implements OnInit {
    ) {}
 
   ngOnInit() {
-    // this.getProducts();
+
   }
 
 
@@ -39,21 +39,34 @@ export class ShopComponent implements OnInit {
       });
     });
   }
+  updateSaleProducts(event) {
+    if (event) {
+      this.getProducts().then((products: Product[]) => {
+        this.filteredProducts = products.filter(product => {
+          return product.discount > 0;
+        });
+        this.products = this.filteredProducts;
+
+      })
+    } else {
+      this.getProducts().then((products: Product[]) => {
+        this.filteredProducts = products;
+        // this.shopService.onSale.next(false);
+      });
+    }
+  }
 
    updateCategories(event) {
-     this.getProducts().then((products: Product[]) => {
-       const categories = [];
-       for (const filteredCategories of event) {
-         categories.push(filteredCategories.name);
+      if(this.filteredProducts){
+        const categories = [];
+        for (const filteredCategories of event) {
+          categories.push(filteredCategories.name);
         }
-       this.filteredProducts = products.filter(fProducts => {
-         return categories.includes(fProducts.category);
+        this.products = this.filteredProducts.filter(fProducts => {
+          return categories.includes(fProducts.category);
         });
-
-       this.products = this.filteredProducts;
-      //  console.log("Shop Component:", this.products)
-    });
-
+      }
+      else return;
 
   }
 

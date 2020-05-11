@@ -15,6 +15,7 @@
       <div
         class="main-header_view-deals circle hover-color"
         [routerLink] ="['/shop']"
+        (click) = "shopService.onSaleChecked = true"
       >
         <h2>
           On Sale

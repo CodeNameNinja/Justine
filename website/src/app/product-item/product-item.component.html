@@ -7,7 +7,10 @@
   <div class="product-details">
     <div class="details">
       <p class="product-title">{{ product.title }}</p>
-      <p class="product-price">R{{ product.amount }}</p>
+      <p *ngIf = "product.discount < 1; else discount" class="product-price">R{{ product.amount }}</p>
+      <ng-template #discount>
+        <p class="product-price"><del>R{{product.amount}}</del> R{{product.amount - (product.amount * (product.discount/ 100)) }}</p>
+      </ng-template>
     </div>
     <mat-form-field appearance="outline">
       <mat-label>Select Size</mat-label>

@@ -30,6 +30,7 @@ export class AllProductsComponent implements OnInit {
     .subscribe((productData: {products: Product[]}) => {
       this.products = productData.products;
       this.isLoading = false;
+      // console.log(this.products)
     });
   }
 

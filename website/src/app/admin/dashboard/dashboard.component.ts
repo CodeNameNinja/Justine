@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
         const productArray = productData.products.slice();
         this.products = productArray.splice(0, 3);
         this.isLoading = false;
+        // console.log(this.products);
       });
   }
   openProductDialog(product = null, mode = 'create') {
@@ -116,6 +117,8 @@ export class AddProductComponent implements OnInit {
       amount: new FormControl(null, {
         validators: [Validators.required],
       }),
+      discount: new FormControl(0, {
+      }),
       category: new FormControl(null, {
         validators: [Validators.required],
       }),
@@ -152,6 +155,7 @@ export class AddProductComponent implements OnInit {
         title: this.data.product.title,
         description: this.data.product.description,
         amount: this.data.product.amount,
+        discount: this.data.product.discount,
         category: this.data.product.category,
         sizes,
         imageUrls: this.data.product.imageUrls,
@@ -160,6 +164,7 @@ export class AddProductComponent implements OnInit {
         title: this.product.title,
         description: this.product.description,
         amount: this.product.amount,
+        discount: this.product.discount,
         category: this.product.category,
         sizes: {
           small: this.product.sizes.small,
@@ -203,12 +208,14 @@ export class AddProductComponent implements OnInit {
     const title = this.addProductForm.value.title;
     const description = this.addProductForm.value.description;
     const amount = this.addProductForm.value.amount;
+    const discount = this.addProductForm.value.discount;
     const category = this.addProductForm.value.category;
     const sizes = this.addProductForm.value.sizes;
 
     productData.append('title', title);
     productData.append('description', description);
     productData.append('amount', amount);
+    productData.append('discount', discount);
     productData.append('category', category);
     productData.append('sizes', JSON.stringify(sizes));
 
