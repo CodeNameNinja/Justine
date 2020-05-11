@@ -29,7 +29,7 @@ input[type="file"] {
   border: 1px solid #dddddd;
   border-radius: 5px;
   max-width:100%;
-
+  min-height: 250px;
 }
 .carousel-container{
   max-height: 100%;
@@ -41,7 +41,7 @@ input[type="file"] {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  
+
   max-height:250px;
   min-height:5vh;
   padding: 5%;

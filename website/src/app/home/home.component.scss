@@ -3,7 +3,7 @@
   position: relative;
   display: grid;
   height: 95vh;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
   grid-template-rows: 3fr 1fr;
   grid-template-areas:
     "main  main-hero"
@@ -26,14 +26,14 @@
 .main-header__title {
   grid-area: title;
   h1{
-    font-weight: bold;
+    font-weight: 500;
     color:var(--white);
-    width: 75%;
-    height: 100%;
-    font-size: calc(25px + (60 - 14) * ((100vw - 300px) / (1600 - 300)));
+    // width: 100%;
+    // height: 100%;
+    font-size: calc(25px + (50 - 14) * ((100vw - 300px) / (1600 - 300)));
     margin: 2rem;
     position: relative;
-    top: 15%;
+    top: 25%;
     letter-spacing: 2px;
   }
 }
@@ -43,6 +43,7 @@
   grid-template-columns: 1fr 1fr;
   height:100%;
   justify-items:start;
+  align-content: center;
   position: relative;
   bottom: 5vh;
   text-align:center
@@ -67,7 +68,7 @@
 .main-header-container h2{
   position: relative;
 width: 100%;
-font-size: 1.5vw;
+font-size: 1.4em;
 display: flex;
 left: 50%;
 transform: translate(-50%, -50%);
@@ -85,14 +86,19 @@ font-size:100%;
 }
 .main-header_hero-image{
 grid-area: main-hero;
-background: #CBCAD1 no-repeat;
-img{
-  border: 2px solid var(--Primary);
-  width: auto;
-  height: 100%;
-  margin: 0 auto;
-  display: inherit;
-}
+// background: #CBCAD1 no-repeat;
+background: url('../../assets/home/home-hero-2.jpg') no-repeat;
+background-size: cover;
+width: 100%;
+height: auto;
+background-position: 50% 50%;
+// img{
+//   border: 2px solid var(--Primary);
+//   width: auto;
+//   height: 100%;
+//   margin: 0 auto;
+//   display: inherit;
+// }
 }
 
 

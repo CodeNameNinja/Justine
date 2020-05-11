@@ -7,9 +7,10 @@
 }
 .displayImage{
   grid-area: image;
-  background: url('../../../assets/home/alex-header-image.png') no-repeat;
-background-size: cover;
-background-position: 50% 80%;
+  background: url('../../../assets/home/login-image.jpg') no-repeat;
+background-size: contain;
+background-position: 50%;
+transform: scaleX(-1);
 }
 .login-form-container{
   justify-self: center;
