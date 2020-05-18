@@ -19,7 +19,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-
+import { HttpClient } from '@angular/common/http';
 declare var paypal;
 @Component({
   selector: 'app-cart',
@@ -37,7 +37,7 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(
     public shopService: ShopService,
     public authService: AuthService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit() {
@@ -56,7 +56,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
     this.shopService.updateCart.subscribe((cartItems: CartItem[]) => {
       // console.log(cartItems)
-      if(!cartItems){
+      if (!cartItems) {
         this.cartItems = [];
         this.totalAmount = 0;
         this.shopService.getCartLength.next(0);
@@ -87,7 +87,7 @@ export class CartComponent implements OnInit, OnDestroy {
   getCart() {
     this.isLoading = true;
     const itemsQuantity = [];
-    this.totalAmount= 0.00;
+    this.totalAmount = 0.00;
     this.cartItems = [];
     const cartTotal = [];
     this.shopService.getCart().subscribe((items: CartItem[]) => {
@@ -176,14 +176,21 @@ export class OrderDialog implements OnInit {
     city: '',
   };
   userDetails: { name: string; email: string } = { name: '', email: '' };
+  xRate: number
   constructor(
     public dialogRef: MatDialogRef<OrderDialog>,
     public shopService: ShopService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
+    this.http.get("https://openexchangerates.org/api/latest.json?app_id=7de047307b5e48819e45bc9250e8d59a")
+    .subscribe((res:any) => {
+      this.xRate = res.rates.ZAR;
+      console.log(this.xRate)
+    })
     this.userDetails.name = this.authService.name;
     this.userDetails.email = this.authService.email;
 
@@ -272,8 +279,10 @@ export class OrderDialog implements OnInit {
     this.orderDetails.streetAddressLineOne = streetAddressLineOne;
     this.orderDetails.streetAddressLineTwo = streetAddressLineTwo;
     this.orderDetails.province = province;
-    const orderTotal = (this.orderTotal / 18).toFixed();
-    // console.log(orderTotal)
+    const orderTotal = (this.orderTotal / this.xRate).toFixed();
+    // console.log(fx.convert(this.orderTotal, {from: 'ZAR', to: 'USD'}))
+    // const orderTotal = (this.orderTotal / this.xRate).toFixed;
+    console.log(orderTotal)
     paypal
       .Buttons({
         enableStandardCardFields: false,
@@ -304,7 +313,7 @@ export class OrderDialog implements OnInit {
             purchase_units: [
               {
                 amount: {
-                  value: orderTotal, //need to duncamically add exchange rate
+                  value: orderTotal, // need to duncamically add exchange rate
                   currency_code: 'USD',
                 },
                 shipping: {
@@ -323,19 +332,16 @@ export class OrderDialog implements OnInit {
         },
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
-          // console.log(order);
-          this.shopService.createOrder(order)
-          .subscribe(response => {
-          console.log(response);
-        }, err => console.log(err));
+          this.dialogRef.close();
           this.shopService.toggleSideNav();
           this.shopService.updateCart.next();
-          this.dialogRef.close();
           this.router.navigate(['/home']);
-
+          this.shopService.createOrder(order)
+          .subscribe(response => {
+        }, err => console.log(err));
         },
-        onError:((err) => {
-          console.log(err)
+        onError: ((err) => {
+          console.log(err);
         })
       })
       .render(this.paypalElement.nativeElement);

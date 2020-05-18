@@ -10,7 +10,7 @@ import { map } from "rxjs/operators";
   styleUrls: ["./order.component.scss"],
 })
 export class AdminOrderComponent implements OnInit {
-  order: Order = {orderDetails: {payer:{name: {} as any}as any} as any} as any;
+  order: Order;
   id: string;
   isLoading = false;
   constructor(

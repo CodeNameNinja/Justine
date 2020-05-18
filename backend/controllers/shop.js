@@ -85,7 +85,8 @@ exports.getCart = (req, res, next) => {
     .execPopulate()
     .then(user => {
       const products = user.cart.items.map(i => {
-        return { quantity: i.quantity, product: { ...i.productId._doc } };
+        console.log(i)
+        return { size: i.size,quantity: i.quantity, product: { ...i.productId._doc } };
       });
       const order = new Order({
         user: {
@@ -107,7 +108,9 @@ exports.getCart = (req, res, next) => {
     })
     .then(() => {
       res.status(200).json({
-        messsage: "Successfully ordered"
+        success:{
+          message: "You have successfully ordered."
+        }
       })
     })
     .catch(err => console.log(err));

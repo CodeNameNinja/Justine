@@ -42,7 +42,8 @@ export interface Order {
   };
   products: [
     {
-      quantity: number
+      quantity: number,
+      size: string,
       _id: string,
       product: {
         _id: string,

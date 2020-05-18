@@ -15,24 +15,19 @@ import { SuccessComponent } from './success/success.component';
 @Injectable()
 export class SuccessInterceptor implements HttpInterceptor {
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     return next.handle(req)
     .pipe(
       tap(evt => {
-
         if (evt instanceof HttpResponse) {
-          if (evt.body.message) {return };
-          if(!evt.body.message){return};
-          if (evt.body && evt.body.success.message) {
+          if (evt.body.success) {
             const message = evt.body.success.message;
             this.dialog.open(SuccessComponent, {
                   data: {message}
                 });
-            } else {
-              return;
             }
         }
 

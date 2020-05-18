@@ -1,15 +1,23 @@
 <!-- <app-sidenav></app-sidenav> -->
-<div class="all-orders-container">
-<mat-card *ngFor = 'let order of orders' style = "margin: 2%">
-  <div class = "order-item-container">
-    <div class="order-item-details">
-      <h5>#{{order.orderDetails.id}}</h5>
-      <p>{{order.orderDetails.payer.name.given_name}} {{order.orderDetails.payer.name.surname}}</p>
+<div class="container">
+  <div class="grid">
+    <div class="row">
+      <div class="col-sm-12">
+        <mat-card *ngFor = 'let order of orders' style = "margin: 2%">
+          <div class = "order-item-container">
+            <div class="order-item-details">
+              <h5>#{{order.orderDetails.id}}</h5>
+              <p>{{order.orderDetails.payer.name.given_name}} {{order.orderDetails.payer.name.surname}}</p>
+
+            </div>
+            <div class = "order-actions">
+              <button class = "order-actions-view-btn" mat-button color="primary"[routerLink] = "['/admin/orders/',order._id]">View</button>
+            </div>
+          </div>
+        </mat-card>
+      </div>
 
     </div>
-    <div class = "order-actions">
-      <button class = "order-actions-view-btn" mat-button color="primary"[routerLink] = "['/admin/orders/',order._id]">View</button>
-    </div>
   </div>
-</mat-card>
+
 </div>

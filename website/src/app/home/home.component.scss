@@ -68,7 +68,7 @@
 .main-header-container h2{
   position: relative;
 width: 100%;
-font-size: 1.4em;
+font-size: calc(5px + (20 - 5) * ((100vw - 300px) / (1600 - 300)));
 display: flex;
 left: 50%;
 transform: translate(-50%, -50%);
@@ -87,11 +87,11 @@ font-size:100%;
 .main-header_hero-image{
 grid-area: main-hero;
 // background: #CBCAD1 no-repeat;
-background: url('../../assets/home/home-hero-2.jpg') no-repeat;
+background: url('../../assets/home/home-hero-2.png') no-repeat;
 background-size: cover;
 width: 100%;
 height: auto;
-background-position: 50% 50%;
+background-position: center;
 // img{
 //   border: 2px solid var(--Primary);
 //   width: auto;
@@ -155,6 +155,13 @@ height:auto;
 grid-template-areas:
 "main-hero"
 "main";
+.main-header_hero-image{
+  background: url('../../assets/home/home-hero-mobile.jpg') no-repeat;
+  height: 100%;
+  width: auto;
+  background-position: 40% 50%;
+  background-size: cover;
+}
  img{
    height: 100%;
    width: 100%;

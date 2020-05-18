@@ -1,31 +1,19 @@
-.order-container{
-  margin-left: 160px;
-  height:100%;
-  display: grid;
-  grid-template-rows: 1fr 2fr;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-areas:
-  "order order details"
-  "other other amount";
-  gap:2em;
-  background-color: #6bc7fc;
-  padding:2%;
+.container-fluid{
+  background-color: var(--primary);
+  padding: 5%;
 }
 .order-items{
   img{
     height:auto;
-    width:100px;
+    width:100%;
+    max-width:100px;
   }
-  grid-area: order;
+
 }
-.shipping-details{
-  grid-area:details;
-}
-.other{
-  grid-area: other;
-}
+
+
 .amount{
-  grid-area: amount;
+
   h3{
     color: rgb(117, 117, 117)
   }

@@ -39,7 +39,7 @@
         "maxSize": 10,
         "maxAge": "6h",
         "timeout": "10s",
-        "strategy": "performance"
+        "strategy": "freshness"
       }
     },
     {
@@ -51,7 +51,7 @@
         "maxSize": 10,
         "maxAge": "6h",
         "timeout": "10s",
-        "strategy": "performance"
+        "strategy": "freshness"
       }
     }
   ]
